@@ -1,0 +1,14 @@
+#include "msp.h"
+#define PORT P3
+#define LEVEL BIT4
+
+//define global variables
+uint32_t Count;
+void Input_Init(void);
+/**
+ * main.c
+ */
+void main(void)
+{
+
+}

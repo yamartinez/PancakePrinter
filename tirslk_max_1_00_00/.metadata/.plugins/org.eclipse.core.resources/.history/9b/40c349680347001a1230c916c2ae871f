@@ -1,0 +1,11 @@
+#include "msp.h"
+#define PORT P3
+#define PIN BIT4
+
+/**
+ * main.c
+ */
+void main(void)
+{
+
+}
