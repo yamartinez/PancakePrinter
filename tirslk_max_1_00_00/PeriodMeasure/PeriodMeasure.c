@@ -65,7 +65,7 @@ void PeriodMeasure(uint16_t time){
   Done = 1;
 }
 
-int main(void){
+int main1(void){
   Clock_Init48MHz();  // 48 MHz clock; 12 MHz Timer A clock
   P2->SEL0 &= ~0x11;
   P2->SEL1 &= ~0x11;  // configure P2.0 and P2.4 as GPIO
@@ -82,7 +82,7 @@ int main(void){
 #define PERIOD 1000  // must be even
 // connect P2.4 output to P7.3
 // creates a PERIOD (us) wave out P2.4
-int main2(void){
+int main(void){
   Clock_Init48MHz();  // 48 MHz clock; 12 MHz Timer A clock
   First = 0;          // first will be wrong
   Done = 0;           // set on subsequent

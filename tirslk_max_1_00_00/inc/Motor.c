@@ -223,10 +223,11 @@ void backward(int i){
 // p2 is enable
 void Motor_Stop(uint16_t leftDuty, uint16_t rightDuty){
   // write this as part of Lab 13
+    PWM_Duty3(0);
+    PWM_Duty4(0);
   P3 -> OUT &= ~0xC0;
   P2 -> OUT &= ~0xC0;
-  PWM_Duty3(0);
-  PWM_Duty4(0);
+
   //direction is not altered, as when it starts moving again it will likely receive new directional commands.
 }
 

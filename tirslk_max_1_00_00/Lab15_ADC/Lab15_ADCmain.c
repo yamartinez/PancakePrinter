@@ -44,7 +44,7 @@ those of the authors and should not be interpreted as representing official
 policies, either expressed or implied, of the FreeBSD Project.
 */
 
-// 5V  connected to all three Pololu #136 GP2Y0A21YK0F Vcc's (+5V)
+// 5V  connected to all three Pololu #136 GP2Y0A21YK0F Vcc"s (+5V)
 // ground connected to all three Pololu #136 GP2Y0A21YK0F grounds
 // MSP432 P9.0 (J5) (analog input A17 to MSP432) connected to right GP2Y0A21YK0F Vout
 // MSP432 P6.1 (J3.23) (analog input A14 to MSP432) connected to center GP2Y0A21YK0F Vout
@@ -84,7 +84,7 @@ uint32_t Sum2;     // sum of (data-average)^2
 uint32_t Average;  // average of data = sum/N
 uint32_t Variance; // =sum2/(N-1)
 uint32_t Sigma;    // standard deviation = sqrt(Variance)
-// Newton's method
+// Newton"s method
 // s is an integer
 // sqrt(s) is an integer
 uint32_t sqrt(uint32_t s){
@@ -106,16 +106,16 @@ int Program15_1(void){ // example program 15.1, RSLK1.1
   UART0_Init();               // initialize UART0 115,200 baud rate
   LaunchPad_Init();
   TimerA1_Init(&Program15_1_ISR,250);    // 2000 Hz sampling
-  UART0_OutString("Program 15.1 FIR filter test\nValvano July 2019, RSLK1.1\n2000Hz 14-bit sampling\nConnect analog signal to P6.1\n");
+  UART0_OutString("Program 15.1 FIR filter test\n\rValvano July 2019, RSLK1.1\n\r2000Hz 14-bit sampling\n\rConnect analog signal to P6.1\n\r");
   EnableInterrupts();
   while(1){
-    UART0_OutString("\nADC resolution test\n ");
+    UART0_OutString("\n\rADC resolution test\n\r ");
     LPF_Init(ADC_In14(),s);
     for(n=0; n<2*s; n++){
       while(ADCflag == 0){};
       ADCflag = 0; // skip the first 2*s
     }
-    UART0_OutString("Collect "); UART0_OutUDec(N); UART0_OutString(" samples\n");
+    UART0_OutString("Collect "); UART0_OutUDec(N); UART0_OutString(" samples\n\r");
     Sum = Sum2 = 0;
     for(n=0; n<N; n++){
       while(ADCflag == 0){};
@@ -145,19 +145,19 @@ int Program15_1(void){ // example program 15.1, RSLK1.1
         Histogram[Data[n]-min]++;
       }
     }
-    UART0_OutString("Probability Mass Function (PMF)\n Data  Count\n");
+    UART0_OutString("Probability Mass Function (PMF)\n\r Data  Count\n\r");
     for(n=0;n<M;n++){
       if(Histogram[n]){
-        UART0_OutUDec5(n+min); UART0_OutString("  \t");UART0_OutUDec(Histogram[n]);UART0_OutChar('\n');
+        UART0_OutUDec5(n+min); UART0_OutString("  \t");UART0_OutUDec(Histogram[n]);UART0_OutString("\n\r");
       }
     }
 
-    UART0_OutString("FIR filter "); UART0_OutUDec(s); UART0_OutString("-point average\n");
-    UART0_OutString("Average      ="); UART0_OutUDec(Average); UART0_OutChar('\n');
-    UART0_OutString("Range        ="); UART0_OutUDec(max-min); UART0_OutChar('\n');
-    UART0_OutString("Variance     ="); UART0_OutUFix2(Variance); UART0_OutChar('\n');
-    UART0_OutString("Sigma        ="); UART0_OutUFix1(Sigma); UART0_OutChar('\n');
-    UART0_OutString("Average/Sigma="); UART0_OutUFix1((100*Average)/Sigma); UART0_OutChar('\n');
+    UART0_OutString("FIR filter "); UART0_OutUDec(s); UART0_OutString("-point average\n\r");
+    UART0_OutString("Average      ="); UART0_OutUDec(Average); UART0_OutString("\n\r");
+    UART0_OutString("Range        ="); UART0_OutUDec(max-min); UART0_OutString("\n\r");
+    UART0_OutString("Variance     ="); UART0_OutUFix2(Variance); UART0_OutString("\n\r");
+    UART0_OutString("Sigma        ="); UART0_OutUFix1(Sigma); UART0_OutString("\n\r");
+    UART0_OutString("Average/Sigma="); UART0_OutUFix1((100*Average)/Sigma); UART0_OutString("\n\r");
 
     while(LaunchPad_Input()==0x00){}; // wait for touch
     while(LaunchPad_Input()!=0x00){}; // wait for release
@@ -165,7 +165,6 @@ int Program15_1(void){ // example program 15.1, RSLK1.1
     else s = 32;
   }
 }
-
 //**************Program 15.2*******************
 volatile uint32_t nr,nc,nl;
 // RSLK1.1
@@ -195,46 +194,47 @@ int Program15_2(void){ // example program 15.2
   UART0_Init();          // initialize UART0 115,200 baud rate
   LaunchPad_Init();
   TimerA1_Init(&Program15_2_ISR,250);    // 2000 Hz sampling
-  UART0_OutString("Program 15.2 Calibration test\nValvano July 2019\nConnect analog signals to P9.0,P6.1,P9.1\n");
+  UART0_OutString("Program 15.2 Calibration test\n\rValvano July 2019\n\rConnect analog signals to P9.0,P6.1,P9.1\n\r");
   EnableInterrupts();
   while(1){
     for(n=0; n<2000; n++){
       while(ADCflag == 0){};
       ADCflag = 0; // show every 2000th point
     }
-    UART0_OutUDec5(nl); UART0_OutUDec5(LeftConvert(nl));UART0_OutChar(' ');
-    UART0_OutUDec5(nc); UART0_OutUDec5(CenterConvert(nc));UART0_OutChar(' ');
+    UART0_OutUDec5(nl); UART0_OutUDec5(LeftConvert(nl));UART0_OutString(" ");
+    UART0_OutUDec5(nc); UART0_OutUDec5(CenterConvert(nc));UART0_OutString(" ");
     UART0_OutUDec5(nr); UART0_OutUDec5(RightConvert(nr));
-    UART0_OutChar('\n'); // once a second
+    UART0_OutString("\n\r"); // once a second
   }
 }
 
 // Test RSLK1.1
 int main(void){
-  uint32_t raw17,raw14,raw16;
-  int32_t n; uint32_t s;
-  Clock_Init48MHz();
-  ADCflag = 0;
-  s = 256; // replace with your choice
-  ADC0_InitSWTriggerCh17_14_16();   // initialize channels 17,14,16
-  ADC_In17_14_16(&raw17,&raw14,&raw16);  // sample
-  LPF_Init(raw17,s);     // P9.0/channel 17
-  LPF_Init2(raw14,s);    // P6.1/channel 14
-  LPF_Init3(raw16,s);    // P9.1/channel 16
-  UART0_Init();          // initialize UART0 115,200 baud rate
-  LaunchPad_Init();
-  TimerA1_Init(&Program15_2_ISR,250);    // 2000 Hz sampling
-  UART0_OutString("GP2Y0A21YK0F test, RSLK1.1\nValvano July 2019\nConnect analog signals to P9.0,P6.1,P9.1\n");
-  EnableInterrupts();
-  while(1){
-    for(n=0; n<2000; n++){
-      while(ADCflag == 0){};
-      ADCflag = 0; // show every 2000th point
-    }
-    UART0_OutUDec5(LeftConvert(nl));UART0_OutString(" mm,");
-    UART0_OutUDec5(CenterConvert(nc));UART0_OutString(" mm,");
-    UART0_OutUDec5(RightConvert(nr));UART0_OutString(" mm\n");
-  }
+  Program15_2();
+//  uint32_t raw17,raw14,raw16;
+//  int32_t n; uint32_t s;
+//  Clock_Init48MHz();
+//  ADCflag = 0;
+//  s = 256; // replace with your choice
+//  ADC0_InitSWTriggerCh17_14_16();   // initialize channels 17,14,16
+//  ADC_In17_14_16(&raw17,&raw14,&raw16);  // sample
+//  LPF_Init(raw17,s);     // P9.0/channel 17
+//  LPF_Init2(raw14,s);    // P6.1/channel 14
+//  LPF_Init3(raw16,s);    // P9.1/channel 16
+//  UART0_Init();          // initialize UART0 115,200 baud rate
+//  LaunchPad_Init();
+//  TimerA1_Init(&Program15_2_ISR,250);    // 2000 Hz sampling
+//  UART0_OutString("GP2Y0A21YK0F test, RSLK1.1\n\rValvano July 2019\n\rConnect analog signals to P9.0,P6.1,P9.1\n\r");
+//  EnableInterrupts();
+//  while(1){
+//    for(n=0; n<2000; n++){
+//      while(ADCflag == 0){};
+//      ADCflag = 0; // show every 2000th point
+//    }
+//    UART0_OutUDec5(LeftConvert(nl));UART0_OutString(" mm,");
+//    UART0_OutUDec5(CenterConvert(nc));UART0_OutString(" mm,");
+//    UART0_OutUDec5(RightConvert(nr));UART0_OutString(" mm\n\r");
+//  }
 }
 
 

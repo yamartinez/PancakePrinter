@@ -9,9 +9,9 @@ CMD_SRCS += \
 ../msp432p401r.cmd 
 
 C_SRCS += \
-C:/Users/Bilge/Documents/College\ Documents/ece\ 3501_embedded/tirslk_max_1_00_00/inc/Clock.c \
+C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/Clock.c \
 ../GPIOmain.c \
-C:/Users/Bilge/Documents/College\ Documents/ece\ 3501_embedded/tirslk_max_1_00_00/inc/TExaS.c \
+C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/TExaS.c \
 ../startup_msp432p401r_ccs.c \
 ../system_msp432p401r.c 
 
@@ -44,9 +44,9 @@ C_DEPS__QUOTED += \
 "system_msp432p401r.d" 
 
 C_SRCS__QUOTED += \
-"C:/Users/Bilge/Documents/College Documents/ece 3501_embedded/tirslk_max_1_00_00/inc/Clock.c" \
+"C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/Clock.c" \
 "../GPIOmain.c" \
-"C:/Users/Bilge/Documents/College Documents/ece 3501_embedded/tirslk_max_1_00_00/inc/TExaS.c" \
+"C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/TExaS.c" \
 "../startup_msp432p401r_ccs.c" \
 "../system_msp432p401r.c" 
 

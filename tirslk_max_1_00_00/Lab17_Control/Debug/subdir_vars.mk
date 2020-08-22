@@ -12,29 +12,29 @@ OBJ_SRCS += \
 ../UART0.obj 
 
 C_SRCS += \
-C:/Users/Bilge/Documents/College\ Documents/ece\ 3501_embedded/tirslk_max_1_00_00/inc/ADC14.c \
-C:/Users/Bilge/Documents/College\ Documents/ece\ 3501_embedded/tirslk_max_1_00_00/inc/Bump.c \
-C:/Users/Bilge/Documents/College\ Documents/ece\ 3501_embedded/tirslk_max_1_00_00/inc/Clock.c \
-C:/Users/Bilge/Documents/College\ Documents/ece\ 3501_embedded/tirslk_max_1_00_00/inc/CortexM.c \
-C:/Users/Bilge/Documents/College\ Documents/ece\ 3501_embedded/tirslk_max_1_00_00/inc/IRDistance.c \
-C:/Users/Bilge/Documents/College\ Documents/ece\ 3501_embedded/tirslk_max_1_00_00/inc/LPF.c \
+C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/ADC14.c \
+C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/BumpInt.c \
+C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/Clock.c \
+C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/CortexM.c \
+C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/IRDistance.c \
+C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/LPF.c \
 ../Lab17_Control.c \
-C:/Users/Bilge/Documents/College\ Documents/ece\ 3501_embedded/tirslk_max_1_00_00/inc/LaunchPad.c \
-C:/Users/Bilge/Documents/College\ Documents/ece\ 3501_embedded/tirslk_max_1_00_00/inc/Motor.c \
-C:/Users/Bilge/Documents/College\ Documents/ece\ 3501_embedded/tirslk_max_1_00_00/inc/Nokia5110.c \
-C:/Users/Bilge/Documents/College\ Documents/ece\ 3501_embedded/tirslk_max_1_00_00/inc/PWM.c \
-C:/Users/Bilge/Documents/College\ Documents/ece\ 3501_embedded/tirslk_max_1_00_00/inc/Reflectance.c \
-C:/Users/Bilge/Documents/College\ Documents/ece\ 3501_embedded/tirslk_max_1_00_00/inc/SysTickInts.c \
-C:/Users/Bilge/Documents/College\ Documents/ece\ 3501_embedded/tirslk_max_1_00_00/inc/TA3InputCapture.c \
-C:/Users/Bilge/Documents/College\ Documents/ece\ 3501_embedded/tirslk_max_1_00_00/inc/TExaS.c \
-C:/Users/Bilge/Documents/College\ Documents/ece\ 3501_embedded/tirslk_max_1_00_00/inc/Tachometer.c \
-C:/Users/Bilge/Documents/College\ Documents/ece\ 3501_embedded/tirslk_max_1_00_00/inc/TimerA1.c \
+C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/LaunchPad.c \
+C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/Motor.c \
+C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/Nokia5110.c \
+C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/PWM.c \
+C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/Reflectance.c \
+C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/SysTickInts.c \
+C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/TA3InputCapture.c \
+C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/TExaS.c \
+C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/Tachometer.c \
+C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/TimerA1.c \
 ../startup_msp432p401r_ccs.c \
 ../system_msp432p401r.c 
 
 C_DEPS += \
 ./ADC14.d \
-./Bump.d \
+./BumpInt.d \
 ./Clock.d \
 ./CortexM.d \
 ./IRDistance.d \
@@ -55,7 +55,7 @@ C_DEPS += \
 
 OBJS += \
 ./ADC14.obj \
-./Bump.obj \
+./BumpInt.obj \
 ./Clock.obj \
 ./CortexM.obj \
 ./IRDistance.obj \
@@ -76,7 +76,7 @@ OBJS += \
 
 OBJS__QUOTED += \
 "ADC14.obj" \
-"Bump.obj" \
+"BumpInt.obj" \
 "Clock.obj" \
 "CortexM.obj" \
 "IRDistance.obj" \
@@ -97,7 +97,7 @@ OBJS__QUOTED += \
 
 C_DEPS__QUOTED += \
 "ADC14.d" \
-"Bump.d" \
+"BumpInt.d" \
 "Clock.d" \
 "CortexM.d" \
 "IRDistance.d" \
@@ -117,23 +117,23 @@ C_DEPS__QUOTED += \
 "system_msp432p401r.d" 
 
 C_SRCS__QUOTED += \
-"C:/Users/Bilge/Documents/College Documents/ece 3501_embedded/tirslk_max_1_00_00/inc/ADC14.c" \
-"C:/Users/Bilge/Documents/College Documents/ece 3501_embedded/tirslk_max_1_00_00/inc/Bump.c" \
-"C:/Users/Bilge/Documents/College Documents/ece 3501_embedded/tirslk_max_1_00_00/inc/Clock.c" \
-"C:/Users/Bilge/Documents/College Documents/ece 3501_embedded/tirslk_max_1_00_00/inc/CortexM.c" \
-"C:/Users/Bilge/Documents/College Documents/ece 3501_embedded/tirslk_max_1_00_00/inc/IRDistance.c" \
-"C:/Users/Bilge/Documents/College Documents/ece 3501_embedded/tirslk_max_1_00_00/inc/LPF.c" \
+"C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/ADC14.c" \
+"C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/BumpInt.c" \
+"C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/Clock.c" \
+"C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/CortexM.c" \
+"C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/IRDistance.c" \
+"C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/LPF.c" \
 "../Lab17_Control.c" \
-"C:/Users/Bilge/Documents/College Documents/ece 3501_embedded/tirslk_max_1_00_00/inc/LaunchPad.c" \
-"C:/Users/Bilge/Documents/College Documents/ece 3501_embedded/tirslk_max_1_00_00/inc/Motor.c" \
-"C:/Users/Bilge/Documents/College Documents/ece 3501_embedded/tirslk_max_1_00_00/inc/Nokia5110.c" \
-"C:/Users/Bilge/Documents/College Documents/ece 3501_embedded/tirslk_max_1_00_00/inc/PWM.c" \
-"C:/Users/Bilge/Documents/College Documents/ece 3501_embedded/tirslk_max_1_00_00/inc/Reflectance.c" \
-"C:/Users/Bilge/Documents/College Documents/ece 3501_embedded/tirslk_max_1_00_00/inc/SysTickInts.c" \
-"C:/Users/Bilge/Documents/College Documents/ece 3501_embedded/tirslk_max_1_00_00/inc/TA3InputCapture.c" \
-"C:/Users/Bilge/Documents/College Documents/ece 3501_embedded/tirslk_max_1_00_00/inc/TExaS.c" \
-"C:/Users/Bilge/Documents/College Documents/ece 3501_embedded/tirslk_max_1_00_00/inc/Tachometer.c" \
-"C:/Users/Bilge/Documents/College Documents/ece 3501_embedded/tirslk_max_1_00_00/inc/TimerA1.c" \
+"C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/LaunchPad.c" \
+"C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/Motor.c" \
+"C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/Nokia5110.c" \
+"C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/PWM.c" \
+"C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/Reflectance.c" \
+"C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/SysTickInts.c" \
+"C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/TA3InputCapture.c" \
+"C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/TExaS.c" \
+"C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/Tachometer.c" \
+"C:/Users/Bilge/Documents/college_documents/ece_embedded/tirslk_max_1_00_00/inc/TimerA1.c" \
 "../startup_msp432p401r_ccs.c" \
 "../system_msp432p401r.c" 
 

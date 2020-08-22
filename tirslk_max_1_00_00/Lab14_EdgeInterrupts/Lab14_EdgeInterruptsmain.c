@@ -59,7 +59,7 @@ policies, either expressed or implied, of the FreeBSD Project.
 
 uint8_t CollisionData, CollisionFlag;  // mailbox
 void HandleCollision(uint8_t bumpSensor){
-   Motor_Stop(0,0); //optional
+   //Motor_Stop(0,0); //optional
    CollisionData = bumpSensor;
    CollisionFlag = 1;
 }
@@ -88,7 +88,7 @@ int main(void){
     Motor_Forward(5000,5000);
     if(CollisionFlag == 1){
         CollisionFlag = 0;
-        Motor_Stop(0,0);
+        Motor_Stop(3000, 3000);
         Clock_Delay1ms(10);
         Motor_Backward(2500,2500);
         Clock_Delay1ms(750);

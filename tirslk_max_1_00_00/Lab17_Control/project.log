@@ -1,0 +1,51 @@
+
+!CONFIGURATION: 'com.ti.ccstudio.buildDefinitions.MSP432.Release.1901734538' [Wed Apr 08 22:49:56 EDT 2020]
+
+	!TOOL: 'com.ti.ccstudio.buildDefinitions.MSP432_18.12.exe.compilerRelease.1749118907'
+
+		!WARNING: Unresolved option: com.ti.ccstudio.buildDefinitions.MSP432_16.9.compilerID.SILICON_VERSION
+
+		!WARNING: Unresolved option: com.ti.ccstudio.buildDefinitions.MSP432_16.9.compilerID.CODE_STATE
+
+		!WARNING: Unresolved option: com.ti.ccstudio.buildDefinitions.MSP432_16.9.compilerID.FLOAT_SUPPORT
+
+		!WARNING: Unresolved option: com.ti.ccstudio.buildDefinitions.MSP432_16.9.compilerID.LITTLE_ENDIAN
+
+		!WARNING: Unresolved option: com.ti.ccstudio.buildDefinitions.MSP432_16.9.compilerID.INCLUDE_PATH
+
+		!WARNING: Unresolved option: com.ti.ccstudio.buildDefinitions.MSP432_16.9.compilerID.ADVICE__POWER
+
+		!WARNING: Unresolved option: com.ti.ccstudio.buildDefinitions.MSP432_16.9.compilerID.DEFINE
+
+		!WARNING: Unresolved option: com.ti.ccstudio.buildDefinitions.MSP432_16.9.compilerID.GCC
+
+		!WARNING: Unresolved option: com.ti.ccstudio.buildDefinitions.MSP432_16.9.compilerID.DIAG_WARNING
+
+		!WARNING: Unresolved option: com.ti.ccstudio.buildDefinitions.MSP432_16.9.compilerID.DISPLAY_ERROR_NUMBER
+
+		!WARNING: Unresolved option: com.ti.ccstudio.buildDefinitions.MSP432_16.9.compilerID.ABI
+
+	!TOOL: 'com.ti.ccstudio.buildDefinitions.MSP432_18.12.exe.linkerRelease.1677094419'
+
+		!WARNING: Unresolved option: com.ti.ccstudio.buildDefinitions.MSP432_16.9.linkerID.MAP_FILE
+
+		!WARNING: Unresolved option: com.ti.ccstudio.buildDefinitions.MSP432_16.9.linkerID.OUTPUT_FILE
+
+		!WARNING: Unresolved option: com.ti.ccstudio.buildDefinitions.MSP432_16.9.linkerID.HEAP_SIZE
+
+		!WARNING: Unresolved option: com.ti.ccstudio.buildDefinitions.MSP432_16.9.linkerID.STACK_SIZE
+
+		!WARNING: Unresolved option: com.ti.ccstudio.buildDefinitions.MSP432_16.9.linkerID.LIBRARY
+
+		!WARNING: Unresolved option: com.ti.ccstudio.buildDefinitions.MSP432_16.9.linkerID.SEARCH_PATH
+
+		!WARNING: Unresolved option: com.ti.ccstudio.buildDefinitions.MSP432_16.9.linkerID.DISPLAY_ERROR_NUMBER
+
+		!WARNING: Unresolved option: com.ti.ccstudio.buildDefinitions.MSP432_16.9.linkerID.XML_LINK_INFO
+
+	!TOOL: 'com.ti.ccstudio.buildDefinitions.MSP432_18.12.hex.1572974485'
+
+		!WARNING: Unresolved option: com.ti.ccstudio.buildDefinitions.MSP432_16.9.hex.MEMWIDTH
+
+		!WARNING: Unresolved option: com.ti.ccstudio.buildDefinitions.MSP432_16.9.hex.ROMWIDTH
+

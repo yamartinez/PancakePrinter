@@ -175,9 +175,129 @@ void ADC_In67(uint32_t *ch6, uint32_t *ch7){
 //**********software below is part of Lab 15**************
 // P6.1 = A14
 // single conversion, 3.3V reference, RSLK1.1
+#define ADC_PORT ADC14
+#define ALLOW_ADC_PROGRAMMING_CTL0 ADC_PORT -> CTL0 &= ~0x00000002
+#define ADC_BUSY ADC_PORT -> CTL0&0x00010000
+#define INITIALIZE_CTL0 ADC_PORT ->CTL0 = 0x04203310
+#define INITIALIZE_CTL1 ADC_PORT->CTL1 = 0x00000030
+#define INITIALIZE_ADC_MAIN_CONTROL_A14(CHAN) ADC_PORT -> MCTL[CHAN] = 0x0000008e
+#define ANALOG_PORT P6 //analog pin is pin 1
+#define CONFIGURE_ANALOG_PIN_SEL0 ANALOG_PORT -> SEL0 |= 0x02 //set pin 1 to 1
+#define CONFIGURE_ANALOG_PIN_SEL1 ANALOG_PORT -> SEL1 |= 0x02 //set pin 1 to 1
+
 void ADC0_InitSWTriggerCh14(void){
     // write this for Lab 15
-}
+    ALLOW_ADC_PROGRAMMING_CTL0;        // 2) ADC14ENC = 0 to allow programming
+      while(ADC_BUSY){};   // 3) wait for BUSY to be zero
+      INITIALIZE_CTL0;          // 4) single, SMCLK, on, disabled, /1, 32 SHM
+      // 31-30 ADC14PDIV  predivider,            00b = Predivide by 1
+      // 29-27 ADC14SHSx  SHM source            000b = ADC14SC bit
+      // 26    ADC14SHP   SHM pulse-mode          1b = SAMPCON the sampling timer
+      // 25    ADC14ISSH  invert sample-and-hold  0b =  not inverted
+      // 24-22 ADC14DIVx  clock divider         000b = /1
+      // 21-19 ADC14SSELx clock source select   100b = SMCLK
+      // 18-17 ADC14CONSEQx mode select          00b = Single-channel, single-conversion
+      // 16    ADC14BUSY  ADC14 busy              0b (read only)
+      // 15-12 ADC14SHT1x sample-and-hold time 0011b = 32 clocks
+      // 11-8  ADC14SHT0x sample-and-hold time 0011b = 32 clocks
+      // 7     ADC14MSC   multiple sample         0b = not multiple
+      // 6-5   reserved                          00b (reserved)
+      // 4     ADC14ON    ADC14 on                1b = powered up
+      // 3-2   reserved                          00b (reserved)
+      // 1     ADC14ENC   enable conversion       0b = ADC14 disabled
+      // 0     ADC14SC    ADC14 start             0b = No start (yet)
+      INITIALIZE_CTL1;          // 5) ADC14MEM0, 14-bit, ref on, regular power
+      // 20-16 STARTADDx  start addr          00000b = ADC14MEM0
+      // 15-6  reserved                  0000000000b (reserved)
+      // 5-4   ADC14RES   ADC14 resolution       11b = 14 bit, 16 clocks
+      // 3     ADC14DF    data read-back format   0b = Binary unsigned
+      // 2     REFBURST   reference buffer burst  0b = reference on continuously
+      // 1-0   ADC14PWRMD ADC power modes        00b = Regular power mode
+      INITIALIZE_ADC_MAIN_CONTROL_A14(0);         // 6) 0 to 3.3V, channel 6
+      // 15   ADC14WINCTH Window comp threshold   0b = not used
+      // 14   ADC14WINC   Comparator enable       0b = Comparator disabled
+      // 13   ADC14DIF    Differential mode       0b = Single-ended mode enabled
+      // 12   reserved                            0b (reserved)
+      // 11-8 ADC14VRSEL  V(R+) and V(R-)      0000b = V(R+) = AVCC, V(R-) = AVSS
+      // 7    ADC14EOS    End of sequence         1b = End of sequence
+      // 6-5  reserved                           00b (reserved)
+      // 4-0  ADC14INCHx  Input channel       01110b = A14, P6.1
+
+      ADC14->IER0 = 0; // 7) no interrupts
+      ADC14->IER1 = 0; // no interrupts
+      CONFIGURE_ANALOG_PIN_SEL0; // 8) analog mode on A14, P6.1
+      CONFIGURE_ANALOG_PIN_SEL1;
+      ADC14->CTL0 |= 0x00000002;         // 9) enable
+    }
+//
+//    // ADC14IFGR0 bit 0 is set when P4.7 = A6 conversion done
+//    //                  cleared on read ADC14MEM0
+//    // ADC14CLRIFGR0 bit 0, write 1 to clear flag
+//    // ADC14IVx is 0x0C when ADC14MEM0 interrupt flag; Interrupt Flag: ADC14IFG0
+//    // ADC14MEM0 14-bit conversion in bits 13-0 (31-16 undefined, 15-14 zero)
+//    uint32_t ADC_In6(void){
+//      while(ADC14->CTL0&0x00010000){};    // 1) wait for BUSY to be zero
+//      ADC14->CTL0 |= 0x00000001;          // 2) start single conversion
+//      while((ADC14->IFGR0&0x01) == 0){};  // 3) wait for ADC14IFG0
+//      return ADC14->MEM[0];      // 4) return result 0 to 16383
+//    }
+//
+//    // P4.6 = A7
+//    // P4.7 = A6
+//    // 3.3V reference
+//    void ADC0_InitSWTriggerCh67(void){
+//      ADC14->CTL0 &= ~0x00000002;      // 2) ADC14ENC = 0 to allow programming
+//      while(ADC14->CTL0&0x00010000){}; // 3) wait for BUSY to be zero
+//      ADC14->CTL0 = 0x04223390;        // 4) single, SMCLK, on, disabled, /1, 32 SHM
+//      // 31-30 ADC14PDIV  predivider,            00b = Predivide by 1
+//      // 29-27 ADC14SHSx  SHM source            000b = ADC14SC bit
+//      // 26    ADC14SHP   SHM pulse-mode          1b = SAMPCON the sampling timer
+//      // 25    ADC14ISSH  invert sample-and-hold  0b = not inverted
+//      // 24-22 ADC14DIVx  clock divider         000b = /1
+//      // 21-19 ADC14SSELx clock source select   100b = SMCLK
+//      // 18-17 ADC14CONSEQx mode select          01b = Sequence-of-channels
+//      // 16    ADC14BUSY  ADC14 busy              0b (read only)
+//      // 15-12 ADC14SHT1x sample-and-hold time 0011b = 32 clocks
+//      // 11-8  ADC14SHT0x sample-and-hold time 0011b = 32 clocks
+//      // 7     ADC14MSC   multiple sample         1b = continue conversions automatically after first SHI signal trigger
+//      // 6-5   reserved                          00b (reserved)
+//      // 4     ADC14ON    ADC14 on                1b = powered up
+//      // 3-2   reserved                          00b (reserved)
+//      // 1     ADC14ENC   enable conversion       0b = ADC14 disabled
+//      // 0     ADC14SC    ADC14 start             0b = No start (yet)
+//      ADC14->CTL1 = 0x00000030;        // 5) ADC14MEM0, 14-bit, ref on, regular power
+//      // 20-16 STARTADDx  start addr          00000b = ADC14MEM0
+//      // 15-6  reserved                  0000000000b (reserved)
+//      // 5-4   ADC14RES   ADC14 resolution       11b = 14 bit, 16 clocks
+//      // 3     ADC14DF    data read-back format   0b = Binary unsigned
+//      // 2     REFBURST   reference buffer burst  0b = reference on continuously
+//      // 1-0   ADC14PWRMD ADC power modes        00b = Regular power mode
+//      ADC14->MCTL[0] = 0x00000006;     // 6a) 0 to 3.3V, channel 6
+//      // 15   ADC14WINCTH Window comp threshold   0b = not used
+//      // 14   ADC14WINC   Comparator enable       0b = Comparator disabled
+//      // 13   ADC14DIF    Differential mode       0b = Single-ended mode enabled
+//      // 12   reserved                            0b (reserved)
+//      // 11-8 ADC14VRSEL  V(R+) and V(R-)      0000b = V(R+) = AVCC, V(R-) = AVSS
+//      // 7    ADC14EOS    End of sequence         0b = Not end of sequence
+//      // 6-5  reserved                           00b (reserved)
+//      // 4-0  ADC14INCHx  Input channel        0110b = A6, P4.7
+//      ADC14->MCTL[1] = 0x00000087;     // 6b) 0 to 3.3V, channel 7
+//      // 15   ADC14WINCTH Window comp threshold   0b = not used
+//      // 14   ADC14WINC   Comparator enable       0b = Comparator disabled
+//      // 13   ADC14DIF    Differential mode       0b = Single-ended mode enabled
+//      // 12   reserved                            0b (reserved)
+//      // 11-8 ADC14VRSEL  V(R+) and V(R-)      0000b = V(R+) = AVCC, V(R-) = AVSS
+//      // 7    ADC14EOS    End of sequence         1b = End of sequence
+//      // 6-5  reserved                           00b (reserved)
+//      // 4-0  ADC14INCHx  Input channel        0111b = A7, P4.6
+//
+//      ADC14->IER0 = 0;                 // 7) no interrupts
+//      ADC14->IER1 = 0;                 //    no interrupts
+//      P4->SEL1 |= 0xC0;                // 8) analog mode on P4.7/A6 and P4.6/A7
+//      P4->SEL0 |= 0xC0;
+//      ADC14->CTL0 |= 0x00000002;       // 9) enable
+//
+//}
 
 // ADC14IFGR0 bit 0 is set when P6.1 = A14 conversion done
 //                  cleared on read ADC14MEM0
@@ -186,7 +306,10 @@ void ADC0_InitSWTriggerCh14(void){
 // ADC14MEM0 14-bit conversion in bits 13-0 (31-16 undefined, 15-14 zero)
 uint32_t ADC_In14(void){
     // write this for Lab 15
-	return 0; // replace this line
+       while(ADC14->CTL0&0x00010000){};    // 1) wait for BUSY to be zero
+       ADC14->CTL0 |= 0x00000001;          // 2) start single conversion
+       while((ADC14->IFGR0&0x01) == 0){};  // 3) wait for ADC14IFG0
+       return ADC14->MEM[0];      // 4) return result 0 to 16383
 }
 
 // P9.0 = A17
@@ -196,7 +319,66 @@ uint32_t ADC_In14(void){
 void ADC0_InitSWTriggerCh17_14_16(void){
 // you write this as part of Lab 15 RSLK 1.1
 // you can use any of the MEM[n], MCTL[n] except n=6 (6 is used by TExaS)
-
+    ADC14->CTL0 &= ~0x00000002;      // 2) ADC14ENC = 0 to allow programming
+    while(ADC14->CTL0&0x00010000){}; // 3) wait for BUSY to be zero
+    ADC14->CTL0 = 0x04223390;        // 4) single, SMCLK, on, disabled, /1, 32 SHM
+    // 31-30 ADC14PDIV  predivider,            00b = Predivide by 1
+    // 29-27 ADC14SHSx  SHM source            000b = ADC14SC bit
+    // 26    ADC14SHP   SHM pulse-mode          1b = SAMPCON the sampling timer
+    // 25    ADC14ISSH  invert sample-and-hold  0b = not inverted
+    // 24-22 ADC14DIVx  clock divider         000b = /1
+    // 21-19 ADC14SSELx clock source select   100b = SMCLK
+    // 18-17 ADC14CONSEQx mode select          01b = Sequence-of-channels
+    // 16    ADC14BUSY  ADC14 busy              0b (read only)
+    // 15-12 ADC14SHT1x sample-and-hold time 0011b = 32 clocks
+    // 11-8  ADC14SHT0x sample-and-hold time 0011b = 32 clocks
+    // 7     ADC14MSC   multiple sample         1b = continue conversions automatically after first SHI signal trigger
+    // 6-5   reserved                          00b (reserved)
+    // 4     ADC14ON    ADC14 on                1b = powered up
+    // 3-2   reserved                          00b (reserved)
+    // 1     ADC14ENC   enable conversion       0b = ADC14 disabled
+    // 0     ADC14SC    ADC14 start             0b = No start (yet)
+    ADC14->CTL1 = 0x00000030;        // 5) ADC14MEM2, 14-bit, ref on, regular power
+    // 20-16 STARTADDx  start addr          00010b = ADC14MEM2
+    // 15-6  reserved                  0000000000b (reserved)
+    // 5-4   ADC14RES   ADC14 resolution       11b = 14 bit, 16 clocks
+    // 3     ADC14DF    data read-back format   0b = Binary unsigned
+    // 2     REFBURST   reference buffer burst  0b = reference on continuously
+    // 1-0   ADC14PWRMD ADC power modes        00b = Regular power mode
+    ADC14->MCTL[1] = 0x0000000E;     // 6a) 0 to 3.3V, channel 14
+    // 15   ADC14WINCTH Window comp threshold   0b = not used
+    // 14   ADC14WINC   Comparator enable       0b = Comparator disabled
+    // 13   ADC14DIF    Differential mode       0b = Single-ended mode enabled
+    // 12   reserved                            0b (reserved)
+    // 11-8 ADC14VRSEL  V(R+) and V(R-)      0000b = V(R+) = AVCC, V(R-) = AVSS
+    // 7    ADC14EOS    End of sequence         0b = Not end of sequence
+    // 6-5  reserved                           00b (reserved)
+    // 4-0  ADC14INCHx  Input channel       10101b = A14, P9.1
+    ADC14->MCTL[2] = 0x00000010;     // 6b) 0 to 3.3V, channel 16
+    // 15   ADC14WINCTH Window comp threshold   0b = not used
+    // 14   ADC14WINC   Comparator enable       0b = Comparator disabled
+    // 13   ADC14DIF    Differential mode       0b = Single-ended mode enabled
+    // 12   reserved                            0b (reserved)
+    // 11-8 ADC14VRSEL  V(R+) and V(R-)      0000b = V(R+) = VCC, V(R-) = AVSS
+    // 7    ADC14EOS    End of sequence         0b = Not end of sequence
+    // 6-5  reserved                           00b (reserved)
+    // 4-0  ADC14INCHx  Input channel       10110b = A14, P6.1
+    ADC14->MCTL[3] = 0x00000091;     // 6c) 0 to 3.3V, channel 17, end of sequence
+    // 15   ADC14WINCTH Window comp threshold   0b = not used
+    // 14   ADC14WINC   Comparator enable       0b = Comparator disabled
+    // 13   ADC14DIF    Differential mode       0b = Single-ended mode enabled
+    // 12   reserved                            0b (reserved)
+    // 11-8 ADC14VRSEL  V(R+) and V(R-)      0000b = V(R+) = VCC, V(R-) = AVSS
+    // 7    ADC14EOS    End of sequence         1b = End of sequence
+    // 6-5  reserved                           00b (reserved)
+    // 4-0  ADC14INCHx  Input channel       10001b = A17, P9.0
+    ADC14->IER0 = 0;                 // 7) no interrupts
+    ADC14->IER1 = 0;                 //    no interrupts
+    P9->SEL1 |= (BIT0|BIT1);
+    P9->SEL0 |= BIT0|BIT1;
+    P6->SEL0 |= BIT1;
+    P6->SEL1 |= BIT1;
+    ADC14->CTL0 |= 0x00000002;       // 9) enable
 }
 
 // ADC14IFGR0 bit 4 is set when conversion done
@@ -207,9 +389,19 @@ void ADC0_InitSWTriggerCh17_14_16(void){
 // ADC14MEM3 14-bit conversion in bits 13-0 (31-16 undefined, 15-14 zero)
 // ADC14MEM4 14-bit conversion in bits 13-0 (31-16 undefined, 15-14 zero)
 // Lab 15 assignment RSLK 1.1, use software trigger, 3.3V reference
+// P9.0 = A17
+// P6.1 = A14
+// P9.1 = A16
 void ADC_In17_14_16(uint32_t *ch17, uint32_t *ch14, uint32_t *ch16){
 // you write this as part of Lab 15 RSLK 1.1
+    // 1) reference module is not used here
+while(ADC14->CTL0&0x00010000){};
+ADC14->CTL0 |= 0x00000001;
 
+while((ADC14->IFGR0&0x02) == 0){};
+*ch14 = ADC14->MEM[1];
+*ch16 = ADC14->MEM[2];
+*ch17 = ADC14->MEM[3];
 }
 
 // P8.4 = A21
@@ -225,7 +417,7 @@ void ADC0_InitSWTriggerCh21_22_23(void){
   // 31-30 ADC14PDIV  predivider,            00b = Predivide by 1
   // 29-27 ADC14SHSx  SHM source            000b = ADC14SC bit
   // 26    ADC14SHP   SHM pulse-mode          1b = SAMPCON the sampling timer
-  // 25    ADC14ISSH  invert sample-and-hold  0b = not inverted
+  // 25    ADC14ISSH  invert sample-and-hopld  0b = not inverted
   // 24-22 ADC14DIVx  clock divider         000b = /1
   // 21-19 ADC14SSELx clock source select   100b = SMCLK
   // 18-17 ADC14CONSEQx mode select          01b = Sequence-of-channels
@@ -381,6 +573,8 @@ uint32_t ADC_In19(void){
 void ADC0_InitSWTriggerCh23(void){
 // you can use any of the MEM[n], MCTL[n] except n=6 (6 is used by TExaS)
     // write this for Lab 15
+
+
 }
 
 // ADC14IFGR0 bit 0 is set when P8.2 = A23 conversion done

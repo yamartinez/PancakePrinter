@@ -144,7 +144,7 @@ uint8_t Bump_Read(void){
 void PORT4_IRQHandler(void){
     // write this as part of Lab 14
     CLEAR_BUMP_INTERRUPT_FLAG;
-    BumpReact(Bump_Read());
+    (*BumpReact)(Bump_Read());
 
 
 }

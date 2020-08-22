@@ -31,9 +31,14 @@
 			<locationURI>PARENT-1-PROJECT_LOC/inc/ADC14.c</locationURI>
 		</link>
 		<link>
-			<name>Bump.c</name>
+			<name>BumpInt.c</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/inc/Bump.c</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/inc/BumpInt.c</locationURI>
+		</link>
+		<link>
+			<name>BumpInt.h</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/inc/BumpInt.h</locationURI>
 		</link>
 		<link>
 			<name>Clock.c</name>
