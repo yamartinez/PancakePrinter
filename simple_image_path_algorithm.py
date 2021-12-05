@@ -3,21 +3,21 @@ import cv2
 import numpy as np
 import math
 from skimage.morphology import skeletonize
+import time
 
+IMG_SIZE = 300
+
+start = time.time()
 # Read the original image
-img_path = 'Edge-Detection-Test-Medium.jpg'
+img_path = 'baby.jpg'
 img = cv2.imread(img_path)
+width = img.shape[1]
+height = img.shape[0]
+max_dim = width if width > height else height
+scale_percent = IMG_SIZE / max_dim
 # Resize the image to decrease the resolution
-img_resize = img
-scale_percent = 80  # percent of original size
-width = int(img.shape[1] * scale_percent / 100)
-height = int(img.shape[0] * scale_percent / 100)
-dim = (width, height)
-while (width > 300 or height > 300):
-    img_resize = cv2.resize(img_resize, dim, interpolation=cv2.INTER_AREA)
-    width = int(img_resize.shape[1] * scale_percent / 100)
-    height = int(img_resize.shape[0] * scale_percent / 100)
-    dim = (width, height)
+img_resize = img # cv2.resize(img, (int(width*scale_percent), int(height*scale_percent)), interpolation=cv2.INTER_AREA)
+
 # Display the resized image
 # cv2.imshow('Original', img_resize)
 # cv2.waitKey(0)
@@ -30,8 +30,15 @@ img_blur = cv2.GaussianBlur(img_gray, (3, 3), 0)
 # Canny Edge Detection
 edges = cv2.Canny(image=img_blur, threshold1=100, threshold2=200)  # Canny Edge Detection
 # Display Canny Edge Detection Image
-# cv2.imshow('Canny Edge Detection', edges)
-# cv2.waitKey(0)
+edges = cv2.resize(edges, (int(width*scale_percent), int(height*scale_percent)), interpolation=cv2.INTER_AREA)
+
+# normalize coloring after resize
+not_black_pixels = np.where((edges[:,:] != 0))
+edges[not_black_pixels] = 255
+
+#cv2.imshow('Canny Edge Detection', edges)
+cv2.waitKey(0)
+
 
 
 #List of 2D arrays of pixels to track each grouping grid, plus width/height of image in pixels
@@ -106,7 +113,7 @@ def merge(group1, group2):
     return new_grid
 
 for y in range(height):
-    print("Row", y, "of", height)
+    #print("Row", y, "of", height)
     for x in range(width):
         if current_test[y,x] == edge_color:
             #Decide whether or not this pixel belongs to another group or not
@@ -135,22 +142,22 @@ for y in range(height):
                     group_indices.pop()
 
 
-# print("Test Case:")
+# #print("Test Case:")
 # for x in current_test:
-#     print(x)
+#     #print(x)
 
-print("# of Groupings", len(groupings))
+#print("# of Groupings", len(groupings))
 # for group in groupings:
-#     print()
-#     #print each grouping as a grid
+#     #print()
+#     ##print each grouping as a grid
 #     for row in group:
-#         print(row)
+#         #print(row)
 
-# #Print test case as an image
+# ##print test case as an image
 # cv2.imshow('Image', edges)
 # cv2.waitKey(0)
 
-# #Print groupings as images
+# ##print groupings as images
 # for group in groupings:
 #     cv2.imshow('Grouping', group)
 #     cv2.waitKey(0)
@@ -190,10 +197,10 @@ for i in range(len(groupings)):
     y_centers[i] = y_centers[i] / pixels_per_group[i]
 
 #Show centers:
-print()
-print("Centers by Grouping:")
-for i in range(len(groupings)):
-    print("(x,y): (" + str(x_centers[i]) + ", " + str(y_centers[i]) + ")")
+#print()
+#print("Centers by Grouping:")
+# for i in range(len(groupings)):
+    #print("(x,y): (" + str(x_centers[i]) + ", " + str(y_centers[i]) + ")")
 
 #Find one pixel per grouping which is the farthest from the center of gravity
 #This pixel will serve as the starting point for the path decision
@@ -212,10 +219,10 @@ for i in range(len(groupings)):
                     starting_pixels[i] = [x, y]
 
 #Show starting pixels:
-print()
-print("Starting Pixels by Grouping:")
-for start in starting_pixels:
-    print(start)
+#print()
+#print("Starting Pixels by Grouping:")
+# for start in starting_pixels:
+    #print(start)
 
 paths = [] #3D array - list of lists (a path covering a group) of pixel coordinates
 
@@ -272,7 +279,7 @@ def pixel_group_dfs(i, x, y):
     #Recurse for all pixels adjacent to this pixel
     adjacents = make_adjacent_list(i, x, y) #List of lists (pixel coordinates - [x, y])
     for pixel in adjacents:
-        #print("pixel[1]", pixel[1])
+        ##print("pixel[1]", pixel[1])
         if groupings[i][pixel[1], pixel[0]] == edge_color:
             pixel_group_dfs(i, pixel[0], pixel[1])
 
@@ -285,11 +292,11 @@ def pixel_group_dfs(i, x, y):
 #     #Conduct DFS on the starting pixel
 #     pixel_group_dfs(i, current[0], current[1])
 #
-# #Print paths
-# print()
-# print("Paths by Grouping:")
+# ##print paths
+# #print()
+# #print("Paths by Grouping:")
 # for path in paths:
-#     print(path)
+#     #print(path)
 
 
 #Iterative Approach - DFS
@@ -324,12 +331,13 @@ for i in range(len(groupings)):
         for pixel in next_list:
             stack.append(pixel)
 
-#Print paths
-print()
-print("Paths by Grouping - Iterative:")
-for path in draw_paths:
-    print(path)
-
+##print paths
+#print()
+#print("Paths by Grouping - Iterative:")
+# for path in draw_paths:
+    #print(path)
+end = time.time()
+print("Done in",end-start)
 #Export this information to a file
 with open('paths.txt', 'w') as f:
     f.write(str(width) + "\n")
