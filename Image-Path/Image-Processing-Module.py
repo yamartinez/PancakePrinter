@@ -1,8 +1,9 @@
 import cv2
 from numpy import zeros, array, where
+import sys
 
 # Returns edges as binary mask and colors as list of binary masks
-def processImage(img):
+def processImage(img, show=False):
     # ------------------- EDGE DETECTION -------------------
 
     # Check if image is valid
@@ -25,20 +26,22 @@ def processImage(img):
     # Resize the edges to decrease the resolution
     height = edges.shape[0]
     width = edges.shape[1]
-    img_res = 300
+    img_res = 150
     max_dim = height if height >= width else width
     scale_factor = float(max_dim / img_res)
     height /= scale_factor
     width /= scale_factor
     dim = (int(width), int(height))
-    edges_resized = cv2.resize(edges_resized, dim, interpolation = cv2.INTER_AREA)
+    edges_resized = cv2.resize(edges, dim, interpolation = cv2.INTER_AREA)
     not_black_pixels = where((edges_resized[:,:] != 0))
     edges_resized[not_black_pixels] = 255
 
     # Dilate image to connect loose ends of edges
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3,3))
     edges_morph = cv2.morphologyEx(edges_resized, cv2.MORPH_DILATE, kernel)
-
+    if show:
+        cv2.imshow('Edges', edges_morph)
+        cv2.waitKey(0)
     # ------------------- COLOR DETECTION -------------------
 
     # Define the list of colors to be detected
@@ -80,3 +83,8 @@ def processImage(img):
     improved_edges = cv2.morphologyEx(improved_edges, cv2.MORPH_DILATE, kernel)
 
     return edges_morph, color_masks
+
+if(__name__ == "__main__"):
+    name = sys.argv[1]
+    img = cv2.imread(name)
+    processImage(img, True)
