@@ -5,21 +5,17 @@ import cv2
 import numpy as np
 
 # Define the list of colors to be detected
-# TODO: Make it three shades instead of five
 boundaries = [
-    ([0], [50]),    # black
-    ([51], [101]),  # dark gray
-    ([102], [152]), # gray
-    ([153], [203]), # light gray
+    ([0], [101]),   # black
+    ([102], [203]), # gray
     ([204], [255])  # white
 ]
 
 # Read the original image
 name = sys.argv[1]
 img_path = 'Edge-Detection-Test-' + name + '.jpg'
-try:
-    img = cv2.imread(img_path)
-except OSError:
+img = cv2.imread(img_path)
+if (img is None):
     print("Could not read file: " + img_path)
     exit(1)
 
@@ -37,17 +33,26 @@ else:
 dim = (int(width), int(height))
 img_resize = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
 
-# TODO: Contrast colors in image for better color detection
+"""
+# NOTE: Do we need contrast? It makes the color detection more detailed and less generalized... 
+# Leaving contrast here for now in case we decide we want it...
+contrast = 64
+alpha = 131*(contrast + 127)/(127*(131-contrast))
+gamma = 127*(1-alpha)
+img_contrast = cv2.addWeighted(img_resize, alpha, img_resize, 0, gamma)
+"""
 
 # Convert to graycsale
 img_gray = cv2.cvtColor(img_resize, cv2.COLOR_BGR2GRAY)
+# Normalize image
+img_normalize = np.zeros((img_gray.shape[0], img_gray.shape[1]))
+img_normalize = cv2.normalize(img_gray, img_normalize, 0, 255, cv2.NORM_MINMAX)
 # Blur the image for better color detection
-# TODO: Play around with blurring and see what produces the best result!
-#       Use bilateral blurring?
-img_blur = cv2.GaussianBlur(img_gray, (5,5), 0)
-# img_blur = cv2.medianBlur(img_blur, 3)
+img_blur = cv2.GaussianBlur(img_normalize, (5,5), 0)
 
 # TODO: Apply background erosion to remove unnecessary background colors
+
+# TODO: Associate edges with colors by doing a Bitwise-AND between edges and colors
 
 # loop over the boundaries
 for (lower, upper) in boundaries:
