@@ -1,0 +1,1 @@
+"./Carriage.obj" "./Commands.obj" "./DebugIO.obj" "./Error.obj" "./Pump.obj" "./Steppers.obj" "./UART.obj" "./main.obj" "../lnk_msp430fr2355.cmd" -lfrwp_init.a -llibc.a 
