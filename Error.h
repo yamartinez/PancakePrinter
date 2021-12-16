@@ -9,7 +9,7 @@
 #define ERROR_H_
 
 
-typedef enum error_code{
+typedef enum error_code{ //TODO: rename error codes from x and y to high and low
     unknown,
     steppers_not_initialized,
     steppers_not_calibrated,

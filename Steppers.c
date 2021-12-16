@@ -146,7 +146,7 @@ bool YLim1(){
 }
 
 void CalibrateSteppers(){
-    M_LIMIT_PORT_IE  &= ~M_LIMIT_PINS; // Diable interrupts
+    M_LIMIT_PORT_IE  &= ~M_LIMIT_PINS; // Disable interrupts
 
     // Do calibration
     X_Steps = 0;
@@ -187,9 +187,10 @@ void CalibrateSteppers(){
         Y_Step_Backward();
         Y_Steps--;
     }
-
-    M_LIMIT_PORT_IFG &= ~M_LIMIT_PINS; //clear flag, enable interrupts
-    M_LIMIT_PORT_IE  |=  M_LIMIT_PINS;
+    //now that space calibration is complete, enable interrupts on the bump switches. write this ISR.
+    // M_LIMIT_PORT_IFG &= ~M_LIMIT_PINS; //clear flag, enable interrupts
+    // M_LIMIT_PORT_IE  |=  M_LIMIT_PINS;
+    BumpInterruptInit(); //activate interrupts on the bump sensors
 
     uint16_t diff = X_Steps - Y_Steps; //
 
@@ -287,3 +288,37 @@ void move_absolute(int16_t x, int16_t y){
 void wait(){
     __delay_cycles(1000000);  // .5s/4
 }
+
+
+void BumpInterruptInit(){
+    M_LIMIT_PORT_DIR &= ~M_LIMIT_PINS; //set limit switch pins to inputs
+    M_LIMIT_PORT_REN |= M_LIMIT_PINS; //internal resistors enabled
+    M_LIMIT_PORT_OUT |= M_LIMIT_PINS; //internal resistors set to PULL-UP
+
+    M_LIMIT_PORT_IE |= M_LIMIT_PINS; //enabled interrupts on bump pins 
+    M_LIMIT_PORT_IES |= M_LIMIT_PINS; //HIGH to LOW edge select trigger
+    NVIC->ISER[1] |= 0x00000008; //enable interrupt 35 in the NVIC -  TRM 2.4.3.4
+    NVIC->IP[8] &= ~0xff000000;  //maximum priority to interrupt 35 - TRM 2.4.3.19
+    M_LIMIT_PORT_IFG &= ~M_LIMIT_PINS; //clear both flags, in case any appeared.
+    
+    //need to set up a PORT1_IRQHandler that includes:
+    //clearing bump interrupt flags, setting an error condition,
+    //and handling the two debug switches, if those are to be interrupt-driven.
+    //consider the following
+}
+
+void PORT1_IRQHandler(void){
+    uint16_t limit_flags = M_LIMIT_PORT_IFG & M_LIMIT_PINS; // record interrupt flags
+    M_LIMIT_PORT_IFG &= ~M_LIMIT_PINS; //clear both bump interrupt flags
+    if(limit_flags == BIT7){ //limit1, AKA high-side limit switch
+        error(); //TODO: new error code
+    }
+    if(limit_flags == BIT6){ //limit0, AKA low-side limit switch
+        error(); //TODO: new error code
+    }
+    if(limit_flags == BIT6 | BIT7){ //limit1 AND limit0, AKA both switches triggered? wacky but not unrealistic
+        error(); //TODO: new error code
+    }
+}
+
+
