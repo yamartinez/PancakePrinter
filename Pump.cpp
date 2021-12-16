@@ -26,8 +26,8 @@ uint16_t current_period = 0;
  * Pump pwm pin is P2.5, AKA PM_TA0.2
  */
 void InitPump(){
-//    PUMP_IN1_PORT_SEL0 &= ~PUMP_IN1_PIN;
-//    PUMP_IN1_PORT_SEL1 &= ~PUMP_IN1_PIN;
+    PUMP_IN1_PORT_SEL0 &= ~PUMP_IN1_PIN;
+    PUMP_IN1_PORT_SEL1 &= ~PUMP_IN1_PIN;
 //    PUMP_IN1_PORT_DIR  |= PUMP_IN1_PIN;
 //    PUMP_IN1_PORT_OUT  |= PUMP_IN1_PIN; // convention shall dictate that IN1 = 1 & IN2 = 0 will be forward
 //
@@ -36,7 +36,7 @@ void InitPump(){
 //    PUMP_IN2_PORT_DIR  |= PUMP_IN2_PIN;
 //    PUMP_IN2_PORT_OUT  &= ~PUMP_IN2_PIN; // convention shall dictate that IN1 = 1 & IN2 = 0 will be forward
 
-    PWM_Init2(1500, 0); //0% duty cycle, 150*1.33us period = 7.7kHz
+    PWM_Init2(150, 150); //0% duty cycle, 150*1.33us period = 7.7kHz
     // // Configure clock
     // P2SEL1 |= BIT6 | BIT7;                  // P2.6~P2.7: crystal pins
     // do
@@ -119,7 +119,7 @@ void PWM_Init2(uint16_t period, uint16_t duty2){
 // Inputs:  duty2, a float percentage of 1
 // Outputs: none// period of P2.5 is 2*period*666.7ns, duty cycle is duty2/period
 void PWM_Duty2(float duty2){
-  if(duty2 >= 1 || duty2 < 0) return; // bad input
+  if(duty2 > 1 || duty2 < 0) return; // bad input
   uint16_t PWM_duty_diff = (uint16_t) (duty2*current_period);
   TIMER_A0->CCR[2] = current_period - PWM_duty_diff - 1;        // CCR2 duty cycle is duty2/period
 }

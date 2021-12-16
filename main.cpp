@@ -5,6 +5,8 @@
 #include "Steppers.h"
 #include "Pump.h"
 #include "DebugIO.h"
+#include "Commands.h"
+#include "UART.h"
 
 void testPumpLoop();
 void mainloop();
@@ -18,22 +20,16 @@ int main(void)
     InitDebugIO();
     InitStepperMotors(1000,1000);
     InitPump();
-    while(1){
-        testPumpLoop();
-    }
-
-
+    PumpStop();
     DebugLED1On();
     while(!(DebugReadS1())){
         __delay_cycles(100);
     }
-//  TestSteppers();
-    PumpStop();
     DebugLED1Off();
     __delay_cycles(25000000);  // .5s
     CalibrateSteppers();
 
-//    mainloop();
+    mainloop();
 //  whack();
 
 //  return 0;
@@ -49,23 +45,24 @@ void testPumpLoop(){
     PumpDrive();
     __delay_cycles(1000);
 }
-//void mainloop(){
-//    static uint8_t notified = 0;
-//    while(1){
-//        notified = 0;
-//        while(QueueSize()>0){
-//            // Execute Command
-//            Command* c = DequeueCommand();
-//            if(c != 0)
-//                ExecuteCommand(c);
-//        }
-//        while(QueueSize()==0){
-//            // Twiddle Thumbs
-////            if(!notified){
-//                UART_Write(0);
-////                notified = 1;
-////            }
-//            __no_operation();
-//        }
-//    }
-//}
+
+void mainloop(){
+    static uint8_t notified = 0;
+    while(1){
+        notified = 0;
+        while(QueueSize()>0){
+            // Execute Command
+            Command* c = DequeueCommand();
+            if(c != 0)
+                ExecuteCommand(c);
+        }
+        while(QueueSize()==0){
+            // Twiddle Thumbs
+//            if(!notified){
+            UART0_OutChar(0);
+//                notified = 1;
+//            }
+            __no_operation();
+        }
+    }
+}
