@@ -1,0 +1,430 @@
+******************************************************************************
+                  TI ARM Linker Unix v20.2.5                   
+******************************************************************************
+>> Linked Thu Dec 16 14:12:15 2021
+
+OUTPUT FILE NAME:   <Capstone.out>
+ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 0000174d
+
+
+MEMORY CONFIGURATION
+
+         name            origin    length      used     unused   attr    fill
+----------------------  --------  ---------  --------  --------  ----  --------
+  MAIN                  00000000   00040000  00001802  0003e7fe  R  X
+  INFO                  00200000   00004000  00000000  00004000  R  X
+  SRAM_CODE             01000000   00010000  00000238  0000fdc8  RW X
+  SRAM_DATA             20000000   00010000  00000238  0000fdc8  RW  
+
+
+SEGMENT ALLOCATION MAP
+
+run origin  load origin   length   init length attrs members
+----------  ----------- ---------- ----------- ----- -------
+00000000    00000000    00001808   00001808    r-x
+  00000000    00000000    000000e4   000000e4    r-- .intvecs
+  000000e4    000000e4    000016e6   000016e6    r-x .text
+  000017d0    000017d0    00000038   00000038    r-- .cinit
+20000000    20000000    0000003a   00000000    rw-
+  20000000    20000000    0000002a   00000000    rw- .data
+  2000002c    2000002c    0000000e   00000000    rw- .bss
+2000fe00    2000fe00    00000200   00000000    rw-
+  2000fe00    2000fe00    00000200   00000000    rw- .stack
+
+
+SECTION ALLOCATION MAP
+
+ output                                  attributes/
+section   page    origin      length       input sections
+--------  ----  ----------  ----------   ----------------
+.intvecs   0    00000000    000000e4     
+                  00000000    000000e4     startup_msp432p401r_ccs.obj (.intvecs:retain)
+
+.text      0    000000e4    000016e6     
+                  000000e4    00000edc     Steppers.obj (.text)
+                  00000fc0    00000378     system_msp432p401r.obj (.text)
+                  00001338    00000170     Pump.obj (.text)
+                  000014a8    000000c8     DebugIO.obj (.text)
+                  00001570    0000009c     rtsv7M4_T_le_v4SPD16_eabi.lib : memcpy_t2.asm.obj (.text)
+                  0000160c    00000094     main.obj (.text)
+                  000016a0    00000068     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_decompress_lzss.c.obj (.text:decompress:lzss:__TI_decompress_lzss)
+                  00001708    00000044                                   : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit:__TI_auto_init_nobinit_nopinit)
+                  0000174c    00000034                                   : boot_cortex_m.c.obj (.text:_c_int00_noargs:_c_int00_noargs)
+                  00001780    0000001c                                   : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init_nomemset:__TI_zero_init_nomemset)
+                  0000179c    0000000e                                   : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
+                  000017aa    0000000e     startup_msp432p401r_ccs.obj (.text)
+                  000017b8    0000000a     Error.obj (.text)
+                  000017c2    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : pre_init.c.obj (.text:_system_pre_init)
+                  000017c6    00000004                                   : exit.c.obj (.text:abort:abort)
+
+.cinit     0    000017d0    00000038     
+                  000017d0    0000000d     (.cinit..data.load) [load image, compression = lzss]
+                  000017dd    00000003     --HOLE-- [fill = 0]
+                  000017e0    0000000c     (__TI_handler_table)
+                  000017ec    00000004     --HOLE-- [fill = 0]
+                  000017f0    00000008     (.cinit..bss.load) [load image, compression = zero_init]
+                  000017f8    00000010     (__TI_cinit_table)
+
+.init_array 
+*          0    00000000    00000000     UNINITIALIZED
+
+.binit     0    00000000    00000000     
+
+.data      0    20000000    0000002a     UNINITIALIZED
+                  20000000    00000024     Steppers.obj (.data)
+                  20000024    00000004     system_msp432p401r.obj (.data)
+                  20000028    00000002     Pump.obj (.data)
+
+.bss       0    2000002c    0000000e     UNINITIALIZED
+                  2000002c    00000004     (.common:X_Steps)
+                  20000030    00000002     (.common:GlobalX_Position)
+                  20000032    00000002     (.common:GlobalY_Position)
+                  20000034    00000002     (.common:X_DIM)
+                  20000036    00000002     (.common:X_Image_Offset)
+                  20000038    00000002     (.common:Y_DIM)
+
+.stack     0    2000fe00    00000200     UNINITIALIZED
+                  2000fe00    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : boot_cortex_m.c.obj (.stack)
+                  2000fe04    000001fc     --HOLE--
+
+__llvm_prf_cnts 
+*          0    20000000    00000000     UNINITIALIZED
+
+MODULE SUMMARY
+
+       Module                        code   ro data   rw data
+       ------                        ----   -------   -------
+    ./
+       Steppers.obj                  3804   0         100    
+       system_msp432p401r.obj        888    0         8      
+       Pump.obj                      368    0         4      
+       startup_msp432p401r_ccs.obj   14     228       0      
+       DebugIO.obj                   200    0         0      
+       main.obj                      148    0         0      
+       Error.obj                     10     0         0      
+    +--+-----------------------------+------+---------+---------+
+       Total:                        5432   228       112    
+                                                             
+    /Applications/ti/ccs1100/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/lib/rtsv7M4_T_le_v4SPD16_eabi.lib
+       memcpy_t2.asm.obj             156    0         0      
+       copy_decompress_lzss.c.obj    104    0         0      
+       autoinit.c.obj                68     0         0      
+       boot_cortex_m.c.obj           52     0         0      
+       copy_zero_init.c.obj          28     0         0      
+       copy_decompress_none.c.obj    14     0         0      
+       exit.c.obj                    4      0         0      
+       pre_init.c.obj                4      0         0      
+    +--+-----------------------------+------+---------+---------+
+       Total:                        430    0         0      
+                                                             
+       Stack:                        0      0         1024   
+       Linker Generated:             0      49        0      
+    +--+-----------------------------+------+---------+---------+
+       Grand Total:                  5862   277       1136   
+
+
+LINKER GENERATED COPY TABLES
+
+__TI_cinit_table @ 000017f8 records: 2, size/record: 8, table size: 16
+	.data: load addr=000017d0, load size=0000000d bytes, run addr=20000000, run size=0000002a bytes, compression=lzss
+	.bss: load addr=000017f0, load size=00000008 bytes, run addr=2000002c, run size=0000000e bytes, compression=zero_init
+
+
+LINKER GENERATED HANDLER TABLE
+
+__TI_handler_table @ 000017e0 records: 3, size/record: 4, table size: 12
+	index: 0, handler: __TI_decompress_lzss
+	index: 1, handler: __TI_decompress_none
+	index: 2, handler: __TI_zero_init
+
+
+GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
+
+address   name                          
+-------   ----                          
+000017b7  ADC14_IRQHandler              
+000017b7  AES256_IRQHandler             
+000017b7  BusFault_Handler              
+000017c7  C$$EXIT                       
+000017b7  COMP_E0_IRQHandler            
+000017b7  COMP_E1_IRQHandler            
+000017b7  CS_IRQHandler                 
+000017b7  DMA_ERR_IRQHandler            
+000017b7  DMA_INT0_IRQHandler           
+000017b7  DMA_INT1_IRQHandler           
+000017b7  DMA_INT2_IRQHandler           
+000017b7  DMA_INT3_IRQHandler           
+000017b7  DebugMon_Handler              
+000017b7  Default_Handler               
+000017b7  EUSCIA0_IRQHandler            
+000017b7  EUSCIA1_IRQHandler            
+000017b7  EUSCIA2_IRQHandler            
+000017b7  EUSCIA3_IRQHandler            
+000017b7  EUSCIB0_IRQHandler            
+000017b7  EUSCIB1_IRQHandler            
+000017b7  EUSCIB2_IRQHandler            
+000017b7  EUSCIB3_IRQHandler            
+000017b7  FLCTL_IRQHandler              
+000017b7  FPU_IRQHandler                
+20000030  GlobalX_Position              
+20000032  GlobalY_Position              
+000017b7  HardFault_Handler             
+000017b7  MemManage_Handler             
+000017b7  NMI_Handler                   
+000017b7  PCM_IRQHandler                
+000017b7  PORT1_IRQHandler              
+000017b7  PORT2_IRQHandler              
+000017b7  PORT3_IRQHandler              
+000017b7  PORT4_IRQHandler              
+000017b7  PORT5_IRQHandler              
+000017b7  PORT6_IRQHandler              
+000017b7  PSS_IRQHandler                
+000017b7  PendSV_Handler                
+000017b7  RTC_C_IRQHandler              
+000017ab  Reset_Handler                 
+000017b7  SVC_Handler                   
+20000007  Steppers_Calibrated           
+20000006  Steppers_Initialized          
+000017b7  SysTick_Handler               
+20000024  SystemCoreClock               
+00000fc1  SystemCoreClockUpdate         
+00001239  SystemInit                    
+000017b7  T32_INT1_IRQHandler           
+000017b7  T32_INT2_IRQHandler           
+000017b7  T32_INTC_IRQHandler           
+000017b7  TA0_0_IRQHandler              
+000017b7  TA0_N_IRQHandler              
+000017b7  TA1_0_IRQHandler              
+000017b7  TA1_N_IRQHandler              
+000017b7  TA2_0_IRQHandler              
+000017b7  TA2_N_IRQHandler              
+000017b7  TA3_0_IRQHandler              
+000017b7  TA3_N_IRQHandler              
+000017b7  UsageFault_Handler            
+4000480c  WDTCTL_SYM                    
+000017b7  WDT_A_IRQHandler              
+20000034  X_DIM                         
+20000036  X_Image_Offset                
+2000002c  X_Steps                       
+20000038  Y_DIM                         
+20000004  Y_Image_Offset                
+20000000  Y_Steps                       
+00000d39  _Z10move_imagess              
+00001533  _Z11DebugLED1Onv              
+00001513  _Z11DebugReadS1v              
+00001523  _Z11DebugReadS2v              
+00001507  _Z11InitDebugIOv              
+0000153f  _Z12DebugLED1Offv             
+000014d3  _Z12InitSwitchesv             
+00001353  _Z12PumpSetSpeedf             
+000006b9  _Z12TestSteppersv             
+00001635  _Z12testPumpLoopv             
+00000d0d  _Z13move_absolutess           
+00000c61  _Z13move_relativess           
+00000591  _Z14X_Step_Forwardv           
+000005c7  _Z14Y_Step_Forwardv           
+0000154b  _Z15DebugToggleLED1v          
+000005b1  _Z15X_Step_Backwardv          
+000005dd  _Z15Y_Step_Backwardv          
+00000f33  _Z16PORT1_IRQHandlerv         
+00000ee1  _Z17BumpInterruptInitv        
+00000745  _Z17CalibrateSteppersv        
+000000e5  _Z17InitStepperMotorstt       
+00000d69  _Z17fill_image_squarev        
+000005f9  _Z19CheckXLimitSwitchesv      
+00000621  _Z19CheckYLimitSwitchesv      
+00000945  _Z4move9directionS_tt         
+00000eb9  _Z4waitj                      
+00000661  _Z5XLim0v                     
+00000649  _Z5XLim1v                     
+00000685  _Z5YLim0v                     
+0000069d  _Z5YLim1v                     
+000017b9  _Z5error10error_code          
+0000038b  _Z6X_Stepjj                   
+000004b5  _Z6Y_Stepjj                   
+00001371  _Z7PumpDirt                   
+000014a9  _Z8InitLED1v                  
+00001339  _Z8InitPumpv                  
+00001363  _Z8PumpStopv                  
+0000141b  _Z9PWM_Duty2f                 
+000013ad  _Z9PWM_Init2tt                
+00001347  _Z9PumpDrivev                 
+20010000  __STACK_END                   
+00000200  __STACK_SIZE                  
+000017f8  __TI_CINIT_Base               
+00001808  __TI_CINIT_Limit              
+000017e0  __TI_Handler_Table_Base       
+000017ec  __TI_Handler_Table_Limit      
+00001709  __TI_auto_init_nobinit_nopinit
+000016a1  __TI_decompress_lzss          
+0000179d  __TI_decompress_none          
+ffffffff  __TI_pprof_out_hndl           
+ffffffff  __TI_prof_data_size           
+ffffffff  __TI_prof_data_start          
+00000000  __TI_static_base__            
+00001781  __TI_zero_init_nomemset       
+00001571  __aeabi_memcpy                
+00001571  __aeabi_memcpy4               
+00001571  __aeabi_memcpy8               
+ffffffff  __binit__                     
+ffffffff  __c_args__                    
+UNDEFED   __mpu_init                    
+2000fe00  __stack                       
+20000000  __start___llvm_prf_cnts       
+20000000  __stop___llvm_prf_cnts        
+0000174d  _c_int00_noargs               
+UNDEFED   _system_post_cinit            
+000017c3  _system_pre_init              
+000017c7  abort                         
+ffffffff  binit                         
+20000028  current_period                
+00000000  interruptVectors              
+0000160d  main                          
+00001571  memcpy                        
+
+
+GLOBAL SYMBOLS: SORTED BY Symbol Address 
+
+address   name                          
+-------   ----                          
+00000000  __TI_static_base__            
+00000000  interruptVectors              
+000000e5  _Z17InitStepperMotorstt       
+00000200  __STACK_SIZE                  
+0000038b  _Z6X_Stepjj                   
+000004b5  _Z6Y_Stepjj                   
+00000591  _Z14X_Step_Forwardv           
+000005b1  _Z15X_Step_Backwardv          
+000005c7  _Z14Y_Step_Forwardv           
+000005dd  _Z15Y_Step_Backwardv          
+000005f9  _Z19CheckXLimitSwitchesv      
+00000621  _Z19CheckYLimitSwitchesv      
+00000649  _Z5XLim1v                     
+00000661  _Z5XLim0v                     
+00000685  _Z5YLim0v                     
+0000069d  _Z5YLim1v                     
+000006b9  _Z12TestSteppersv             
+00000745  _Z17CalibrateSteppersv        
+00000945  _Z4move9directionS_tt         
+00000c61  _Z13move_relativess           
+00000d0d  _Z13move_absolutess           
+00000d39  _Z10move_imagess              
+00000d69  _Z17fill_image_squarev        
+00000eb9  _Z4waitj                      
+00000ee1  _Z17BumpInterruptInitv        
+00000f33  _Z16PORT1_IRQHandlerv         
+00000fc1  SystemCoreClockUpdate         
+00001239  SystemInit                    
+00001339  _Z8InitPumpv                  
+00001347  _Z9PumpDrivev                 
+00001353  _Z12PumpSetSpeedf             
+00001363  _Z8PumpStopv                  
+00001371  _Z7PumpDirt                   
+000013ad  _Z9PWM_Init2tt                
+0000141b  _Z9PWM_Duty2f                 
+000014a9  _Z8InitLED1v                  
+000014d3  _Z12InitSwitchesv             
+00001507  _Z11InitDebugIOv              
+00001513  _Z11DebugReadS1v              
+00001523  _Z11DebugReadS2v              
+00001533  _Z11DebugLED1Onv              
+0000153f  _Z12DebugLED1Offv             
+0000154b  _Z15DebugToggleLED1v          
+00001571  __aeabi_memcpy                
+00001571  __aeabi_memcpy4               
+00001571  __aeabi_memcpy8               
+00001571  memcpy                        
+0000160d  main                          
+00001635  _Z12testPumpLoopv             
+000016a1  __TI_decompress_lzss          
+00001709  __TI_auto_init_nobinit_nopinit
+0000174d  _c_int00_noargs               
+00001781  __TI_zero_init_nomemset       
+0000179d  __TI_decompress_none          
+000017ab  Reset_Handler                 
+000017b7  ADC14_IRQHandler              
+000017b7  AES256_IRQHandler             
+000017b7  BusFault_Handler              
+000017b7  COMP_E0_IRQHandler            
+000017b7  COMP_E1_IRQHandler            
+000017b7  CS_IRQHandler                 
+000017b7  DMA_ERR_IRQHandler            
+000017b7  DMA_INT0_IRQHandler           
+000017b7  DMA_INT1_IRQHandler           
+000017b7  DMA_INT2_IRQHandler           
+000017b7  DMA_INT3_IRQHandler           
+000017b7  DebugMon_Handler              
+000017b7  Default_Handler               
+000017b7  EUSCIA0_IRQHandler            
+000017b7  EUSCIA1_IRQHandler            
+000017b7  EUSCIA2_IRQHandler            
+000017b7  EUSCIA3_IRQHandler            
+000017b7  EUSCIB0_IRQHandler            
+000017b7  EUSCIB1_IRQHandler            
+000017b7  EUSCIB2_IRQHandler            
+000017b7  EUSCIB3_IRQHandler            
+000017b7  FLCTL_IRQHandler              
+000017b7  FPU_IRQHandler                
+000017b7  HardFault_Handler             
+000017b7  MemManage_Handler             
+000017b7  NMI_Handler                   
+000017b7  PCM_IRQHandler                
+000017b7  PORT1_IRQHandler              
+000017b7  PORT2_IRQHandler              
+000017b7  PORT3_IRQHandler              
+000017b7  PORT4_IRQHandler              
+000017b7  PORT5_IRQHandler              
+000017b7  PORT6_IRQHandler              
+000017b7  PSS_IRQHandler                
+000017b7  PendSV_Handler                
+000017b7  RTC_C_IRQHandler              
+000017b7  SVC_Handler                   
+000017b7  SysTick_Handler               
+000017b7  T32_INT1_IRQHandler           
+000017b7  T32_INT2_IRQHandler           
+000017b7  T32_INTC_IRQHandler           
+000017b7  TA0_0_IRQHandler              
+000017b7  TA0_N_IRQHandler              
+000017b7  TA1_0_IRQHandler              
+000017b7  TA1_N_IRQHandler              
+000017b7  TA2_0_IRQHandler              
+000017b7  TA2_N_IRQHandler              
+000017b7  TA3_0_IRQHandler              
+000017b7  TA3_N_IRQHandler              
+000017b7  UsageFault_Handler            
+000017b7  WDT_A_IRQHandler              
+000017b9  _Z5error10error_code          
+000017c3  _system_pre_init              
+000017c7  C$$EXIT                       
+000017c7  abort                         
+000017e0  __TI_Handler_Table_Base       
+000017ec  __TI_Handler_Table_Limit      
+000017f8  __TI_CINIT_Base               
+00001808  __TI_CINIT_Limit              
+20000000  Y_Steps                       
+20000000  __start___llvm_prf_cnts       
+20000000  __stop___llvm_prf_cnts        
+20000004  Y_Image_Offset                
+20000006  Steppers_Initialized          
+20000007  Steppers_Calibrated           
+20000024  SystemCoreClock               
+20000028  current_period                
+2000002c  X_Steps                       
+20000030  GlobalX_Position              
+20000032  GlobalY_Position              
+20000034  X_DIM                         
+20000036  X_Image_Offset                
+20000038  Y_DIM                         
+2000fe00  __stack                       
+20010000  __STACK_END                   
+4000480c  WDTCTL_SYM                    
+ffffffff  __TI_pprof_out_hndl           
+ffffffff  __TI_prof_data_size           
+ffffffff  __TI_prof_data_start          
+ffffffff  __binit__                     
+ffffffff  __c_args__                    
+ffffffff  binit                         
+UNDEFED   __mpu_init                    
+UNDEFED   _system_post_cinit            
+
+[139 symbols]

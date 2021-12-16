@@ -8,10 +8,13 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
+"./Carriage.obj" \
+"./Commands.obj" \
 "./DebugIO.obj" \
 "./Error.obj" \
 "./Pump.obj" \
 "./Steppers.obj" \
+"./UART.obj" \
 "./main.obj" \
 "./startup_msp432p401r_ccs.obj" \
 "./system_msp432p401r.obj" \
@@ -158,8 +161,9 @@ Capstone.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "DebugIO.obj" "Error.obj" "Pump.obj" "Steppers.obj" "main.obj" "startup_msp432p401r_ccs.obj" "system_msp432p401r.obj" 
-	-$(RM) "DebugIO.d" "Error.d" "Pump.d" "Steppers.d" "main.d" "startup_msp432p401r_ccs.d" "system_msp432p401r.d" 
+	-$(RM) "Carriage.obj" "Commands.obj" "DebugIO.obj" "Error.obj" "Pump.obj" "Steppers.obj" "UART.obj" "main.obj" "startup_msp432p401r_ccs.obj" "system_msp432p401r.obj" 
+	-$(RM) "startup_msp432p401r_ccs.d" "system_msp432p401r.d" 
+	-$(RM) "Carriage.d" "Commands.d" "DebugIO.d" "Error.d" "Pump.d" "Steppers.d" "UART.d" "main.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

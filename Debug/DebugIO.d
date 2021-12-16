@@ -1,11 +1,16 @@
 # FIXED
 
-DebugIO.obj: ../DebugIO.c
+DebugIO.obj: ../DebugIO.cpp
 DebugIO.obj: ../DebugIO.h
 DebugIO.obj: ../PortPins.h
+DebugIO.obj: /Applications/ti/ccs1100/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/libcxx/stdbool.h
+DebugIO.obj: /Applications/ti/ccs1100/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/libcxx/__config
+DebugIO.obj: /Applications/ti/ccs1100/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/libcxx/__config_site
+DebugIO.obj: /Applications/ti/ccs1100/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/libcxx/__libcxx_extra.h
 DebugIO.obj: /Applications/ti/ccs1100/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/stdbool.h
 DebugIO.obj: /Applications/ti/ccs1100/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/_ti_config.h
 DebugIO.obj: /Applications/ti/ccs1100/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/linkage.h
+DebugIO.obj: /Applications/ti/ccs1100/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/libcxx/stdint.h
 DebugIO.obj: /Applications/ti/ccs1100/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/stdint.h
 DebugIO.obj: /Applications/ti/ccs1100/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/_stdint40.h
 DebugIO.obj: /Applications/ti/ccs1100/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/sys/stdint.h
@@ -24,17 +29,27 @@ DebugIO.obj: /Applications/ti/ccs1100/ccs/ccs_base/arm/include/CMSIS/cmsis_ccs.h
 DebugIO.obj: /Applications/ti/ccs1100/ccs/ccs_base/arm/include/system_msp432p401r.h
 DebugIO.obj: ../Error.h
 
-../DebugIO.c:
+../DebugIO.cpp:
 
 ../DebugIO.h:
 
 ../PortPins.h:
+
+/Applications/ti/ccs1100/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/libcxx/stdbool.h:
+
+/Applications/ti/ccs1100/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/libcxx/__config:
+
+/Applications/ti/ccs1100/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/libcxx/__config_site:
+
+/Applications/ti/ccs1100/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/libcxx/__libcxx_extra.h:
 
 /Applications/ti/ccs1100/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/stdbool.h:
 
 /Applications/ti/ccs1100/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/_ti_config.h:
 
 /Applications/ti/ccs1100/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/linkage.h:
+
+/Applications/ti/ccs1100/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/libcxx/stdint.h:
 
 /Applications/ti/ccs1100/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/stdint.h:
 
