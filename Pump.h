@@ -16,7 +16,7 @@
 
 void InitPump();
 void PumpDrive();
-void PumpSetSpeed(int Duty);
+void PumpSetSpeed(float Duty);
 void PumpStop();
 
 #endif /* PUMP_H_ */
