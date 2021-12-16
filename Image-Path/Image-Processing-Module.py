@@ -3,7 +3,7 @@ from numpy import zeros, array, where
 import sys
 
 # Returns edges as binary mask and colors as list of binary masks
-def processImage(img, show=False):
+def processImage(img, show=False, dilation=3):
     # ------------------- EDGE DETECTION -------------------
 
     # Check if image is valid
@@ -37,7 +37,7 @@ def processImage(img, show=False):
     edges_resized[not_black_pixels] = 255
 
     # Dilate image to connect loose ends of edges
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3,3))
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (dilation, dilation))
     edges_morph = cv2.morphologyEx(edges_resized, cv2.MORPH_DILATE, kernel)
     if show:
         cv2.imshow('Edges', edges_morph)
