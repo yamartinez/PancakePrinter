@@ -57,7 +57,7 @@ void InitStepperMotors(uint16_t X_dim, uint16_t Y_dim){
     M_LIMIT_PORT_OUT  &= ~MLIMPINS;
 #ifndef STEPPER_DEBUG
     M_LIMIT_PORT_IES  &= ~MLIMPINS; // Edge select
-    M_LIMIT_PORT_IE   |=  MLIMPINS; // Enable Interrputs
+    M_LIMIT_PORT_IE  &= ~MLIMPINS; // Diable interrupts
     M_LIMIT_PORT_IFG  &= ~MLIMPINS; // Clear Interrupt Flag
 #endif
 
@@ -173,7 +173,7 @@ void Y_Step_Backward(){
 
 uint8_t CheckLimitSwitches(){
     uint8_t val = ~M_LIMIT_PORT_IN;
-    uint8_t ret =  (val & MX_LIM0) | ((val&MX_LIM1) >> 3) | ((val&(MY_LIM0|MY_LIM1)) >> 4);
+    uint8_t ret = ((val&(M_LIM0|M_LIM1)) >> 6);
     return ret;
 }
 
@@ -186,11 +186,11 @@ bool XLim1(){
 }
 
 bool YLim0(){
-    return CheckLimitSwitches() & 0x04;
+    return CheckLimitSwitches() & 0x01;
 }
 
 bool YLim1(){
-    return CheckLimitSwitches() & 0x08;
+    return CheckLimitSwitches() & 0x02;
 }
 
 void TestSteppers(){

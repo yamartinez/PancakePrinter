@@ -85,9 +85,9 @@
 #define M_LIMIT_PORT_REN    P4REN
 #define MX_LIM0 BIT0
 #define MX_LIM1 BIT4
-#define MY_LIM0 BIT6
-#define MY_LIM1 BIT7
-#define MLIMPINS (MX_LIM0 | MX_LIM1 | MY_LIM0 | MY_LIM1)
+#define M_LIM0 BIT6
+#define M_LIM1 BIT7
+#define MLIMPINS (M_LIM0 | M_LIM1)
 
 #define MOTOR_X_FORWARD  (MX_PORT_OUT &=~M_DIR)
 #define MOTOR_Y_FORWARD  (MY_PORT_OUT &=~M_DIR)
