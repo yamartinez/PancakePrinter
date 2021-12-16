@@ -12,16 +12,16 @@
 #include <stdint.h>
 #include "msp432.h"
 #include "./Error.h"
-
+#include "msp432p401r.h"
 
 /**
  *  MX enable - P5.5
  *  MY enable - P2.4
- * 
+ *
  *  recall that enables are to be held high
- * 
+ *
  */
-#define MX_ENABLE_PORT P5 
+#define MX_ENABLE_PORT P5
 #define MX_ENABLE_PIN BIT5 //5th pin, 0x10
 #define MX_ENABLE_PORT_SEL0 MX_ENABLE_PORT->SEL0
 #define MX_ENABLE_PORT_SEL1 MX_ENABLE_PORT->SEL1
@@ -37,7 +37,7 @@
 /**
  * MX direction - P3.7
  * MY direction - P5.6
- * 
+ *
  */
 
 #define MX_DIR_PORT P3
@@ -58,19 +58,19 @@
 /**
  * MX uS0 - P3.5
  * MX uS1 - P4.6
- * 
+ *
  * MY uS0 - P6.6
- * MY uS1 - P6.7 
- * 
+ * MY uS1 - P6.7
+ *
  * hold low unless microstepping is viable and needed
- * 
+ *
  */
 #define MX_uS0_PORT P3
 #define MX_uS0_PIN BIT5 //5th pin, 0x20
 #define MX_uS0_PORT_SEL0 MX_uS0_PORT->SEL0
 #define MX_uS0_PORT_SEL1 MX_uS0_PORT->SEL1
 #define MX_uS0_PORT_DIR MX_uS0_PORT->DIR
-#define MX_uS0_PORT_OUT MX_uS0_PORT->OUT 
+#define MX_uS0_PORT_OUT MX_uS0_PORT->OUT
 
 #define MY_uS0_PORT P6
 #define MY_uS0_PIN BIT6 //6th pin, 0x40
@@ -97,9 +97,9 @@
 /**
  * MX Reset - P6.4
  * MY Reset - P1.3
- * 
+ *
  * recall the reset pins are active low, so they are to be held high under normal operation
- * 
+ *
  */
 #define MX_RESET_PORT P6
 #define MX_RESET_PIN BIT4 //4th pin, 0x08
@@ -119,7 +119,7 @@
 /**
  * MX Step - P4.2
  * MY Step - P4.4
- * 
+ *
  */
 
 #define MX_STEP_PORT P4
@@ -139,7 +139,7 @@
 
 /**
  * Pump PWM output - P2.5
- * 
+ *
  */
 
 #define PUMP_PORT P2
@@ -149,12 +149,27 @@
 #define PUMP_PORT_DIR PUMP_PORT->DIR
 #define PUMP_PORT_OUT PUMP_PORT->OUT
 
+#define PUMP_IN1_PORT P3
+#define PUMP_IN1_PIN BIT0
+#define PUMP_IN1_PORT_SEL0 PUMP_IN1_PORT->SEL0
+#define PUMP_IN1_PORT_SEL1 PUMP_IN1_PORT->SEL1
+#define PUMP_IN1_PORT_DIR PUMP_IN1_PORT->DIR
+#define PUMP_IN1_PORT_OUT PUMP_IN1_PORT->OUT
+
+#define PUMP_IN2_PORT P5
+#define PUMP_IN2_PIN BIT7
+#define PUMP_IN2_PORT_SEL0 PUMP_IN2_PORT->SEL0
+#define PUMP_IN2_PORT_SEL1 PUMP_IN2_PORT->SEL1
+#define PUMP_IN2_PORT_DIR PUMP_IN2_PORT->DIR
+#define PUMP_IN2_PORT_OUT PUMP_IN2_PORT->OUT
+
+
 /**
  * Debug outputs
  * LED1 - P1.0
  * S1 - P1.1
  * S2 - P1.4
- * 
+ *
  */
 #define LED1_PORT P1
 #define SWITCH_PORT P1
@@ -178,30 +193,55 @@
 
 /**
  * Limit Switches
- * M_Limit0 - P1.6
- * M_Limit1 - P1.7
- * 
+ * MX_Limit0 - P1.6 = WHITE
+ * MX_Limit1 - P1.7 = BLACK
+ *
+ * MY_Limit0 - P5.2 = GREEN
+ * MY_Limit1 - P5.0 = PURPLE
+ *
  */
 
-#define M_LIMIT_PORT P1
-#define M_LIMIT_PORT_SEL0 M_LIMIT_PORT->SEL0
-#define M_LIMIT_PORT_SEL1 M_LIMIT_PORT->SEL1
-#define M_LIMIT_PORT_DIR M_LIMIT_PORT->DIR
-#define M_LIMIT_PORT_OUT M_LIMIT_PORT->OUT
-#define M_LIMIT_PORT_IFG M_LIMIT_PORT->IFG
-#define M_LIMIT_PORT_IE M_LIMIT_PORT->IE
-#define M_LIMIT_PORT_IES M_LIMIT_PORT->IES
-#define M_LIMIT_PORT_IN M_LIMIT_PORT->IN
-#define M_LIMIT_PORT_REN M_LIMIT_PORT->REN
+#define MX_LIMIT_PORT P1
+#define MX_LIMIT_PORT_SEL0 MX_LIMIT_PORT->SEL0
+#define MX_LIMIT_PORT_SEL1 MX_LIMIT_PORT->SEL1
+#define MX_LIMIT_PORT_DIR MX_LIMIT_PORT->DIR
+#define MX_LIMIT_PORT_OUT MX_LIMIT_PORT->OUT
+#define MX_LIMIT_PORT_IFG MX_LIMIT_PORT->IFG
+#define MX_LIMIT_PORT_IE MX_LIMIT_PORT->IE
+#define MX_LIMIT_PORT_IES MX_LIMIT_PORT->IES
+#define MX_LIMIT_PORT_IN MX_LIMIT_PORT->IN
+#define MX_LIMIT_PORT_REN MX_LIMIT_PORT->REN
 
-#define M_LIMIT_0_PIN BIT6 //0x40, bit 6
-#define M_LIMIT_1_PIN BIT7 //0x80, bit 7
+#define MX_LIMIT_0_PIN BIT6 //0x40, bit 6
+#define MX_LIMIT_1_PIN BIT7 //0x80, bit 7
 
-#define M_LIMIT_PINS (M_LIMIT_0_PIN | M_LIMIT_1_PIN)
+#define MY_LIMIT_PORT P5
+#define MY_LIMIT_PORT_SEL0 MY_LIMIT_PORT->SEL0
+#define MY_LIMIT_PORT_SEL1 MY_LIMIT_PORT->SEL1
+#define MY_LIMIT_PORT_DIR MY_LIMIT_PORT->DIR
+#define MY_LIMIT_PORT_OUT MY_LIMIT_PORT->OUT
+#define MY_LIMIT_PORT_IFG MY_LIMIT_PORT->IFG
+#define MY_LIMIT_PORT_IE MY_LIMIT_PORT->IE
+#define MY_LIMIT_PORT_IES MY_LIMIT_PORT->IES
+#define MY_LIMIT_PORT_IN MY_LIMIT_PORT->IN
+#define MY_LIMIT_PORT_REN MY_LIMIT_PORT->REN
+
+#define MY_LIMIT_1_PIN BIT0 //0x01, bit 0
+#define MY_LIMIT_0_PIN BIT2 //0x02, bit 2
+
+#define MX_LIMIT_PINS (MX_LIMIT_0_PIN | MX_LIMIT_1_PIN)
+#define MY_LIMIT_PINS (MY_LIMIT_0_PIN | MY_LIMIT_1_PIN)
 
 #define MOTOR_X_FORWARD (MX_DIR_PORT_OUT|=MX_DIR_PIN)
-#define MOTOR_Y_FORWARD (MY_DIR_PORT_OUT|=MY_DIR_PIN)
+#define MOTOR_Y_BACKWARD (MY_DIR_PORT_OUT|=MY_DIR_PIN)
 #define MOTOR_X_BACKWARD (MX_DIR_PORT_OUT&=~MX_DIR_PIN)
-#define MOTOR_Y_BACKWARD (MY_DIR_PORT_OUT&=~MY_DIR_PIN)
+#define MOTOR_Y_FORWARD (MY_DIR_PORT_OUT&=~MY_DIR_PIN)
+
+#define MX_ENABLE  (MX_ENABLE_PORT_OUT &= ~(MX_ENABLE_PIN))
+#define MX_DISABLE (MX_ENABLE_PORT_OUT |=  (MX_ENABLE_PIN))
+#define MY_ENABLE  (MY_ENABLE_PORT_OUT &= ~(MY_ENABLE_PIN))
+#define MY_DISABLE (MY_ENABLE_PORT_OUT |=  (MY_ENABLE_PIN))
+
+#define WAIT_500MS (__delay_cycles(48000000>>2));
 
 #endif /* PORTPINS_H_ */

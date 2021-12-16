@@ -3,7 +3,7 @@
  *  FIX THIS ASAP - 12-15-2021 - 23:30 PM
  *  Created on: Nov 30, 2021
  *      Author: panda
- */ 
+ */
 
 /**
  * @file Pump.c
@@ -18,13 +18,25 @@
 
 #include "./Pump.h"
 
+void PWM_Duty2(float duty2);
+void PWM_Init2(uint16_t period, uint16_t duty2);
 uint16_t current_period = 0;
 /**
  * @brief Initialize pump for operations
- * Pump pin is P2.5, AKA PM_TA0.2
+ * Pump pwm pin is P2.5, AKA PM_TA0.2
  */
 void InitPump(){
-    PWM_Init2(15000, 0); //0% duty cycle, 15000*1.33us period
+    PUMP_IN1_PORT_SEL0 &= ~PUMP_IN1_PIN;
+    PUMP_IN1_PORT_SEL1 &= ~PUMP_IN1_PIN;
+//    PUMP_IN1_PORT_DIR  |= PUMP_IN1_PIN;
+//    PUMP_IN1_PORT_OUT  |= PUMP_IN1_PIN; // convention shall dictate that IN1 = 1 & IN2 = 0 will be forward
+//
+//    PUMP_IN2_PORT_SEL0 &= ~PUMP_IN2_PIN;
+//    PUMP_IN2_PORT_SEL1 &= ~PUMP_IN2_PIN;
+//    PUMP_IN2_PORT_DIR  |= PUMP_IN2_PIN;
+//    PUMP_IN2_PORT_OUT  &= ~PUMP_IN2_PIN; // convention shall dictate that IN1 = 1 & IN2 = 0 will be forward
+
+    PWM_Init2(150, 150); //0% duty cycle, 150*1.33us period = 7.7kHz
     // // Configure clock
     // P2SEL1 |= BIT6 | BIT7;                  // P2.6~P2.7: crystal pins
     // do
@@ -57,6 +69,19 @@ void PumpSetSpeed(float Duty){
 void PumpStop(){
     PumpSetSpeed(0);
 }
+
+//change direction - direction 1 will be IN1 = 1 & IN2 = 0
+// direction 0 will be IN1 = 0 & IN2 = 1
+void PumpDir(uint16_t direction){
+    if(direction){
+    PUMP_IN1_PORT_OUT |= PUMP_IN1_PIN;
+    PUMP_IN2_PORT_OUT &= ~PUMP_IN2_PIN;
+    }
+    else {
+        PUMP_IN1_PORT_OUT &= ~PUMP_IN1_PIN;
+        PUMP_IN2_PORT_OUT |= PUMP_IN2_PIN;
+    }
+}
 //***************************PWM_Init12*******************************
 // PWM outputs on P2.5
 // Inputs:  period (1.333us)
@@ -74,7 +99,7 @@ void PWM_Init2(uint16_t period, uint16_t duty2){
   P2->SEL0 |= PUMP_PWM_PIN;         //  P2.5 Timer0A functions
   P2->SEL1 &= ~PUMP_PWM_PIN;        //  P2.5 Timer0A functions
   TIMER_A0->CCTL[0] = 0x0080;      // CCI0 toggle
-  TIMER_A0->CCR[0] = period;       // Period is 2*period*8*83.33ns is 1.333*period
+  TIMER_A0->CCR[0] = period;       // Period is 2*period*8*83.33ns is 1.333us*period
   TIMER_A0->EX0 = 0x0000;        //    divide by 1
   TIMER_A0->CCTL[2] = 0x0040;      // CCR2 toggle/reset
   TIMER_A0->CCR[2] = duty2;        // CCR2 duty cycle is duty2/period
@@ -95,6 +120,6 @@ void PWM_Init2(uint16_t period, uint16_t duty2){
 // Outputs: none// period of P2.5 is 2*period*666.7ns, duty cycle is duty2/period
 void PWM_Duty2(float duty2){
   if(duty2 > 1 || duty2 < 0) return; // bad input
-  uint16_t PWM_duty = (uint16_t) (duty2*current_period);
-  TIMER_A0->CCR[2] = PWM_duty;        // CCR2 duty cycle is duty2/period
+  uint16_t PWM_duty_diff = (uint16_t) (duty2*current_period);
+  TIMER_A0->CCR[2] = current_period - PWM_duty_diff - 1;        // CCR2 duty cycle is duty2/period
 }

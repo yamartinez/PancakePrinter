@@ -19,4 +19,6 @@ void PumpDrive();
 void PumpSetSpeed(float Duty);
 void PumpStop();
 
+void PumpDir(uint16_t direction);
+
 #endif /* PUMP_H_ */
