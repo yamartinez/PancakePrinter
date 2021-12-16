@@ -17,59 +17,89 @@ bool Steppers_Calibrated = false;
 
 
 void InitStepperMotors(uint16_t X_dim, uint16_t Y_dim){
+
     X_DIM = X_dim;
     Y_DIM = Y_dim;
 
-    // Configure IO Pins for Control Pins
-    MX_PORT_SEL0 &= ~MCPINS;
-    MX_PORT_SEL1 &= ~MCPINS;
-    MX_PORT_DIR  |=  MCPINS;
-    MX_PORT_OUT  &= ~MCPINS;
+        // Configure IO Pins for Control Pins
+    MX_ENABLE_PORT_SEL0 &= ~ MX_ENABLE_PIN;
+    MX_ENABLE_PORT_SEL1 &= ~ MX_ENABLE_PIN;
+    MX_ENABLE_PORT_DIR  |=   MX_ENABLE_PIN;
+    MX_ENABLE_PORT_OUT  &= ~ MX_ENABLE_PIN;
+    MY_ENABLE_PORT_SEL0 &= ~ MY_ENABLE_PIN;
+    MY_ENABLE_PORT_SEL1 &= ~ MY_ENABLE_PIN;
+    MY_ENABLE_PORT_DIR  |=   MY_ENABLE_PIN;
+    MY_ENABLE_PORT_OUT  &= ~ MY_ENABLE_PIN;
 
-    MY_PORT_SEL0 &= ~MCPINS;
-    MY_PORT_SEL1 &= ~MCPINS;
-    MY_PORT_DIR  |=  MCPINS;
-    MY_PORT_OUT  &= ~MCPINS;
+    MX_DIR_PORT_SEL0 &= ~ MX_DIR_PIN;
+    MX_DIR_PORT_SEL1 &= ~ MX_DIR_PIN;
+    MX_DIR_PORT_DIR  |=   MX_DIR_PIN;
+    MX_DIR_PORT_OUT  &= ~ MX_DIR_PIN;
+    MY_DIR_PORT_SEL0 &= ~ MY_DIR_PIN;
+    MY_DIR_PORT_SEL1 &= ~ MY_DIR_PIN;
+    MY_DIR_PORT_DIR  |=   MY_DIR_PIN;
+    MY_DIR_PORT_OUT  &= ~ MY_DIR_PIN;
 
-    // Configure I/O for Motor Reset
-    M_RESET_PORT_SEL0 &= ~(MX_RESET | MY_RESET);
-    M_RESET_PORT_SEL1 &= ~(MX_RESET | MY_RESET);
-    M_RESET_PORT_DIR  |=  (MX_RESET | MY_RESET);
-    M_RESET_PORT_OUT  &= ~(MX_RESET | MY_RESET); // Check if Reset is active high or low
+    MX_uS0_PORT_SEL0 &= ~ MX_uS0_PIN;
+    MX_uS0_PORT_SEL1 &= ~ MX_uS0_PIN;
+    MX_uS0_PORT_DIR  |=   MX_uS0_PIN;
+    MX_uS0_PORT_OUT  &= ~ MX_uS0_PIN;
+    MY_uS0_PORT_SEL0 &= ~ MY_uS0_PIN;
+    MY_uS0_PORT_SEL1 &= ~ MY_uS0_PIN;
+    MY_uS0_PORT_DIR  |=   MY_uS0_PIN;
+    MY_uS0_PORT_OUT  &= ~ MY_uS0_PIN;
 
-    // Configure I/O for Motor Output
-    M_STEP_PORT_SEL0 &= ~(MX_STEP | MY_STEP);
-    M_STEP_PORT_SEL1 &= ~(MX_STEP | MY_STEP);
-    M_STEP_PORT_DIR  |=  (MX_STEP | MY_STEP);
-    M_STEP_PORT_OUT  &= ~(MX_STEP | MY_STEP);
+    MX_uS1_PORT_SEL0 &= ~ MX_uS1_PIN;
+    MX_uS1_PORT_SEL1 &= ~ MX_uS1_PIN;
+    MX_uS1_PORT_DIR  |=   MX_uS1_PIN;
+    MX_uS1_PORT_OUT  &= ~ MX_uS1_PIN;
+    MY_uS1_PORT_SEL0 &= ~ MY_uS1_PIN;
+    MY_uS1_PORT_SEL1 &= ~ MY_uS1_PIN;
+    MY_uS1_PORT_DIR  |=   MY_uS1_PIN;
+    MY_uS1_PORT_OUT  &= ~ MY_uS1_PIN;
 
-    // Configure I/O for Limit Switches
-    M_LIMIT_PORT_SEL0 &= ~MLIMPINS;
-    M_LIMIT_PORT_SEL1 &= ~MLIMPINS;
-    M_LIMIT_PORT_DIR  |=  MLIMPINS;
-    M_LIMIT_PORT_REN  |=  MLIMPINS;
-    M_LIMIT_PORT_DIR  |=  MLIMPINS;
-    M_LIMIT_PORT_IE   |=  MLIMPINS; // Enable Interrupts
-    M_LIMIT_PORT_IES  |=  MLIMPINS; // Edge select
-    M_LIMIT_PORT_IFG  &= ~MLIMPINS; // Clear Interrupt Flag
+    MX_RESET_PORT_SEL0 &= ~ MX_RESET_PIN;
+    MX_RESET_PORT_SEL1 &= ~ MX_RESET_PIN;
+    MX_RESET_PORT_DIR  |=   MX_RESET_PIN;
+    MX_RESET_PORT_OUT  &= ~ MX_RESET_PIN;
+    MY_RESET_PORT_SEL0 &= ~ MY_RESET_PIN;
+    MY_RESET_PORT_SEL1 &= ~ MY_RESET_PIN;
+    MY_RESET_PORT_DIR  |=   MY_RESET_PIN;
+    MY_RESET_PORT_OUT  &= ~ MY_RESET_PIN;
 
-    MX_PORT_OUT &= ~M_ENB;
-    MY_PORT_OUT &= ~M_ENB;
+    MX_STEP_PORT_SEL0 &= ~ MX_STEP_PIN;
+    MX_STEP_PORT_SEL1 &= ~ MX_STEP_PIN;
+    MX_STEP_PORT_DIR  |=   MX_STEP_PIN;
+    MX_STEP_PORT_OUT  &= ~ MX_STEP_PIN;
+    MY_STEP_PORT_SEL0 &= ~ MY_STEP_PIN;
+    MY_STEP_PORT_SEL1 &= ~ MY_STEP_PIN;
+    MY_STEP_PORT_DIR  |=   MY_STEP_PIN;
+    MY_STEP_PORT_OUT  &= ~ MY_STEP_PIN;
+
+    M_LIMIT_PORT_SEL0  &= ~ (M_LIMIT_PINS);
+    M_LIMIT_PORT_SEL1  &= ~ (M_LIMIT_PINS);
+    M_LIMIT_PORT_DIR   &= ~ (M_LIMIT_PINS);
+    M_LIMIT_PORT_REN   |=   (M_LIMIT_PINS);
+    M_LIMIT_PORT_OUT   &= ~ (M_LIMIT_PINS);
+    M_LIMIT_PORT_IE    |=   (M_LIMIT_PINS);
+    M_LIMIT_PORT_IES   &= ~ (M_LIMIT_PINS); // Check if high or low for High->Low Edge
+    M_LIMIT_PORT_IFG   &= ~ (M_LIMIT_PINS);
 
     Steppers_Initialized = true;
+    
 }
 
 void X_Step(){
-    M_STEP_PORT_OUT |=  MX_STEP;
+    M_STEP_PORT_OUT |=  MX_STEP_PIN;
     wait();
-    M_STEP_PORT_OUT &= ~MX_STEP;
+    M_STEP_PORT_OUT &= ~MX_STEP_PIN;
     wait();
 }
 
 void Y_Step(){
-    M_STEP_PORT_OUT |=  MY_STEP;
+    M_STEP_PORT_OUT |=  MY_STEP_PIN;
     wait();
-    M_STEP_PORT_OUT &= ~MY_STEP;
+    M_STEP_PORT_OUT &= ~MY_STEP_PIN;
     wait();
 }
 
@@ -95,28 +125,28 @@ void Y_Step_Backward(){
 
 uint8_t CheckLimitSwitches(){
     uint8_t val = M_LIMIT_PORT_IN;
-    uint8_t ret =  (val & MX_LIM0) | ((val&MX_LIM1) >> 3) | ((val&(MY_LIM0|MY_LIM1)) >> 4);
+    uint8_t ret =  (val&(M_LIMIT_PINS));
     return ret;
 }
 
 bool XLim0(){
-    return CheckLimitSwitches() & 0x01;
+    return CheckLimitSwitches() & M_LIMIT_0_PIN;
 }
 
 bool XLim1(){
-    return CheckLimitSwitches() & 0x02;
+    return CheckLimitSwitches() & M_LIMIT_1_PIN;
 }
 
 bool YLim0(){
-    return CheckLimitSwitches() & 0x04;
+    return CheckLimitSwitches() & M_LIMIT_0_PIN;
 }
 
 bool YLim1(){
-    return CheckLimitSwitches() & 0x08;
+    return CheckLimitSwitches() & M_LIMIT_1_PIN;
 }
 
 void CalibrateSteppers(){
-    M_LIMIT_PORT_IE  &= ~MLIMPINS; // Diable interrupts
+    M_LIMIT_PORT_IE  &= ~M_LIMIT_PINS; // Diable interrupts
 
     // Do calibration
     X_Steps = 0;
@@ -158,8 +188,8 @@ void CalibrateSteppers(){
         Y_Steps--;
     }
 
-    M_LIMIT_PORT_IFG &= ~MLIMPINS; //clear flag, enable interrupts
-    M_LIMIT_PORT_IE  |=  MLIMPINS;
+    M_LIMIT_PORT_IFG &= ~M_LIMIT_PINS; //clear flag, enable interrupts
+    M_LIMIT_PORT_IE  |=  M_LIMIT_PINS;
 
     uint16_t diff = X_Steps - Y_Steps; //
 
