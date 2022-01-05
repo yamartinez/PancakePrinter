@@ -18,8 +18,10 @@ UART.obj: C:/ti/ccs1100/ccs/ccs_base/msp430/include/in430.h
 UART.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/intrinsics.h
 UART.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/intrinsics_legacy_undefs.h
 UART.obj: C:/ti/ccs1100/ccs/ccs_base/msp430/include/legacy.h
-UART.obj: ../DebugIO.h
+UART.obj: ../PortPins.h
 UART.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdbool.h
+UART.obj: ../Error.h
+UART.obj: ../DebugIO.h
 
 ../UART.c:
 
@@ -57,7 +59,11 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/intrinsics_leg
 
 C:/ti/ccs1100/ccs/ccs_base/msp430/include/legacy.h:
 
-../DebugIO.h:
+../PortPins.h:
 
 C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdbool.h:
+
+../Error.h:
+
+../DebugIO.h:
 

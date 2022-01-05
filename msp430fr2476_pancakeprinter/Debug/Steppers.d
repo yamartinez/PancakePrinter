@@ -2,6 +2,7 @@
 
 Steppers.obj: ../Steppers.c
 Steppers.obj: ../Steppers.h
+Steppers.obj: C:/Users/panda/OneDrive/Documents/college_documents/capstone/MSP430FR2355_pancakeprinter/msp430fr2355_pancakeprinter/msp430fr2476_pancakeprinter/PortPins.h
 Steppers.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdbool.h
 Steppers.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/_ti_config.h
 Steppers.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/linkage.h
@@ -19,13 +20,15 @@ Steppers.obj: C:/ti/ccs1100/ccs/ccs_base/msp430/include/in430.h
 Steppers.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/intrinsics.h
 Steppers.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/intrinsics_legacy_undefs.h
 Steppers.obj: C:/ti/ccs1100/ccs/ccs_base/msp430/include/legacy.h
-Steppers.obj: ../Error.h
+Steppers.obj: C:/Users/panda/OneDrive/Documents/college_documents/capstone/MSP430FR2355_pancakeprinter/msp430fr2355_pancakeprinter/msp430fr2476_pancakeprinter/Error.h
 Steppers.obj: ../DebugIO.h
 Steppers.obj: ../Pump.h
 
 ../Steppers.c:
 
 ../Steppers.h:
+
+C:/Users/panda/OneDrive/Documents/college_documents/capstone/MSP430FR2355_pancakeprinter/msp430fr2355_pancakeprinter/msp430fr2476_pancakeprinter/PortPins.h:
 
 C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdbool.h:
 
@@ -61,7 +64,7 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/intrinsics_leg
 
 C:/ti/ccs1100/ccs/ccs_base/msp430/include/legacy.h:
 
-../Error.h:
+C:/Users/panda/OneDrive/Documents/college_documents/capstone/MSP430FR2355_pancakeprinter/msp430fr2355_pancakeprinter/msp430fr2476_pancakeprinter/Error.h:
 
 ../DebugIO.h:
 

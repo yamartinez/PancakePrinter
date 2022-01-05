@@ -17,75 +17,15 @@ void Software_Trim();                       // Software Trim to get the best DCO
 #define MCLK_FREQ_MHZ 8                     // MCLK = 8MHz
 
 void UART_Write(int8_t data){
-    while(!(UCA0IFG&UCTXIFG));
-    UCA0TXBUF = data;
+
 }
 
 void Init_UART(void(*task_)(uint16_t)){
 
-    UART_CTLW0 |= UCSWRST; //place eUSCI_A in hold reset
-    UART_CTLW0 &= ~UCPEN; //disable parity bit
-    //since parity bit is disabled, don't care abot UCPAR
-    UART_CTLW0 &= ~UCMSB; //LSB first
-    UART_CTLW0 &= ~UC7BIT; //8-bit character length
-    UART_CTLW0 &= ~UCSPB; // 1 stop bit
-    UART_CTLW0 &= ~(UCMODE0 | UCMODE1);
-    UART_CTLW0 |= UCSYNC; //synchronous mode IMPORTANT: idk what this does so i'm setting it arbitrarily
-    UART_CTLW0 |= UCSSEL_1; // set ACLK as BRCLK
-
-    //configure the UART function on 1.6 and 1.7
-    UART_SEL0 |= RX_PIN | TX_PIN;
-    UART_SEL1 &= ~(RX_PIN | TX_PIN);
-    //configure direction, which does not matter
-    UART_PDIR |= RX_PIN | TX_PIN;
-    UART_PREN |= RX_PIN | TX_PIN;
-    UART_POUT &= ~(RX_PIN | TX_PIN);
-    PM5CTL0 &= ~LOCKLPM5;                     // Disable the GPIO power-on default high-impedance mode
-
-    // Baud Rate calculation. Referred to UG 17.3.10
-    // (1) N=32768/4800=6.827
-    // (2) OS16=0, UCBRx=INT(N)=6
-    // (4) Fractional portion = 0.827. Refered to UG Table 17-4, UCBRSx=0xEE.
-    UART_BAUDRATE0 = 6;                              // INT(32768/4800) - refer to user guide when necessary for changing baud rate
-    UART_BAUDRATE1 = 0x00;
-    UART_MCTLW = 0xEE00;
-
-    UART_CTLW0 &= ~UCSWRST; // Initialize eUSCI
-    UART_RX_INTERRUPT_ENABLE;// Enable USCI_A0 RX interrupt
-
-    task = task_;
 }
 
 void uart_main(){
-    __bis_SR_register(SCG0);                 // disable FLL
-    CSCTL3 |= SELREF__REFOCLK;               // Set REFO as FLL reference source
-    CSCTL1 = DCOFTRIMEN_1 | DCOFTRIM0 | DCOFTRIM1 | DCORSEL_3;// DCOFTRIM=3, DCO Range = 8MHz
-    CSCTL2 = FLLD_0 + 243;                  // DCODIV = 8MHz
-    __delay_cycles(3);
-    __bic_SR_register(SCG0);                // enable FLL
-    Software_Trim();                        // Software Trim to get the best DCOFTRIM value
 
-    CSCTL4 = SELMS__DCOCLKDIV | SELA__REFOCLK; // set default REFO(~32768Hz) as ACLK source, ACLK = 32768Hz
-                                             // default DCODIV as MCLK and SMCLK source
-
-    // Configure UART pins
-    P1SEL0 |= BIT6 | BIT7;                    // set 2-UART pin as second function
-
-    // Configure UART
-    UCA0CTLW0 |= UCSWRST;
-    UCA0CTLW0 |= UCSSEL__SMCLK;
-
-    // Baud Rate calculation
-    // 8000000/(16*9600) = 52.083
-    // Fractional portion = 0.083
-    // User's Guide Table 17-4: UCBRSx = 0x49
-    // UCBRFx = int ( (52.083-52)*16) = 1
-    UCA0BR0 = 52;                             // 8000000/16/9600
-    UCA0BR1 = 0x00;
-    UCA0MCTLW = 0x4900 | UCOS16 | UCBRF_1;
-
-    UCA0CTLW0 &= ~UCSWRST;                    // Initialize eUSCI
-    UCA0IE |= UCRXIE;                         // Enable USCI_A0 RX interrupt
 }
 
 void Software_Trim()

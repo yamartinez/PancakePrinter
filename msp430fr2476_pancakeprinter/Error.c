@@ -20,47 +20,46 @@ void error(error_code err, char*file, int line){
     {
         if (err == 0){
             DebugLEDOn();
-            ONLEDOn();
         } else if (err == 1){
-            DebugLEDOn();
+            //DebugLEDOn();
             __delay_cycles(1000000);
             DebugLEDOff();
             __delay_cycles(1000000);
-            ONLEDOn();
+            //ONLEDOn();
         } else if (err == 2){
             DebugLEDOn();
-            ONLEDOn();
+            //ONLEDOn();
             __delay_cycles(1000000);
-            ONLEDOff();
+            //ONLEDOff();
             __delay_cycles(1000000);
 
         } else if (err == 3){
             DebugLEDOff();
-            ONLEDOn();
+            //ONLEDOn();
             __delay_cycles(1000000);
-            ONLEDOff();
+            //ONLEDOff();
             __delay_cycles(1000000);
         } else if (err == 4){
             DebugLEDOn();
-            ONLEDOff();
+            //ONLEDOff();
         } else if (err == 5){
             DebugLEDOff();
-            ONLEDOn();
+            //ONLEDOn();
             __delay_cycles(1000000);
-            ONLEDOff();
+            //ONLEDOff();
             DebugLEDOn();
             __delay_cycles(1000000);
 
         } else if (err == 6){
             DebugLEDOn();
-            ONLEDOn();
+            //ONLEDOn();
             __delay_cycles(1000000);
-            ONLEDOff();
+            //ONLEDOff();
             DebugLEDOff();
             __delay_cycles(1000000);
 
         } else if (err == 7){
-            ONLEDOn();
+            //ONLEDOn();
             DebugLEDOff();
         }
     }

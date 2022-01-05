@@ -222,8 +222,10 @@ void Y_Step_Backward(){
 }
 
 uint8_t CheckLimitSwitches(){
-    uint8_t val = ~M_LIMIT_PORT_IN;
-    uint8_t ret =  (val & MX_LIM0) | ((val&MX_LIM1) >> 3) | ((val&(MY_LIM0|MY_LIM1)) >> 4);
+    uint8_t valX0 = ~MX0_LIMIT_PORT_IN;
+    uint8_t valX1 = ~MX1_LIMIT_PORT_IN;
+    uint8_t valY = ~MY_LIMIT_PORT_IN;
+    uint8_t ret =  (valX0 & MX_LIM0) | ((valX1&MX_LIM1) >> 3) | ((valY&(MY_LIM0 | MY_LIM1)) >> 4);
     return ret;
 }
 
@@ -246,15 +248,16 @@ bool YLim1(){
 void TestSteppers(){
     MX0_LIMIT_PORT_IE  &= ~MX_LIMIT_0_PIN; // Disable interrupts
     MX1_LIMIT_PORT_IE  &= ~MX_LIMIT_1_PIN;
-    MY_LIMIT_PORT &= ~(MY_LIMIT_0_PIN | MY_LIMIT_1_PIN);
+    MY_LIMIT_PORT_IE &= ~(MY_LIMIT_0_PIN | MY_LIMIT_1_PIN);
     MX_ENABLE;
     MY_ENABLE;
     while(1){
-        for(uint8_t i = 200; i>0; i--){
+        uint8_t i = 0;
+        for(i = 200; i>0; i--){
             X_Step_Forward();
             Y_Step_Forward();
         }
-        for(uint8_t i = 200; i>0; i--){
+        for(i = 200; i>0; i--){
             X_Step_Backward();
             Y_Step_Backward();
         }
@@ -264,7 +267,7 @@ void TestSteppers(){
 void CalibrateSteppers(){
     MX0_LIMIT_PORT_IE  &= ~MX_LIMIT_0_PIN; // Disable interrupts
     MX1_LIMIT_PORT_IE  &= ~MX_LIMIT_1_PIN;
-    MY_LIMIT_PORT &= ~(MY_LIMIT_0_PIN | MY_LIMIT_1_PIN);
+    MY_LIMIT_PORT_IE &= ~(MY_LIMIT_0_PIN | MY_LIMIT_1_PIN);
     MX_ENABLE;
     MY_ENABLE;
     // Do calibration
@@ -309,11 +312,11 @@ void CalibrateSteppers(){
 
     X_Steps -= 100;
     Y_Steps -= 100;
-
-    for(uint16_t i = X_Steps;i>0;i--){ //move back together to the 0,0 coordinate
+    uint16_t i = 0;
+    for(i = X_Steps;i>0;i--){ //move back together to the 0,0 coordinate
         X_Step_Backward();
     }
-    for(uint16_t i = Y_Steps;i>0;i--){ //move back together to the 0,0 coordinate
+    for(i = Y_Steps;i>0;i--){ //move back together to the 0,0 coordinate
         Y_Step_Backward();
     }
 
@@ -325,8 +328,12 @@ void CalibrateSteppers(){
 
     Steppers_Calibrated = true;
 
-    M_LIMIT_PORT_IFG &= ~MLIMPINS; //clear flag, enable interrupts
-    M_LIMIT_PORT_IE  |=  MLIMPINS;
+    MX0_LIMIT_PORT_IFG &= ~MX_LIMIT_0_PIN; //clear flag, enable interrupts
+    MX1_LIMIT_PORT_IFG &= ~MX_LIMIT_1_PIN;
+    MY_LIMIT_PORT_IFG &= ~(MY_LIMIT_0_PIN | MY_LIMIT_1_PIN);
+    MX0_LIMIT_PORT_IE  |=  MX_LIMIT_0_PIN;
+    MX1_LIMIT_PORT_IE  |=  MX_LIMIT_1_PIN;
+    MY_LIMIT_PORT_IFG  |= (MY_LIMIT_0_PIN | MY_LIMIT_1_PIN);
 
     GlobalX_Position = 0;
     GlobalY_Position = 0;
@@ -373,29 +380,30 @@ void move(direction x, direction y,uint16_t x_count, uint16_t y_count){
     }
     MX_ENABLE;
     MY_ENABLE;
+    uint16_t i = 0;
     if (x!=none && y!=none){
         if(x_count > y_count){
-            for(uint16_t i = y_count; i>0; i--){
+            for(i = y_count; i>0; i--){
                 X_Step(id,x_count);
                 Y_Step(id,y_count);
             }
             MY_DISABLE;
-            for(uint16_t i = x_count-y_count; i>0;i--){
+            for(i = x_count-y_count; i>0;i--){
                 X_Step(id,x_count);
             }
             MX_DISABLE;
         } else if (y_count > x_count){
-            for(uint16_t i = x_count; i>0; i--){
+            for(i = x_count; i>0; i--){
                 X_Step(id,x_count);
                 Y_Step(id,y_count);
             }
             MX_DISABLE;
-            for(uint16_t i = y_count-x_count; i>0;i--){
+            for(i = y_count-x_count; i>0;i--){
                 Y_Step(id,y_count);
             }
             MY_DISABLE;
         } else {
-            for(uint16_t i = x_count; i>0; i--){
+            for(i = x_count; i>0; i--){
                 X_Step(id,x_count);
                 Y_Step(id,y_count);
             }
@@ -404,11 +412,11 @@ void move(direction x, direction y,uint16_t x_count, uint16_t y_count){
         }
     }
     else if(x!=none){
-        for(uint16_t i = x_count; i > 0; i--){
+        for(i = x_count; i > 0; i--){
                 X_Step(id,x_count);
         }
     } else if(y!=none){
-        for(uint16_t i = y_count; i > 0; i--){
+        for(i = y_count; i > 0; i--){
                 Y_Step(id,y_count);
         }
     }
@@ -437,8 +445,8 @@ void move_relative(int16_t x, int16_t y){
     if(y < 0){
         y_direction = backward;
     }
-    x = x<0 ? -1*x : x;
-    y = y<0 ? -1*y : y;
+    x = (x<0 ? -1*x : x);
+    y = (y<0 ? -1*y : y);
 
     move(x_direction,y_direction,x,y);
 
@@ -459,7 +467,8 @@ void fill_image_square(){
     __delay_cycles(1000000);  // .5s
     __delay_cycles(1000000);  // .5s
     __delay_cycles(1000000);  // .5s
-    for(uint16_t i = (Y_DIM>>4); i > 0; i--){
+    uint16_t i = 0;
+    for(i = (Y_DIM>>4); i > 0; i--){
         if(i&0x0001){
             move_image(0,i*16);
             move_image(X_DIM,i*16);

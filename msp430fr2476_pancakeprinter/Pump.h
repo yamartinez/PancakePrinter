@@ -15,11 +15,11 @@
 #include <stdint.h>
 #include <msp430.h>
 #include "PortPins.h"
+
 /**
  * P4.6 - Output PWM using TB1.1 to drive MOSFET
  */
 
-#define PUMP_PIN 0x01
 
 
 void InitPump();

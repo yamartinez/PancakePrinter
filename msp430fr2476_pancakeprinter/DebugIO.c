@@ -26,11 +26,11 @@ void InitButton(){
 void InitDebugIO(){
     InitLED();
     InitButton();
-    InitONLED();
+
 }
 
 bool DebugReadButton(){
-    return (BUTTON_PORT_IN & BUTTON_PIN ? false : true);
+    return (S1_PORT_IN & S1_PIN ? false : true);
 }
 void DebugLEDOn(){
     LED1_PORT_OUT |= LED1_PIN;

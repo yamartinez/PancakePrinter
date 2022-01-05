@@ -17,7 +17,8 @@ void CarriageMove(uint16_t x,uint16_t y,uint8_t p){
     }
 }
 void CarriageWait(uint16_t t){
-    for(uint16_t i = t; i>0; i--){
+    uint16_t i = t;
+    for(i = t; i>0; i--){
         // Replace with better delay
         __delay_cycles(100);
     }
