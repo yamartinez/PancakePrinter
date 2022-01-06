@@ -8,10 +8,10 @@
 #include "./DebugIO.h"
 
 void InitLED(){
-//    LED1_PORT_SEL0 &= ~LED1_PIN;
-//    LED1_PORT_SEL1 &= ~LED1_PIN;
-//    LED1_PORT_DIR  |=  LED1_PIN;
-//    LED1_PORT_OUT  &= ~LED1_PIN;
+    LED1_PORT_SEL0 &= ~LED1_PIN;
+    LED1_PORT_SEL1 &= ~LED1_PIN;
+    LED1_PORT_DIR  |=  LED1_PIN;
+    LED1_PORT_OUT  &= ~LED1_PIN;
 }
 
 void InitLEDB(){
@@ -30,7 +30,7 @@ void InitButton(){
 }
 
 void InitDebugIO(){
-//    InitLED();
+    InitLED();
     InitButton();
 
 }
@@ -66,7 +66,7 @@ void LEDRon(){
 }
 
 void LEDRoff(){
-//    LEDR_PORT_OUT |= LEDR_PIN;
+//    LEDR_PORT_OUT &= ~LEDR_PIN;
 }
 
 void ToggleLEDR(){

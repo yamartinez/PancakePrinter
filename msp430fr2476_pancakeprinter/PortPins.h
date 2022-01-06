@@ -61,7 +61,7 @@
 
 //NOTE1: TO ALL READERS - THESE PINS AND THEIR DEFINITIONS ARE DEPRECIATED FUNCTIONALITY AS OF 
 //REVISION 3.0 - DEFINITIONS ARE PROPERTIES SOLELY OF REV 2.0 AND SHOULD NOT BE RELIED UPON FOR FUNCTIONALITY
-/**
+/**********************************************************************************************************************************************************************************
  * MX uS0 - P6.0
  * MX uS1 - P3.3
  *
@@ -121,7 +121,7 @@
 #define MY_RESET_PORT_DIR P1DIR
 #define MY_RESET_PORT_OUT P1OUT
 
-//END NOTE1 
+//END NOTE1 *********************************************************************************************************************************************************************
 
 
 /**
@@ -166,7 +166,7 @@
  * RGB LED:
  * P4.7 - Blue (overlap with MX direction, Do Not Use)
  * P5.0 - Green (overlap with MX enable, Do Not Use)
- * P5.1 - Red (no overlap)
+ * P5.1 - Red (overlap with MX step, Do Not Use)
  *
  */
 #define LED1_PORT P1

@@ -21,7 +21,7 @@ Commands.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/
 Commands.obj: ../Error.h
 Commands.obj: ../Carriage.h
 Commands.obj: ../Steppers.h
-Commands.obj: C:/Users/panda/OneDrive/Documents/college_documents/capstone/MSP430FR2355_pancakeprinter/msp430fr2355_pancakeprinter/msp430fr2476_pancakeprinter/PortPins.h
+Commands.obj: C:/Users/panda/OneDrive/Documents/college_documents/ece_embedded/capstone/MSP430_fr2477_newboard/PancakePrinter/msp430fr2476_pancakeprinter/PortPins.h
 Commands.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdbool.h
 Commands.obj: ../DebugIO.h
 Commands.obj: ../Pump.h
@@ -68,7 +68,7 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/sys/_stdint.h:
 
 ../Steppers.h:
 
-C:/Users/panda/OneDrive/Documents/college_documents/capstone/MSP430FR2355_pancakeprinter/msp430fr2355_pancakeprinter/msp430fr2476_pancakeprinter/PortPins.h:
+C:/Users/panda/OneDrive/Documents/college_documents/ece_embedded/capstone/MSP430_fr2477_newboard/PancakePrinter/msp430fr2476_pancakeprinter/PortPins.h:
 
 C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdbool.h:
 

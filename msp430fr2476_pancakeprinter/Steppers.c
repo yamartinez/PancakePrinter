@@ -343,8 +343,7 @@ void CalibrateSteppers(){
         Y_Steps--;
     }
 //    stage 3 over, turn green off, turn blue on
-     LEDGoff();
-     LEDRon();
+    // LEDRon();
     X_Steps -= 100;
     Y_Steps -= 100;
     uint16_t i = 0;
@@ -545,10 +544,10 @@ void wait(uint32_t count){
 #endif
 
 #if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
-#pragma vector=PORT4_VECTOR
-__interrupt void Port_4(void)
+#pragma vector=PORT2_VECTOR
+__interrupt void Port_2(void)
 #elif defined(__GNUC__)
-void __attribute__ ((interrupt(PORT4_VECTOR))) Port_4 (void)
+void __attribute__ ((interrupt(PORT4_VECTOR))) Port_2 (void)
 #else
 #error Compiler not supported!
 #endif

@@ -16,16 +16,16 @@
  *
  */
 void InitPump(){
-    PUMP_PORT_SEL0 |= PUMP_PIN;  //configure TA3.1
+    PUMP_PORT_SEL0 |= PUMP_PIN;  //configure TA0.2
     PUMP_PORT_SEL1 &= ~PUMP_PIN;
-    PUMP_PORT_DIR |= PUMP_PIN;   //configure as TA3.1
+    PUMP_PORT_DIR |= PUMP_PIN;   //configure as TA0.2
     //configure pump pin for gpio, turn off pin
 
-    // Setup Timer3_A
-    TA3CCR0 = 100-1;                                  // PWM Period
-    TA3CCTL1 = OUTMOD_7;                              // CCR1 reset/set
-    TA3CCR1 = 0;                                     // CCR1 PWM duty cycle
-    TA3CTL = TBSSEL_1 | MC_1 | TACLR;                 // ACLK, up mode, clear TAR
+    // Setup Timer0_A
+    TA0CCR0 = 100-1;                                  // PWM Period
+    TA0CCTL2 = OUTMOD_7;                              // CCR2 reset/set
+    TA0CCR2 = 0;                                     // CCR2 PWM duty cycle
+    TA0CTL = TASSEL_1 | MC_1 | TACLR;                 // ACLK, up mode, clear TAR
 }
 
 /**
@@ -33,9 +33,9 @@ void InitPump(){
  *
  */
 void PumpDrive(){
-    TA3CCTL1 = OUTMOD_7; // CCR1 reset/set
-    TA3CCR1 = 50; //set duty cycle to 50/100
-    TA3CTL |= TBCLR; // clear TBR
+    TA0CCTL2 = OUTMOD_7; // CCR2 reset/set
+    TA0CCR2 = 50; //set duty cycle to 50/100
+    TA0CTL |= TACLR; // clear TAR
 
 }
 
@@ -46,9 +46,9 @@ void PumpSetSpeed(uint8_t Duty){
     else if (Duty < 0){
         Duty = 0;
     }
-    TA3CCTL1 = OUTMOD_7; // CCR1 reset/set
-    TA3CCR1 = Duty; //set duty cycle to Duty/100
-    TA3CTL |= TACLR; // clear TAR
+    TA0CCTL2 = OUTMOD_7; // CCR1 reset/set
+    TA0CCR2 = Duty; //set duty cycle to Duty/100
+    TA0CTL |= TACLR; // clear TAR
 }
 
 void PumpStop(){
