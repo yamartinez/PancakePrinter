@@ -207,31 +207,31 @@ void Y_Step(uint32_t id_, uint32_t len_){
 #endif
 
 void X_Step_Forward(){
-    MX_ENABLE;
+//    MX_ENABLE;
     MOTOR_X_FORWARD;
     X_Step(0,0);
-    MX_DISABLE;
+//    MX_DISABLE;
 }
 
 void X_Step_Backward(){
-    MX_ENABLE;
+//    MX_ENABLE;
     MOTOR_X_BACKWARD;
     X_Step(0,0);
-    MX_DISABLE;
+//    MX_DISABLE;
 }
 
 void Y_Step_Forward(){
-    MY_ENABLE;
+//    MY_ENABLE;
     MOTOR_Y_FORWARD;
     Y_Step(0,0);
-    MY_DISABLE;
+//    MY_DISABLE;
 }
 
 void Y_Step_Backward(){
-    MY_ENABLE;
+//    MY_ENABLE;
     MOTOR_Y_BACKWARD;
     Y_Step(0,0);
-    MY_DISABLE;
+//    MY_DISABLE;
 }
 
 uint8_t CheckLimitSwitches(){
@@ -288,11 +288,45 @@ void CalibrateSteppers(){
     X_Steps = 0;
     Y_Steps = 0;
    // LEDBon(); // blue led - stage 1, x backwards calibration
+    MX_ENABLE;
+    MY_DISABLE;
+    while(!XLim0() && !XLim1()){
+//        MX_ENABLE;
+        X_Step_Backward(); //step backwards until xlim0 is hit, hopefully
+//        MX_DISABLE;
+    }
+    if(XLim1()){ //this happens if the front limit switch is hit (it should be stepping backwards)
+        error(direction_error_x,__FILE__,__LINE__);
+    }
+    while(XLim0()){ //step forward a bit so we are not on the switch in the back
+//        MX_ENABLE;
+        X_Step_Forward();
+//        MX_DISABLE;
+    }
+    // LEDBoff(); //stage 1 over, stage 2 now, green LED on
+    // LEDGon();
+    while(!XLim1()){ //step forward until the front limit switch is hit, and count how many steps it takes to get there
+//        MX_ENABLE;
+        X_Step_Forward();
+        X_Steps++;
+//        MX_DISABLE;
 
-    //EXPERIMENTAL SECTION
+    }
+    while(XLim1()){ // step back enough to get off the front limit switch, and deduct those steps from the total of x steps
+//        LEDGoff();
+//        MX_ENABLE;
+        X_Step_Backward();
+        X_Steps--;
+//        MX_DISABLE;
+    }
+
+    MX_DISABLE;
+    MY_ENABLE; //begin y-cal
     // LEDBon(); //stage 2 over, stage 3 start so turn the blue + green on as well
     while(!YLim0() && !YLim1()){ // same process as with the x (literally the same read those comments)
+//        MY_ENABLE;
         Y_Step_Backward();
+//        MY_DISABLE;
     }
     if(YLim1()){
         error(direction_error_y,__FILE__,__LINE__);
@@ -308,60 +342,20 @@ void CalibrateSteppers(){
         Y_Step_Backward();
         Y_Steps--;
     }
-    //END EXPERIMENTAL SECTION
-
-    while(!XLim0() && !XLim1()){
-        X_Step_Backward(); //step backwards until xlim0 is hit, hopefully
-    }
-    if(XLim1()){ //this happens if the front limit switch is hit (it should be stepping backwards)
-        LEDBoff(); //blue led off, stage 1 error
-        error(direction_error_x,__FILE__,__LINE__);
-    }
-    while(XLim0()){ //step forward a bit so we are not on the switch in the back
-        X_Step_Forward();
-    }
-    // LEDBoff(); //stage 1 over, stage 2 now, green LED on
-    // LEDGon();
-    while(!XLim1()){ //step forward until the front limit switch is hit, and count how many steps it takes to get there
-        X_Step_Forward();
-        X_Steps++;
-
-    }
-    while(XLim1()){ // step back enough to get off the front limit switch, and deduct those steps from the total of x steps
-        LEDGoff();
-        X_Step_Backward();
-        X_Steps--;
-    }
-
-//    MY_ENABLE; //begin y-cal
-//    // LEDBon(); //stage 2 over, stage 3 start so turn the blue + green on as well
-//    while(!YLim0() && !YLim1()){ // same process as with the x (literally the same read those comments)
-//        Y_Step_Backward();
-//    }
-//    if(YLim1()){
-//        error(direction_error_y,__FILE__,__LINE__);
-//    }
-//    while(YLim0()){
-//        Y_Step_Forward();
-//    }
-//    while(!YLim1()){
-//        Y_Step_Forward();
-//        Y_Steps++;
-//    }
-//    while(YLim1()){
-//        Y_Step_Backward();
-//        Y_Steps--;
-//    }
-    //stage 3 over, turn green off, turn blue on
-    // LEDGoff();
-    // LEDRon();
+//    stage 3 over, turn green off, turn blue on
+     LEDGoff();
+     LEDRon();
     X_Steps -= 100;
     Y_Steps -= 100;
     uint16_t i = 0;
-
+    MX_ENABLE;
+    MY_DISABLE;
     for(i = X_Steps;i>0;i--){ //move back together to the 0,0 coordinate
         X_Step_Backward();
     }
+    MY_ENABLE;
+    MX_DISABLE;
+
     for(i = Y_Steps;i>0;i--){ //move back together to the 0,0 coordinate
         Y_Step_Backward();
     }

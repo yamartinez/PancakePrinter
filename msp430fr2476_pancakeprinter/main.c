@@ -75,10 +75,10 @@ void mainloop(){
         }
         while(QueueSize()==0){
             // Twiddle Thumbs
-//            if(!notified){
-//                UART_Write(0);
-//                notified = 1;
-//            }
+            if(!notified){
+                UART_Write(0);
+                notified = 1;
+            }
             __no_operation();
         }
     }

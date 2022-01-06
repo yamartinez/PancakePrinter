@@ -75,12 +75,18 @@
 //   Built with IAR Embedded Workbench v7.12.1 & Code Composer Studio v8.1.0
 //******************************************************************************
 #include <msp430.h>
+#include "UART.h"
 
 void Init_GPIO();
 void Software_Trim();                       // Software Trim to get the best DCOFTRIM value
 #define MCLK_FREQ_MHZ 8                     // MCLK = 8MHz
 
-int uart_main(void)
+void UART_Write(int8_t data){
+    while(!(UCA1IFG&UCTXIFG));
+    UCA1TXBUF = data;
+}
+
+void uart_main(void)
 {
   WDTCTL = WDTPW | WDTHOLD;                // Stop watchdog timer
 
@@ -102,23 +108,22 @@ int uart_main(void)
                                            // default DCODIV as MCLK and SMCLK source
 
   // Configure UART pins
-  P5SEL0 |= BIT1 | BIT2;                    // set 2-UART pin as second function
-  SYSCFG3|=USCIA0RMP;                       //Set the remapping source
+  P2SEL0 |= BIT5 | BIT6;                    // set 2-UART pin as second function - bit6 is TX and bit5 is RX
   // Configure UART
-  UCA0CTLW0 |= UCSWRST;
-  UCA0CTLW0 |= UCSSEL__SMCLK;
+  UCA1CTLW0 |= UCSWRST;
+  UCA1CTLW0 |= UCSSEL__SMCLK;
 
   // Baud Rate calculation
   // 8000000/(16*9600) = 52.083
   // Fractional portion = 0.083
   // User's Guide Table 17-4: UCBRSx = 0x49
   // UCBRFx = int ( (52.083-52)*16) = 1
-  UCA0BR0 = 52;                             // 8000000/16/9600
-  UCA0BR1 = 0x00;
-  UCA0MCTLW = 0x4900 | UCOS16 | UCBRF_1;
+  UCA1BR0 = 52;                             // 8000000/16/9600
+  UCA1BR1 = 0x00;
+  UCA1MCTLW = 0x4900 | UCOS16 | UCBRF_1;
 
-  UCA0CTLW0 &= ~UCSWRST;                    // Initialize eUSCI
-  UCA0IE |= UCRXIE;                         // Enable USCI_A0 RX interrupt
+  UCA1CTLW0 &= ~UCSWRST;                    // Initialize eUSCI
+  UCA1IE |= UCRXIE;                         // Enable USCI_A1 RX interrupt
 
   __bis_SR_register(GIE);         // interrupts enabled
   __no_operation();                         // For debugger
@@ -194,29 +199,29 @@ void Software_Trim()
 }
 
 
-#if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
-#pragma vector=USCI_A0_VECTOR
-__interrupt void USCI_A0_ISR(void)
-#elif defined(__GNUC__)
-void __attribute__ ((interrupt(USCI_A0_VECTOR))) USCI_A0_ISR (void)
-#else
-#error Compiler not supported!
-#endif
-{
-  switch(__even_in_range(UCA0IV,USCI_UART_UCTXCPTIFG))
-  {
-    case USCI_NONE: break;
-    case USCI_UART_UCRXIFG:
-      while(!(UCA0IFG&UCTXIFG));
-      UCA0TXBUF = UCA0RXBUF;
-      __no_operation();
-      break;
-    case USCI_UART_UCTXIFG: break;
-    case USCI_UART_UCSTTIFG: break;
-    case USCI_UART_UCTXCPTIFG: break;
-    default: break;
-  }
-}
+//#if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
+//#pragma vector=USCI_A1_VECTOR
+//__interrupt void USCI_A0_ISR(void)
+//#elif defined(__GNUC__)
+//void __attribute__ ((interrupt(USCI_A1_VECTOR))) USCI_A1_ISR (void)
+//#else
+//#error Compiler not supported!
+//#endif
+//{
+//  switch(__even_in_range(UCA0IV,USCI_UART_UCTXCPTIFG))
+//  {
+//    case USCI_NONE: break;
+//    case USCI_UART_UCRXIFG:
+//      while(!(UCA1IFG&UCTXIFG));
+//      UCA1TXBUF = UCA1RXBUF;
+//      __no_operation();
+//      break;
+//    case USCI_UART_UCTXIFG: break;
+//    case USCI_UART_UCSTTIFG: break;
+//    case USCI_UART_UCTXCPTIFG: break;
+//    default: break;
+//  }
+//}
 
 void Init_GPIO()
 {
