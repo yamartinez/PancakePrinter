@@ -33,16 +33,18 @@ void InitStepperMotors(uint16_t X_dim, uint16_t Y_dim){
     MX_ENABLE_PORT_SEL0 &= ~ MX_ENABLE_PIN;
     MX_ENABLE_PORT_SEL1 &= ~ MX_ENABLE_PIN;
     MX_ENABLE_PORT_DIR  |=   MX_ENABLE_PIN;
-    MX_ENABLE_PORT_OUT  &= ~ MX_ENABLE_PIN;
+    MX_ENABLE_PORT_OUT  |=   MX_ENABLE_PIN; //set enables high to avoid locking motors/generating heat
+
     MY_ENABLE_PORT_SEL0 &= ~ MY_ENABLE_PIN;
     MY_ENABLE_PORT_SEL1 &= ~ MY_ENABLE_PIN;
     MY_ENABLE_PORT_DIR  |=   MY_ENABLE_PIN;
-    MY_ENABLE_PORT_OUT  &= ~ MY_ENABLE_PIN;
+    MY_ENABLE_PORT_OUT  |=   MY_ENABLE_PIN;
 
     MX_DIR_PORT_SEL0 &= ~ MX_DIR_PIN;
     MX_DIR_PORT_SEL1 &= ~ MX_DIR_PIN;
     MX_DIR_PORT_DIR  |=   MX_DIR_PIN;
     MX_DIR_PORT_OUT  &= ~ MX_DIR_PIN;
+
     MY_DIR_PORT_SEL0 &= ~ MY_DIR_PIN;
     MY_DIR_PORT_SEL1 &= ~ MY_DIR_PIN;
     MY_DIR_PORT_DIR  |=   MY_DIR_PIN;
@@ -52,6 +54,7 @@ void InitStepperMotors(uint16_t X_dim, uint16_t Y_dim){
     MX_uS0_PORT_SEL1 &= ~ MX_uS0_PIN;
     MX_uS0_PORT_DIR  |=   MX_uS0_PIN;
     MX_uS0_PORT_OUT  &= ~ MX_uS0_PIN;
+
     MY_uS0_PORT_SEL0 &= ~ MY_uS0_PIN;
     MY_uS0_PORT_SEL1 &= ~ MY_uS0_PIN;
     MY_uS0_PORT_DIR  |=   MY_uS0_PIN;
@@ -70,6 +73,7 @@ void InitStepperMotors(uint16_t X_dim, uint16_t Y_dim){
     MX_RESET_PORT_SEL1 &= ~ MX_RESET_PIN;
     MX_RESET_PORT_DIR  |=   MX_RESET_PIN;
     MX_RESET_PORT_OUT  |=   MX_RESET_PIN;
+
     MY_RESET_PORT_SEL0 &= ~ MY_RESET_PIN;
     MY_RESET_PORT_SEL1 &= ~ MY_RESET_PIN;
     MY_RESET_PORT_DIR  |=   MY_RESET_PIN;
@@ -79,6 +83,7 @@ void InitStepperMotors(uint16_t X_dim, uint16_t Y_dim){
     MX_STEP_PORT_SEL1 &= ~ MX_STEP_PIN;
     MX_STEP_PORT_DIR  |=   MX_STEP_PIN;
     MX_STEP_PORT_OUT  &= ~ MX_STEP_PIN;
+
     MY_STEP_PORT_SEL0 &= ~ MY_STEP_PIN;
     MY_STEP_PORT_SEL1 &= ~ MY_STEP_PIN;
     MY_STEP_PORT_DIR  |=   MY_STEP_PIN;
@@ -89,7 +94,7 @@ void InitStepperMotors(uint16_t X_dim, uint16_t Y_dim){
     MX0_LIMIT_PORT_DIR   &= ~ (MX_LIMIT_0_PIN);
     MX0_LIMIT_PORT_REN   |=   (MX_LIMIT_0_PIN);
     MX0_LIMIT_PORT_OUT   |=   (MX_LIMIT_0_PIN);
-    MX0_LIMIT_PORT_IE    |=   (MX_LIMIT_0_PIN);
+    MX0_LIMIT_PORT_IE    &= ~ (MX_LIMIT_0_PIN);
     MX0_LIMIT_PORT_IES   &= ~ (MX_LIMIT_0_PIN); // Check if high or low for High->Low Edge
     MX0_LIMIT_PORT_IFG   &= ~ (MX_LIMIT_0_PIN);
 
@@ -99,7 +104,7 @@ void InitStepperMotors(uint16_t X_dim, uint16_t Y_dim){
     MX1_LIMIT_PORT_DIR   &= ~ (MX_LIMIT_1_PIN);
     MX1_LIMIT_PORT_REN   |=   (MX_LIMIT_1_PIN);
     MX1_LIMIT_PORT_OUT   |=   (MX_LIMIT_1_PIN);
-    MX1_LIMIT_PORT_IE    |=   (MX_LIMIT_1_PIN);
+    MX1_LIMIT_PORT_IE    &= ~ (MX_LIMIT_1_PIN);
     MX1_LIMIT_PORT_IES   &= ~ (MX_LIMIT_1_PIN); // Check if high or low for High->Low Edge
     MX1_LIMIT_PORT_IFG   &= ~ (MX_LIMIT_1_PIN);
 
@@ -108,7 +113,7 @@ void InitStepperMotors(uint16_t X_dim, uint16_t Y_dim){
     MY_LIMIT_PORT_DIR   &= ~ (MY_LIMIT_PINS);
     MY_LIMIT_PORT_REN   |=   (MY_LIMIT_PINS);
     MY_LIMIT_PORT_OUT   |=   (MY_LIMIT_PINS);
-    MY_LIMIT_PORT_IE    |=   (MY_LIMIT_PINS);
+    MY_LIMIT_PORT_IE    &= ~ (MY_LIMIT_PINS);
     MY_LIMIT_PORT_IES   &= ~ (MY_LIMIT_PINS); // Check if high or low for High->Low Edge
     MY_LIMIT_PORT_IFG   &= ~ (MY_LIMIT_PINS);
 
@@ -153,7 +158,7 @@ void X_Step(uint32_t id_, uint32_t len_){
         wait(7+(len-count));
     else
         wait(7);
-    MX_STEP_PORT_OUT |=  MX_STEP_PIN;
+    MX_STEP_PORT_OUT &=  ~MX_STEP_PIN;
     if (id == 0)
         wait(7);
     else if (count < 13)
@@ -202,30 +207,40 @@ void Y_Step(uint32_t id_, uint32_t len_){
 #endif
 
 void X_Step_Forward(){
+    MX_ENABLE;
     MOTOR_X_FORWARD;
     X_Step(0,0);
+    MX_DISABLE;
 }
 
 void X_Step_Backward(){
+    MX_ENABLE;
     MOTOR_X_BACKWARD;
     X_Step(0,0);
+    MX_DISABLE;
 }
 
 void Y_Step_Forward(){
+    MY_ENABLE;
     MOTOR_Y_FORWARD;
     Y_Step(0,0);
+    MY_DISABLE;
 }
 
 void Y_Step_Backward(){
+    MY_ENABLE;
     MOTOR_Y_BACKWARD;
     Y_Step(0,0);
+    MY_DISABLE;
 }
 
 uint8_t CheckLimitSwitches(){
-    uint8_t valX0 = ~MX0_LIMIT_PORT_IN;
-    uint8_t valX1 = ~MX1_LIMIT_PORT_IN;
-    uint8_t valY = ~MY_LIMIT_PORT_IN;
-    uint8_t ret =  (valX0 & MX_LIM0) | ((valX1&MX_LIM1) >> 3) | ((valY&(MY_LIM0 | MY_LIM1)) >> 4);
+
+    uint8_t x0 = (MX_LIM0) ? 0 : 1; // x0 returns as 0 if P2.0 == 0
+    uint8_t x1 = (MX_LIM1) ? 0 : 1; // x1 returns as 0 if P4.3 == 0
+    uint8_t y0 = (MY_LIM0) ? 0 : 1; // y0 returns as 0 if P3.3 == 0
+    uint8_t y1 = (MY_LIM1) ? 0 : 1; // y1 returns as 0 if P3.3 == 0
+    uint8_t ret =  (x0 | (x1 << 1) | (y0 << 2) | (y1 << 3));
     return ret;
 }
 
@@ -268,30 +283,14 @@ void CalibrateSteppers(){
     MX0_LIMIT_PORT_IE  &= ~MX_LIMIT_0_PIN; // Disable interrupts
     MX1_LIMIT_PORT_IE  &= ~MX_LIMIT_1_PIN;
     MY_LIMIT_PORT_IE &= ~(MY_LIMIT_0_PIN | MY_LIMIT_1_PIN);
-    MX_ENABLE;
-    MY_ENABLE;
+
     // Do calibration
     X_Steps = 0;
     Y_Steps = 0;
+   // LEDBon(); // blue led - stage 1, x backwards calibration
 
-    while(!XLim0() && !XLim1()){
-        X_Step_Backward(); //step backwards until xlim0 is hit, hopefully
-    }
-    if(XLim1()){ //this happens if the front limit switch is hit (it should be stepping backwards)
-        error(direction_error_x,__FILE__,__LINE__);
-    }
-    while(XLim0()){ //step forward a bit so we are not on the switch in the back
-        X_Step_Forward();
-    }
-    while(!XLim1()){ //step forward until the front limit switch is hit, and count how many steps it takes to get there
-        X_Step_Forward();
-        X_Steps++;
-    }
-    while(XLim1()){ // step back enough to get off the front limit switch, and deduct those steps from the total of x steps
-        X_Step_Backward();
-        X_Steps--;
-    }
-
+    //EXPERIMENTAL SECTION
+    // LEDBon(); //stage 2 over, stage 3 start so turn the blue + green on as well
     while(!YLim0() && !YLim1()){ // same process as with the x (literally the same read those comments)
         Y_Step_Backward();
     }
@@ -309,18 +308,64 @@ void CalibrateSteppers(){
         Y_Step_Backward();
         Y_Steps--;
     }
+    //END EXPERIMENTAL SECTION
 
+    while(!XLim0() && !XLim1()){
+        X_Step_Backward(); //step backwards until xlim0 is hit, hopefully
+    }
+    if(XLim1()){ //this happens if the front limit switch is hit (it should be stepping backwards)
+        LEDBoff(); //blue led off, stage 1 error
+        error(direction_error_x,__FILE__,__LINE__);
+    }
+    while(XLim0()){ //step forward a bit so we are not on the switch in the back
+        X_Step_Forward();
+    }
+    // LEDBoff(); //stage 1 over, stage 2 now, green LED on
+    // LEDGon();
+    while(!XLim1()){ //step forward until the front limit switch is hit, and count how many steps it takes to get there
+        X_Step_Forward();
+        X_Steps++;
+
+    }
+    while(XLim1()){ // step back enough to get off the front limit switch, and deduct those steps from the total of x steps
+        LEDGoff();
+        X_Step_Backward();
+        X_Steps--;
+    }
+
+//    MY_ENABLE; //begin y-cal
+//    // LEDBon(); //stage 2 over, stage 3 start so turn the blue + green on as well
+//    while(!YLim0() && !YLim1()){ // same process as with the x (literally the same read those comments)
+//        Y_Step_Backward();
+//    }
+//    if(YLim1()){
+//        error(direction_error_y,__FILE__,__LINE__);
+//    }
+//    while(YLim0()){
+//        Y_Step_Forward();
+//    }
+//    while(!YLim1()){
+//        Y_Step_Forward();
+//        Y_Steps++;
+//    }
+//    while(YLim1()){
+//        Y_Step_Backward();
+//        Y_Steps--;
+//    }
+    //stage 3 over, turn green off, turn blue on
+    // LEDGoff();
+    // LEDRon();
     X_Steps -= 100;
     Y_Steps -= 100;
     uint16_t i = 0;
+
     for(i = X_Steps;i>0;i--){ //move back together to the 0,0 coordinate
         X_Step_Backward();
     }
     for(i = Y_Steps;i>0;i--){ //move back together to the 0,0 coordinate
         Y_Step_Backward();
     }
-
-    MX_DISABLE;
+    MX_DISABLE; // deactivate both steppers now.
     MY_DISABLE;
 
     X_Steps-=100;

@@ -18,49 +18,70 @@ void error(error_code err, char*file, int line){
     PumpStop();
     for(;;)
     {
+        P5OUT |= BIT1;
+        __delay_cycles(1000000);
+        P5OUT &= ~BIT1;
+        __delay_cycles(1000000);
+        continue;
         if (err == 0){
             DebugLEDOn();
         } else if (err == 1){
             //DebugLEDOn();
+            ToggleLEDR();
             __delay_cycles(1000000);
-            DebugLEDOff();
+            ToggleLEDR();
             __delay_cycles(1000000);
             //ONLEDOn();
+            ToggleLEDR();
         } else if (err == 2){
             DebugLEDOn();
             //ONLEDOn();
+            ToggleLEDR();
             __delay_cycles(1000000);
             //ONLEDOff();
+            ToggleLEDR();
             __delay_cycles(1000000);
+            ToggleLEDR();
 
         } else if (err == 3){
             DebugLEDOff();
             //ONLEDOn();
+            ToggleLEDR();
             __delay_cycles(1000000);
             //ONLEDOff();
+            ToggleLEDR();
             __delay_cycles(1000000);
+            ToggleLEDR();
         } else if (err == 4){
             DebugLEDOn();
             //ONLEDOff();
+            ToggleLEDR();
         } else if (err == 5){
             DebugLEDOff();
             //ONLEDOn();
+            ToggleLEDR();
             __delay_cycles(1000000);
             //ONLEDOff();
+            ToggleLEDR();
             DebugLEDOn();
             __delay_cycles(1000000);
+            ToggleLEDR();
 
         } else if (err == 6){
             DebugLEDOn();
             //ONLEDOn();
+            ToggleLEDR();
             __delay_cycles(1000000);
             //ONLEDOff();
+            ToggleLEDR();
             DebugLEDOff();
             __delay_cycles(1000000);
+            ToggleLEDR();
 
         } else if (err == 7){
             //ONLEDOn();
             DebugLEDOff();
+            ToggleLEDR();
         }
     }
 }

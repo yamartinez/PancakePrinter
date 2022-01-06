@@ -8,12 +8,18 @@
 #include "./DebugIO.h"
 
 void InitLED(){
-    LED1_PORT_SEL0 &= ~LED1_PIN;
-    LED1_PORT_SEL1 &= ~LED1_PIN;
-    LED1_PORT_DIR  |=  LED1_PIN;
-    LED1_PORT_OUT  &= ~LED1_PIN;
+//    LED1_PORT_SEL0 &= ~LED1_PIN;
+//    LED1_PORT_SEL1 &= ~LED1_PIN;
+//    LED1_PORT_DIR  |=  LED1_PIN;
+//    LED1_PORT_OUT  &= ~LED1_PIN;
 }
 
+void InitLEDB(){
+//    LEDB_PORT_SEL0 &= ~LEDB_PIN;
+//    LEDB_PORT_SEL1 &= ~LEDB_PIN;
+//    LEDB_PORT_DIR  |=  LEDB_PIN;
+//    LEDB_PORT_OUT  &= ~LEDB_PIN;
+}
 
 void InitButton(){
     S1_PORT_SEL0 &= ~S1_PIN;
@@ -24,7 +30,7 @@ void InitButton(){
 }
 
 void InitDebugIO(){
-    InitLED();
+//    InitLED();
     InitButton();
 
 }
@@ -41,4 +47,40 @@ void DebugLEDOff(){
 
 void DebugToggleLED(){
     LED1_PORT_OUT ^= (LED1_PIN);
+}
+
+void LEDBon(){
+    //LEDB_PORT_OUT |= LEDB_PIN;
+}
+
+void LEDBoff(){
+//    LEDB_PORT_OUT |= LEDB_PIN;
+}
+
+void ToggleLEDB(){
+//    LEDB_PORT_OUT ^= (LEDB_PIN);
+}
+
+void LEDRon(){
+//    LEDR_PORT_OUT |= LEDR_PIN;
+}
+
+void LEDRoff(){
+//    LEDR_PORT_OUT |= LEDR_PIN;
+}
+
+void ToggleLEDR(){
+//    LEDR_PORT_OUT ^= (LEDR_PIN);
+}
+
+void LEDGon(){
+//    LEDG_PORT_OUT |= LEDG_PIN;
+}
+
+void LEDGoff(){
+//    LEDG_PORT_OUT |= LEDG_PIN;
+}
+
+void ToggleLEDG(){
+//    LEDG_PORT_OUT ^= (LEDG_PIN);
 }

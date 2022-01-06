@@ -23,4 +23,16 @@ void ONLEDOn();
 void ONLEDOff();
 void DebugToggleLED();
 
+void LEDBon();
+void LEDBoff();
+void ToggleLEDB();
+
+void LEDGon();
+void LEDGoff();
+void ToggleLEDG();
+
+void LEDRon();
+void LEDRoff();
+void ToggleLEDR();
+
 #endif

@@ -73,20 +73,19 @@
 #define MX_uS0_PORT_DIR P6DIR
 #define MX_uS0_PORT_OUT P6OUT
 
-#define MY_uS0_PORT P3
-#define MY_uS0_PIN BIT3 
-#define MY_uS0_PORT_SEL0 P3SEL0
-#define MY_uS0_PORT_SEL1 P3SEL1
-#define MY_uS0_PORT_DIR P3DIR
-#define MY_uS0_PORT_OUT P3OUT
+#define MX_uS1_PORT P3
+#define MX_uS1_PIN BIT3
+#define MX_uS1_PORT_SEL0 P3SEL0
+#define MX_uS1_PORT_SEL1 P3SEL1
+#define MX_uS1_PORT_DIR P3DIR
+#define MX_uS1_PORT_OUT P3OUT
 
-
-#define MX_uS1_PORT P4
-#define MX_uS1_PIN BIT1  
-#define MX_uS1_PORT_SEL0 P4SEL0
-#define MX_uS1_PORT_SEL1 P4SEL1
-#define MX_uS1_PORT_DIR P4DIR
-#define MX_uS1_PORT_OUT P4OUT
+#define MY_uS0_PORT P4
+#define MY_uS0_PIN BIT1
+#define MY_uS0_PORT_SEL0 P4SEL0
+#define MY_uS0_PORT_SEL1 P4SEL1
+#define MY_uS0_PORT_DIR P4DIR
+#define MY_uS0_PORT_OUT P4OUT
 
 #define MY_uS1_PORT P4
 #define MY_uS1_PIN BIT5
@@ -94,6 +93,7 @@
 #define MY_uS1_PORT_SEL1 P4SEL1
 #define MY_uS1_PORT_DIR P4DIR
 #define MY_uS1_PORT_OUT P4OUT
+
 
 /**
  * MX Reset - P1.2
@@ -118,13 +118,13 @@
 
 
 /**
- * MX Step - P4.2
+ * MX Step - P4.4
  * MY Step - P5.3
  *
  */
 
 #define MX_STEP_PORT P4
-#define MX_STEP_PIN BIT2 
+#define MX_STEP_PIN BIT4
 #define MX_STEP_PORT_SEL0 P4SEL0
 #define MX_STEP_PORT_SEL1 P4SEL1
 #define MX_STEP_PORT_DIR P4DIR
@@ -155,6 +155,11 @@
  * LED1 - P1.0
  * S1 - P4.0
  * S2 - P2.3
+ * 
+ * RGB LED:
+ * P4.7 - Blue (overlap with MX direction)
+ * P5.0 - Green (overlap with MX enable)
+ * P5.1 - Red (no overlap)
  *
  */
 #define LED1_PORT P1
@@ -165,6 +170,27 @@
 #define LED1_PORT_DIR    P1DIR
 #define LED1_PORT_OUT    P1OUT
 #define LED1_PIN         BIT0 //0th pin, 0x01
+
+#define LEDB_PORT P4
+#define LEDB_PORT_SEL0   P4SEL0
+#define LEDB_PORT_SEL1   P4SEL1
+#define LEDB_PORT_DIR    P4DIR
+#define LEDB_PORT_OUT    P4OUT
+#define LEDB_PIN         BIT7
+
+#define LEDR_PORT P5
+#define LEDR_PORT_SEL0   P5SEL0
+#define LEDR_PORT_SEL1   P5SEL1
+#define LEDR_PORT_DIR    P5DIR
+#define LEDR_PORT_OUT    P5OUT
+#define LEDR_PIN         BIT1
+
+#define LEDG_PORT P5
+#define LEDG_PORT_SEL0   P5SEL0
+#define LEDG_PORT_SEL1   P5SEL1
+#define LEDG_PORT_DIR    P5DIR
+#define LEDG_PORT_OUT    P5OUT
+#define LEDG_PIN         BIT0
 
 #define S1_PORT_SEL0 P4SEL0
 #define S1_PORT_SEL1 P4SEL1
@@ -211,15 +237,15 @@
 #define MX0_LIMIT_PORT_REN P2REN
 
 #define MX1_LIMIT_PORT P4
-#define MX1_LIMIT_PORT_SEL0 P3SEL0
-#define MX1_LIMIT_PORT_SEL1 P3SEL1
-#define MX1_LIMIT_PORT_DIR P3DIR
-#define MX1_LIMIT_PORT_OUT P3OUT
-#define MX1_LIMIT_PORT_IFG P3IFG
-#define MX1_LIMIT_PORT_IE P3IE
-#define MX1_LIMIT_PORT_IES P3IES
-#define MX1_LIMIT_PORT_IN P3IN
-#define MX1_LIMIT_PORT_REN P3REN
+#define MX1_LIMIT_PORT_SEL0 P4SEL0
+#define MX1_LIMIT_PORT_SEL1 P4SEL1
+#define MX1_LIMIT_PORT_DIR P4DIR
+#define MX1_LIMIT_PORT_OUT P4OUT
+#define MX1_LIMIT_PORT_IFG P4IFG
+#define MX1_LIMIT_PORT_IE P4IE
+#define MX1_LIMIT_PORT_IES P4IES
+#define MX1_LIMIT_PORT_IN P4IN
+#define MX1_LIMIT_PORT_REN P4REN
 
 #define MX_LIMIT_0_PIN BIT0 
 #define MX_LIMIT_1_PIN BIT2 
