@@ -1,4 +1,4 @@
-Main combined functionality is founnd in Image-To-Path.py.
+Main combined functionality is found in Image-To-Path.py.
 
 Takes two command line arguments:
   1. Name of input image
