@@ -13,24 +13,19 @@
 
 /**
  * @brief Initialize pump for operations
- * todo: FIX TO USE TA3.1
+ *
  */
 void InitPump(){
-//    PUMP_PORT_SEL0 |= PUMP_PIN;  //configure TA3.1
-//    PUMP_PORT_SEL1 &= ~PUMP_PIN;
-//    PUMP_PORT_DIR |= PUMP_PIN;   //configure as TA3.1
-//    //configure pump pin for gpio, turn off pin
-//
-//    // Configure clock
-//    P2SEL1 |= BIT6 | BIT7;                  // P2.6~P2.7: crystal pins
-//    do
-//    {
-//        CSCTL7 &= ~(XT1OFFG | DCOFFG);      // Clear XT1 and DCO fault flag
-//        SFRIFG1 &= ~OFIFG;
-//    }while (SFRIFG1 & OFIFG);               // Test oscillator fault flag
-//
-//    // Setup Timer3_A
+    PUMP_PORT_SEL0 |= PUMP_PIN;  //configure TA3.1
+    PUMP_PORT_SEL1 &= ~PUMP_PIN;
+    PUMP_PORT_DIR |= PUMP_PIN;   //configure as TA3.1
+    //configure pump pin for gpio, turn off pin
 
+    // Setup Timer3_A
+    TA3CCR0 = 100-1;                                  // PWM Period
+    TA3CCTL1 = OUTMOD_7;                              // CCR1 reset/set
+    TA3CCR1 = 0;                                     // CCR1 PWM duty cycle
+    TA3CTL = TBSSEL_1 | MC_1 | TACLR;                 // ACLK, up mode, clear TAR
 }
 
 /**
@@ -38,15 +33,22 @@ void InitPump(){
  *
  */
 void PumpDrive(){
-
+    TA3CCTL1 = OUTMOD_7; // CCR1 reset/set
+    TA3CCR1 = 50; //set duty cycle to 50/100
+    TA3CTL |= TBCLR; // clear TBR
 
 }
 
 void PumpSetSpeed(uint8_t Duty){
-//    if (Duty > 99){
-//        Duty = 50; // if out of range, default to 50
-//    }
-
+    if (Duty > 99){
+        Duty = 99; // if out of range, default to max/min
+    }
+    else if (Duty < 0){
+        Duty = 0;
+    }
+    TA3CCTL1 = OUTMOD_7; // CCR1 reset/set
+    TA3CCR1 = Duty; //set duty cycle to Duty/100
+    TA3CTL |= TACLR; // clear TAR
 }
 
 void PumpStop(){
