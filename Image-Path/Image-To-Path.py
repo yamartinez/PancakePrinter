@@ -383,7 +383,7 @@ def processImage(img, show=False, dilation=1):
     # Using cv2.rotate() method
     # Using cv2.ROTATE_90_CLOCKWISE rotate
     # by 90 degrees clockwise
-    img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
+#     img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
 
     # Convert to graycsale
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
