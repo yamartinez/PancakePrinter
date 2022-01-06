@@ -3,6 +3,8 @@
  *
  *  Created on: Dec 15, 2021
  *      Author: bilge
+ *  up to date for revision 3.0 of the printed circuit board, 
+ *  adjusted for MSP430fr2477
  */
 
 #ifndef PORTPINS_H_
@@ -14,48 +16,51 @@
 #include "./Error.h"
 
 /**
- *  MX enable - P5.0
- *  MY enable - P3.7
+ *  MX enable - P4.7
+ *  MY enable - P1.7
  *
  *  recall that enables are to be held high
  *
  */
 
-#define MX_ENABLE_PORT P5
-#define MX_ENABLE_PIN BIT0 
-#define MX_ENABLE_PORT_SEL0 P5SEL0
-#define MX_ENABLE_PORT_SEL1 P5SEL1
-#define MX_ENABLE_PORT_DIR P5DIR
-#define MX_ENABLE_PORT_OUT P5OUT
+#define MX_ENABLE_PORT P4
+#define MX_ENABLE_PIN BIT7 
+#define MX_ENABLE_PORT_SEL0 P4SEL0
+#define MX_ENABLE_PORT_SEL1 P4SEL1
+#define MX_ENABLE_PORT_DIR P4DIR
+#define MX_ENABLE_PORT_OUT P4OUT
 
-#define MY_ENABLE_PORT P3
+#define MY_ENABLE_PORT P1
 #define MY_ENABLE_PIN BIT7 
-#define MY_ENABLE_PORT_SEL0 P3SEL0
-#define MY_ENABLE_PORT_SEL1 P3SEL1
-#define MY_ENABLE_PORT_DIR P3DIR
-#define MY_ENABLE_PORT_OUT P3OUT
+#define MY_ENABLE_PORT_SEL0 P1SEL0
+#define MY_ENABLE_PORT_SEL1 P1SEL1
+#define MY_ENABLE_PORT_DIR P1DIR
+#define MY_ENABLE_PORT_OUT P1OUT
 
 /**
- * MX direction - P4.7
- * MY direction - P3.1
+ * MX direction - P5.0
+ * MY direction - P4.3
  *
  */
 
-#define MX_DIR_PORT P4
-#define MX_DIR_PIN BIT7 //7th pin, 0x80
-#define MX_DIR_PORT_SEL0 P4SEL0
-#define MX_DIR_PORT_SEL1 P4SEL1
-#define MX_DIR_PORT_DIR P4DIR
-#define MX_DIR_PORT_OUT P4OUT
+#define MX_DIR_PORT P5
+#define MX_DIR_PIN BIT0
+#define MX_DIR_PORT_SEL0 P5SEL0
+#define MX_DIR_PORT_SEL1 P5SEL1
+#define MX_DIR_PORT_DIR P5DIR
+#define MX_DIR_PORT_OUT P5OUT
 
 
-#define MY_DIR_PORT P3
-#define MY_DIR_PIN BIT1 
-#define MY_DIR_PORT_SEL1 P3SEL1
-#define MY_DIR_PORT_SEL0 P3SEL0
-#define MY_DIR_PORT_DIR P3DIR
-#define MY_DIR_PORT_OUT P3OUT
+#define MY_DIR_PORT P4
+#define MY_DIR_PIN BIT3 
+#define MY_DIR_PORT_SEL1 P4SEL1
+#define MY_DIR_PORT_SEL0 P4SEL0
+#define MY_DIR_PORT_DIR P4DIR
+#define MY_DIR_PORT_OUT P4OUT
 
+
+//NOTE1: TO ALL READERS - THESE PINS AND THEIR DEFINITIONS ARE DEPRECIATED FUNCTIONALITY AS OF 
+//REVISION 3.0 - DEFINITIONS ARE PROPERTIES SOLELY OF REV 2.0 AND SHOULD NOT BE RELIED UPON FOR FUNCTIONALITY
 /**
  * MX uS0 - P6.0
  * MX uS1 - P3.3
@@ -116,55 +121,57 @@
 #define MY_RESET_PORT_DIR P1DIR
 #define MY_RESET_PORT_OUT P1OUT
 
+//END NOTE1 
+
 
 /**
- * MX Step - P4.4
- * MY Step - P5.3
+ * MX Step - P5.1
+ * MY Step - P4.4
  *
  */
 
-#define MX_STEP_PORT P4
-#define MX_STEP_PIN BIT4
-#define MX_STEP_PORT_SEL0 P4SEL0
-#define MX_STEP_PORT_SEL1 P4SEL1
-#define MX_STEP_PORT_DIR P4DIR
-#define MX_STEP_PORT_OUT P4OUT
+#define MX_STEP_PORT P5
+#define MX_STEP_PIN BIT1
+#define MX_STEP_PORT_SEL0 P5SEL0
+#define MX_STEP_PORT_SEL1 P5SEL1
+#define MX_STEP_PORT_DIR P5DIR
+#define MX_STEP_PORT_OUT P5OUT
 
 
-#define MY_STEP_PORT P5
-#define MY_STEP_PIN BIT3
-#define MY_STEP_PORT_SEL0 P5SEL0
-#define MY_STEP_PORT_SEL1 P5SEL1
-#define MY_STEP_PORT_DIR P5DIR
-#define MY_STEP_PORT_OUT P5OUT
+#define MY_STEP_PORT P4
+#define MY_STEP_PIN BIT4
+#define MY_STEP_PORT_SEL0 P4SEL0
+#define MY_STEP_PORT_SEL1 P4SEL1
+#define MY_STEP_PORT_DIR P4DIR
+#define MY_STEP_PORT_OUT P4OUT
 
 /**
- * Pump PWM output - P4.6
+ * Pump PWM output - P1.2
  *
  */
 
-#define PUMP_PORT P4
-#define PUMP_PIN BIT6
-#define PUMP_PORT_SEL0 P4SEL0
-#define PUMP_PORT_SEL1 P4SEL1
-#define PUMP_PORT_DIR P4DIR
-#define PUMP_PORT_OUT P4OUT
+#define PUMP_PORT P1
+#define PUMP_PIN BIT2
+#define PUMP_PORT_SEL0 P1SEL0
+#define PUMP_PORT_SEL1 P1SEL1
+#define PUMP_PORT_DIR P1DIR
+#define PUMP_PORT_OUT P1OUT
 
 /**
  * Debug outputs
  * LED1 - P1.0
- * S1 - P4.0
- * S2 - P2.3
+ * S1 - P2.3
+ * S2 - P4.0
  * 
  * RGB LED:
- * P4.7 - Blue (overlap with MX direction)
- * P5.0 - Green (overlap with MX enable)
+ * P4.7 - Blue (overlap with MX direction, Do Not Use)
+ * P5.0 - Green (overlap with MX enable, Do Not Use)
  * P5.1 - Red (no overlap)
  *
  */
 #define LED1_PORT P1
-#define S1_PORT P4
-#define S2_PORT P2
+#define S1_PORT P2
+#define S2_PORT P4
 #define LED1_PORT_SEL0   P1SEL0
 #define LED1_PORT_SEL1   P1SEL1
 #define LED1_PORT_DIR    P1DIR
@@ -192,36 +199,36 @@
 #define LEDG_PORT_OUT    P5OUT
 #define LEDG_PIN         BIT0
 
-#define S1_PORT_SEL0 P4SEL0
-#define S1_PORT_SEL1 P4SEL1
-#define S1_PORT_DIR P4DIR
-#define S1_PORT_OUT P4OUT
-#define S1_PORT_IFG P4IFG
-#define S1_PORT_IE P4IE
-#define S1_PORT_IES P4IES
-#define S1_PORT_IN P4IN
-#define S1_PORT_REN P4REN
-#define S1_PIN BIT0 
+#define S1_PORT_SEL0 P2SEL0
+#define S1_PORT_SEL1 P2SEL1
+#define S1_PORT_DIR P2DIR
+#define S1_PORT_OUT P2OUT
+#define S1_PORT_IFG P2IFG
+#define S1_PORT_IE P2IE
+#define S1_PORT_IES P2IES
+#define S1_PORT_IN P2IN
+#define S1_PORT_REN P2REN
+#define S1_PIN BIT3 
 
-#define S2_PORT_SEL0 P2SEL0
-#define S2_PORT_SEL1 P2SEL1
-#define S2_PORT_DIR P2DIR
-#define S2_PORT_OUT P2OUT
-#define S2_PORT_IFG P2IFG
-#define S2_PORT_IE P2IE
-#define S2_PORT_IES P2IES
-#define S2_PORT_IN P2IN
-#define S2_PORT_REN P2REN
-#define S2_PIN BIT3 
+#define S2_PORT_SEL0 P4SEL0
+#define S2_PORT_SEL1 P4SEL1
+#define S2_PORT_DIR P4DIR
+#define S2_PORT_OUT P4OUT
+#define S2_PORT_IFG P4IFG
+#define S2_PORT_IE P4IE
+#define S2_PORT_IES P4IES
+#define S2_PORT_IN P4IN
+#define S2_PORT_REN P4REN
+#define S2_PIN BIT0 
 
 
 /**
  * Limit Switches
- * MX_Limit0 - P2.0
- * MX_Limit1 - P4.2
+ * MX_Limit0 - P2.1
+ * MX_Limit1 - P2.0
  *
- * MY_Limit0 - P3.2
- * MY_Limit1 - P3.6
+ * MY_Limit0 - P2.7
+ * MY_Limit1 - P2.4
  *
  */
 
@@ -236,24 +243,24 @@
 #define MX0_LIMIT_PORT_IN P2IN
 #define MX0_LIMIT_PORT_REN P2REN
 
-#define MX1_LIMIT_PORT P4
-#define MX1_LIMIT_PORT_SEL0 P4SEL0
-#define MX1_LIMIT_PORT_SEL1 P4SEL1
-#define MX1_LIMIT_PORT_DIR P4DIR
-#define MX1_LIMIT_PORT_OUT P4OUT
-#define MX1_LIMIT_PORT_IFG P4IFG
-#define MX1_LIMIT_PORT_IE P4IE
-#define MX1_LIMIT_PORT_IES P4IES
-#define MX1_LIMIT_PORT_IN P4IN
-#define MX1_LIMIT_PORT_REN P4REN
+#define MX1_LIMIT_PORT P2
+#define MX1_LIMIT_PORT_SEL0 P2SEL0
+#define MX1_LIMIT_PORT_SEL1 P2SEL1
+#define MX1_LIMIT_PORT_DIR P2DIR
+#define MX1_LIMIT_PORT_OUT P2OUT
+#define MX1_LIMIT_PORT_IFG P2IFG
+#define MX1_LIMIT_PORT_IE P2IE
+#define MX1_LIMIT_PORT_IES P2IES
+#define MX1_LIMIT_PORT_IN P2IN
+#define MX1_LIMIT_PORT_REN P2REN
 
-#define MX_LIMIT_0_PIN BIT0 
-#define MX_LIMIT_1_PIN BIT2 
+#define MX_LIMIT_0_PIN BIT1 
+#define MX_LIMIT_1_PIN BIT0 
 #define MX_LIM0 (MX0_LIMIT_PORT_IN & MX_LIMIT_0_PIN)
 #define MX_LIM1 (MX1_LIMIT_PORT_IN & MX_LIMIT_1_PIN)
 
 
-#define MY_LIMIT_PORT P3
+#define MY_LIMIT_PORT P2
 #define MY_LIMIT_PORT_SEL0 P3SEL0
 #define MY_LIMIT_PORT_SEL1 P3SEL1
 #define MY_LIMIT_PORT_DIR P3DIR
@@ -266,9 +273,8 @@
 #define MY_LIM0 (MY_LIMIT_PORT_IN & MY_LIMIT_1_PIN)
 #define MY_LIM1 (MY_LIMIT_PORT_IN & MY_LIMIT_0_PIN)
 
-#define MY_LIMIT_1_PIN BIT2 //0x01, bit 0
-#define MY_LIMIT_0_PIN BIT6 //0x02, bit 2
-
+#define MY_LIMIT_1_PIN BIT4
+#define MY_LIMIT_0_PIN BIT7 
 #define MY_LIMIT_PINS (MY_LIMIT_0_PIN | MY_LIMIT_1_PIN)
 
 #define MOTOR_X_FORWARD (MX_DIR_PORT_OUT |= MX_DIR_PIN)
