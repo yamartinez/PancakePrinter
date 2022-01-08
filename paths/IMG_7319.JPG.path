@@ -1,0 +1,643 @@
+wait 5000
+move_dry 0 23
+wait 5000
+move_wet 7 23
+move_wet 8 22
+move_wet 12 18
+move_wet 12 17
+move_wet 17 12
+move_wet 18 13
+move_wet 13 18
+move_wet 13 19
+move_wet 10 22
+move_wet 11 22
+move_wet 12 23
+move_wet 13 23
+move_wet 87 23
+move_wet 88 22
+move_wet 88 21
+move_wet 87 20
+move_wet 77 10
+move_wet 78 9
+move_wet 77 8
+move_wet 76 8
+move_wet 75 7
+move_wet 74 8
+move_wet 74 7
+move_wet 73 6
+move_wet 72 5
+move_wet 71 5
+move_wet 70 6
+move_wet 70 5
+move_wet 69 4
+move_wet 68 5
+move_wet 68 4
+move_wet 67 3
+move_wet 66 3
+move_wet 65 2
+move_wet 62 2
+move_wet 61 1
+move_wet 59 1
+move_wet 58 0
+move_wet 57 1
+move_wet 56 0
+move_wet 43 0
+move_wet 42 1
+move_wet 41 0
+move_wet 40 1
+move_wet 38 1
+move_wet 37 2
+move_wet 38 3
+move_wet 37 4
+move_wet 34 4
+move_wet 33 3
+move_wet 34 2
+move_wet 35 2
+move_wet 36 2
+wait 5000
+move_dry 33 5
+wait 5000
+move_wet 32 5
+move_wet 31 4
+move_wet 31 5
+move_wet 30 4
+move_wet 29 5
+move_wet 29 6
+move_wet 28 5
+move_wet 27 5
+move_wet 25 7
+move_wet 25 8
+move_wet 24 7
+move_wet 23 8
+move_wet 24 9
+move_wet 23 10
+move_wet 22 10
+move_wet 21 9
+move_wet 18 12
+move_wet 19 13
+move_wet 21 11
+wait 5000
+move_dry 22 8
+move_dry 26 8
+wait 5000
+move_wet 27 7
+move_wet 28 7
+wait 5000
+move_dry 30 6
+move_dry 32 3
+move_dry 39 3
+wait 5000
+move_wet 41 3
+move_wet 42 2
+move_wet 57 2
+move_wet 58 3
+move_wet 61 3
+move_wet 62 4
+move_wet 65 4
+move_wet 66 5
+move_wet 67 5
+wait 5000
+move_dry 69 6
+move_dry 71 7
+wait 5000
+move_wet 72 7
+move_wet 73 8
+wait 5000
+move_dry 75 9
+wait 5000
+move_wet 76 10
+wait 5000
+move_dry 79 10
+wait 5000
+move_wet 81 12
+move_wet 81 13
+move_wet 82 12
+move_wet 83 13
+move_wet 82 14
+move_wet 83 15
+move_wet 84 14
+move_wet 85 15
+move_wet 84 16
+move_wet 85 17
+move_wet 86 16
+move_wet 87 17
+move_wet 86 18
+move_wet 87 18
+move_wet 90 21
+move_wet 89 22
+wait 5000
+move_dry 91 22
+wait 5000
+move_wet 92 23
+move_wet 98 23
+move_wet 99 24
+move_wet 99 98
+move_wet 98 99
+move_wet 0 99
+wait 5000
+move_dry 2 96
+wait 5000
+move_wet 2 85
+move_wet 3 84
+move_wet 13 84
+move_wet 14 85
+move_wet 15 86
+move_wet 16 86
+move_wet 17 85
+move_wet 18 86
+move_wet 17 87
+move_wet 18 88
+move_wet 18 87
+wait 5000
+move_dry 19 89
+wait 5000
+move_wet 19 96
+move_wet 18 97
+move_wet 3 97
+wait 5000
+move_dry 3 82
+wait 5000
+move_wet 2 81
+move_wet 2 80
+move_wet 2 64
+wait 5000
+move_dry 3 66
+wait 5000
+move_wet 4 65
+move_wet 4 64
+move_wet 4 62
+move_wet 3 61
+move_wet 3 57
+move_wet 2 56
+move_wet 2 43
+move_wet 3 42
+move_wet 4 41
+move_wet 5 41
+move_wet 18 41
+move_wet 19 42
+move_wet 19 81
+move_wet 18 82
+move_wet 15 82
+move_wet 14 81
+move_wet 10 77
+move_wet 9 78
+move_wet 8 77
+move_wet 8 76
+move_wet 7 75
+move_wet 7 74
+move_wet 5 72
+move_wet 5 71
+move_wet 3 69
+move_wet 4 69
+move_wet 5 68
+move_wet 5 67
+move_wet 5 66
+wait 5000
+move_dry 6 69
+wait 5000
+move_wet 5 70
+move_wet 6 70
+move_wet 7 71
+move_wet 7 72
+move_wet 8 73
+move_wet 8 74
+move_wet 10 76
+wait 5000
+move_dry 10 79
+wait 5000
+move_wet 10 81
+move_wet 9 82
+move_wet 4 82
+wait 5000
+move_dry 11 80
+wait 5000
+move_wet 11 81
+move_wet 12 81
+move_wet 13 81
+wait 5000
+move_dry 21 73
+wait 5000
+move_wet 21 42
+move_wet 22 41
+move_wet 29 41
+move_wet 30 42
+move_wet 30 81
+move_wet 29 82
+move_wet 22 82
+move_wet 21 81
+move_wet 21 74
+wait 5000
+move_dry 22 84
+wait 5000
+move_wet 21 85
+move_wet 21 86
+move_wet 21 87
+move_wet 22 88
+move_wet 24 90
+move_wet 23 91
+move_wet 24 92
+move_wet 25 91
+move_wet 25 92
+move_wet 26 91
+move_wet 27 92
+move_wet 26 93
+move_wet 27 94
+move_wet 28 94
+move_wet 29 93
+move_wet 28 92
+wait 5000
+move_dry 29 94
+wait 5000
+move_wet 29 95
+move_wet 30 96
+move_wet 29 97
+move_wet 22 97
+move_wet 21 96
+move_wet 21 92
+move_wet 22 91
+wait 5000
+move_dry 23 84
+wait 5000
+move_wet 24 84
+move_wet 77 84
+move_wet 78 85
+move_wet 78 87
+move_wet 77 88
+move_wet 74 91
+move_wet 74 92
+move_wet 73 91
+move_wet 72 92
+move_wet 73 93
+move_wet 72 94
+move_wet 71 94
+move_wet 70 93
+move_wet 70 94
+move_wet 69 93
+move_wet 68 94
+move_wet 68 95
+move_wet 67 94
+move_wet 66 94
+move_wet 65 95
+move_wet 66 96
+move_wet 68 96
+move_wet 69 95
+move_wet 69 96
+move_wet 70 97
+move_wet 77 97
+move_wet 78 96
+move_wet 78 92
+move_wet 77 91
+move_wet 76 91
+move_wet 75 92
+wait 5000
+move_dry 71 92
+move_dry 64 95
+wait 5000
+move_wet 61 95
+move_wet 60 96
+move_wet 57 96
+move_wet 56 97
+move_wet 43 97
+move_wet 42 96
+move_wet 39 96
+move_wet 38 95
+move_wet 34 95
+move_wet 33 94
+move_wet 32 94
+move_wet 31 95
+move_wet 31 94
+move_wet 30 93
+wait 5000
+move_dry 30 95
+wait 5000
+move_wet 31 96
+move_wet 33 96
+wait 5000
+move_dry 33 82
+wait 5000
+move_wet 32 81
+move_wet 32 80
+move_wet 32 42
+move_wet 33 41
+move_wet 40 41
+move_wet 41 42
+move_wet 41 81
+move_wet 40 82
+move_wet 34 82
+wait 5000
+move_dry 43 73
+wait 5000
+move_wet 43 42
+move_wet 44 41
+move_wet 53 41
+move_wet 54 42
+move_wet 54 81
+move_wet 53 82
+move_wet 44 82
+move_wet 43 81
+move_wet 43 74
+wait 5000
+move_dry 56 61
+wait 5000
+move_wet 56 42
+move_wet 57 41
+move_wet 66 41
+move_wet 67 42
+move_wet 67 81
+move_wet 66 82
+move_wet 57 82
+move_wet 56 81
+move_wet 56 62
+wait 5000
+move_dry 69 49
+wait 5000
+move_wet 69 42
+move_wet 70 41
+move_wet 77 41
+move_wet 78 42
+move_wet 78 81
+move_wet 77 82
+move_wet 70 82
+move_wet 69 81
+move_wet 69 50
+wait 5000
+move_dry 80 61
+wait 5000
+move_wet 80 42
+move_wet 81 41
+move_wet 95 41
+move_wet 96 42
+move_wet 97 43
+move_wet 97 44
+move_wet 97 56
+move_wet 96 57
+move_wet 96 60
+move_wet 95 61
+move_wet 95 64
+move_wet 94 65
+move_wet 94 67
+move_wet 93 68
+move_wet 93 69
+move_wet 92 70
+move_wet 92 71
+move_wet 91 72
+move_wet 91 74
+move_wet 90 75
+move_wet 89 76
+move_wet 89 77
+move_wet 84 82
+move_wet 83 82
+move_wet 81 82
+move_wet 80 81
+move_wet 80 62
+wait 5000
+move_dry 92 74
+wait 5000
+move_wet 92 75
+move_wet 91 76
+move_wet 91 77
+move_wet 90 78
+move_wet 87 81
+move_wet 86 81
+wait 5000
+move_dry 88 81
+wait 5000
+move_wet 89 82
+move_wet 96 82
+move_wet 97 81
+move_wet 97 70
+move_wet 96 69
+move_wet 95 68
+move_wet 95 69
+move_wet 94 68
+wait 5000
+move_dry 93 70
+wait 5000
+move_wet 94 71
+move_wet 94 70
+wait 5000
+move_dry 92 72
+wait 5000
+move_wet 93 73
+move_wet 94 72
+wait 5000
+move_dry 96 68
+wait 5000
+move_wet 96 66
+move_wet 95 65
+wait 5000
+move_dry 85 84
+wait 5000
+move_wet 84 85
+move_wet 83 86
+move_wet 82 85
+move_wet 81 86
+move_wet 81 87
+move_wet 81 88
+move_wet 80 89
+move_wet 80 96
+move_wet 81 97
+move_wet 96 97
+move_wet 97 96
+move_wet 97 85
+move_wet 96 84
+move_wet 86 84
+wait 5000
+move_dry 82 87
+move_dry 33 38
+wait 5000
+move_wet 32 38
+move_wet 31 38
+move_wet 30 37
+move_wet 28 35
+move_wet 27 35
+move_wet 25 37
+move_wet 26 38
+move_wet 27 37
+move_wet 27 38
+move_wet 30 38
+wait 5000
+move_dry 30 36
+wait 5000
+move_wet 29 35
+move_wet 30 34
+move_wet 31 33
+move_wet 32 33
+move_wet 33 32
+move_wet 34 32
+move_wet 35 31
+move_wet 36 31
+move_wet 37 30
+move_wet 38 30
+move_wet 39 29
+move_wet 40 29
+move_wet 42 27
+move_wet 42 26
+move_wet 41 25
+move_wet 40 25
+move_wet 23 25
+move_wet 22 26
+move_wet 21 27
+move_wet 21 28
+move_wet 21 36
+move_wet 22 37
+move_wet 24 37
+wait 5000
+move_dry 19 32
+wait 5000
+move_wet 19 26
+move_wet 18 25
+move_wet 10 25
+move_wet 9 26
+move_wet 6 29
+move_wet 5 28
+move_wet 5 26
+move_wet 4 25
+move_wet 3 25
+move_wet 2 26
+move_wet 2 32
+move_wet 3 33
+move_wet 4 34
+move_wet 4 35
+move_wet 4 37
+move_wet 5 38
+move_wet 18 38
+move_wet 19 37
+move_wet 19 33
+wait 5000
+move_dry 7 27
+wait 5000
+move_wet 6 26
+wait 5000
+move_dry 5 29
+wait 5000
+move_wet 4 30
+move_wet 4 31
+wait 5000
+move_dry 5 32
+wait 5000
+move_wet 5 31
+move_wet 6 30
+wait 5000
+move_dry 5 33
+move_dry 31 35
+wait 5000
+move_wet 32 35
+move_wet 33 34
+move_wet 34 34
+move_wet 35 33
+move_wet 36 33
+move_wet 37 32
+move_wet 38 32
+move_wet 39 31
+move_wet 40 31
+move_wet 41 30
+move_wet 42 30
+move_wet 43 29
+move_wet 42 28
+move_wet 43 27
+move_wet 44 28
+move_wet 46 28
+move_wet 47 27
+move_wet 49 27
+move_wet 50 26
+move_wet 51 27
+move_wet 52 27
+move_wet 53 27
+move_wet 54 26
+move_wet 55 25
+move_wet 56 25
+move_wet 57 26
+move_wet 56 27
+move_wet 55 28
+move_wet 56 29
+move_wet 57 28
+move_wet 57 27
+move_wet 59 25
+move_wet 60 25
+move_wet 76 25
+move_wet 77 26
+move_wet 78 27
+move_wet 78 28
+move_wet 78 36
+move_wet 77 37
+move_wet 76 37
+move_wet 75 36
+move_wet 73 36
+move_wet 72 35
+move_wet 71 35
+move_wet 70 34
+move_wet 69 34
+move_wet 68 33
+move_wet 67 33
+move_wet 66 32
+move_wet 65 32
+move_wet 64 31
+move_wet 63 31
+move_wet 62 30
+move_wet 61 29
+move_wet 60 29
+move_wet 59 29
+move_wet 58 28
+move_wet 57 29
+move_wet 58 30
+move_wet 59 31
+move_wet 60 31
+move_wet 61 32
+move_wet 62 32
+move_wet 63 33
+move_wet 64 33
+move_wet 65 34
+move_wet 66 34
+move_wet 68 36
+move_wet 68 35
+move_wet 69 36
+move_wet 69 37
+move_wet 68 38
+move_wet 67 38
+move_wet 34 38
+wait 5000
+move_dry 54 28
+move_dry 69 38
+wait 5000
+move_wet 70 38
+move_wet 71 38
+move_wet 72 37
+wait 5000
+move_dry 70 36
+move_dry 80 26
+wait 5000
+move_wet 80 37
+move_wet 81 38
+move_wet 94 38
+move_wet 95 37
+move_wet 95 34
+move_wet 94 33
+move_wet 94 31
+move_wet 93 30
+move_wet 93 29
+move_wet 92 28
+move_wet 89 25
+move_wet 88 25
+move_wet 81 25
+wait 5000
+move_dry 92 27
+wait 5000
+move_wet 93 26
+move_wet 94 27
+move_wet 94 26
+move_wet 95 25
+move_wet 96 25
+move_wet 97 26
+move_wet 97 29
+move_wet 96 30
+move_wet 94 28
+move_wet 94 29
+move_wet 95 30
+move_wet 95 31
+move_wet 96 32
+move_wet 96 31
+wait 5000
+move_dry 96 33
+move_dry 57 0
+move_dry 42 0

@@ -1,0 +1,20 @@
+<h1>hi</h1>
+
+<!--<form action="/upload" method="post" encType="multipart/form-data"> -->
+    <input id="file" name="image" type="file"/>
+    <input value="Submit" onclick="submit()" type="button">
+
+<script>
+    function submit(){
+        let form = new FormData()
+        let input = document.getElementById("file")
+        form.append("image",input.files[0])
+        fetch("/upload",{
+            method:"POST",
+            body:form,
+            "content-type":"multipart/form-data"
+        }).then((res)=>{
+            input.value=null
+        })
+    }
+</script>
