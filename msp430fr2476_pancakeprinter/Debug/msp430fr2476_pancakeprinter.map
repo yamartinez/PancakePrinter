@@ -1,7 +1,7 @@
 ******************************************************************************
                   MSP430 Linker PC v21.6.0                     
 ******************************************************************************
->> Linked Thu Jan  6 17:22:26 2022
+>> Linked Fri Jan  7 23:44:57 2022
 
 OUTPUT FILE NAME:   <msp430fr2476_pancakeprinter.out>
 ENTRY POINT SYMBOL: "_c_int00_noargs_mpu"  address: 0000805e
@@ -70,7 +70,7 @@ MEMORY CONFIGURATION
   INT44                 0000fffa   00000002  00000002  00000000  RWIX
   INT45                 0000fffc   00000002  00000002  00000000  RWIX
   RESET                 0000fffe   00000002  00000002  00000000  RWIX
-  FRAM2                 00010000   00008000  00001016  00006fea  RWIX
+  FRAM2                 00010000   00008000  00000fe6  0000701a  RWIX
   ROMLIB                000c0000   00004000  00000000  00004000  RWIX
   BSL1                  000ffc00   00000400  00000000  00000400  RWIX
 
@@ -243,64 +243,64 @@ SYSNMI     0    0000fffc    00000002
 .reset     0    0000fffe    00000002     
                   0000fffe    00000002     rts430x_lc_sd_eabi.lib : boot.c.obj (.reset)
 
-.text      0    00010000    00001016     
-                  00010000    00000208     Steppers.obj (.text:move)
-                  00010208    000001ce     Steppers.obj (.text:CalibrateSteppers)
-                  000103d6    0000015e     Steppers.obj (.text:InitStepperMotors)
-                  00010534    00000120     Steppers.obj (.text:Y_Step)
-                  00010654    0000011c     Steppers.obj (.text:X_Step)
-                  00010770    000000ee     rts430x_lc_sd_eabi.lib : copy_decompress_lzss.c.obj (.text:decompress:lzss:__TI_decompress_lzss)
-                  0001085e    000000be     UART.obj (.text:Software_Trim)
-                  0001091c    000000bc     Commands.obj (.text:BuildCommand)
-                  000109d8    00000076     main.obj (.text:main)
-                  00010a4e    0000006a     rts430x_lc_sd_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit_hold_wdt:__TI_auto_init_nobinit_nopinit_hold_wdt)
-                  00010ab8    0000006a     Steppers.obj (.text:move_relative)
-                  00010b22    00000068     UART.obj (.text:uart_main)
-                  00010b8a    00000048     Error.obj (.text:error)
-                  00010bd2    00000046     main.obj (.text:mainloop)
-                  00010c18    00000044     Commands.obj (.text:ExecuteCommand)
-                  00010c5c    00000040     Commands.obj (.text:EnqueueCommand)
-                  00010c9c    00000040     rts430x_lc_sd_eabi.lib : cpy_util.asm.obj (.text:__memcpy_far)
-                  00010cdc    0000003e                            : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init)
-                  00010d1a    0000003c     FRWP_INIT_LIB_CCS_msp430_large_code_small_data.lib : frwp_init.obj (.text:__mpu_init)
-                  00010d56    0000003c     rts430x_lc_sd_eabi.lib : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
-                  00010d92    0000003a     Steppers.obj (.text:CheckLimitSwitches)
-                  00010dcc    00000030     Commands.obj (.text:DequeueCommand)
-                  00010dfc    00000024     Carriage.obj (.text:CarriageMove)
-                  00010e20    00000024     Pump.obj (.text:InitPump)
-                  00010e44    00000020     Steppers.obj (.text:wait)
-                  00010e64    0000001c     Pump.obj (.text:PumpSetSpeed)
-                  00010e80    0000001a     UART.obj (.text:Init_GPIO)
-                  00010e9a    00000018     rts430x_lc_sd_eabi.lib : mult16_f5hw.asm.obj (.text)
-                  00010eb2    00000016     Carriage.obj (.text:CarriageWait)
-                  00010ec8    00000016     DebugIO.obj (.text:InitButton)
-                  00010ede    00000014     Steppers.obj (.text:YLim0)
-                  00010ef2    00000014     Steppers.obj (.text:YLim1)
-                  00010f06    00000012     DebugIO.obj (.text:InitLED)
-                  00010f18    00000012     Pump.obj (.text:PumpDrive)
-                  00010f2a    00000012     Steppers.obj (.text:X_Step_Backward)
-                  00010f3c    00000012     Steppers.obj (.text:X_Step_Forward)
-                  00010f4e    00000012     Steppers.obj (.text:Y_Step_Backward)
-                  00010f60    00000012     Steppers.obj (.text:Y_Step_Forward)
-                  00010f72    00000012     rts430x_lc_sd_eabi.lib : memcpy.c.obj (.text:memcpy)
-                  00010f84    0000000e     Steppers.obj (.text:move_absolute)
-                  00010f92    0000000e     Steppers.obj (.text:move_image)
-                  00010fa0    0000000c     DebugIO.obj (.text:DebugReadButton)
-                  00010fac    0000000c     UART.obj (.text:UART_Write)
-                  00010fb8    0000000c     Steppers.obj (.text:XLim1)
-                  00010fc4    0000000a     Carriage.obj (.text:CarriageDone)
-                  00010fce    0000000a     DebugIO.obj (.text:InitDebugIO)
-                  00010fd8    0000000a     Steppers.obj (.text:XLim0)
-                  00010fe2    0000000a     rts430x_lc_sd_eabi.lib : abs.c.obj (.text:abs)
-                  00010fec    00000008     Pump.obj (.text:PumpStop)
-                  00010ff4    00000006     DebugIO.obj (.text:DebugLEDOff)
-                  00010ffa    00000006     DebugIO.obj (.text:DebugLEDOn)
-                  00011000    00000006     Commands.obj (.text:QueueSize)
-                  00011006    00000006     rts430x_lc_sd_eabi.lib : exit.c.obj (.text:abort)
-                  0001100c    00000004                            : pre_init.c.obj (.text:_system_pre_init)
-                  00011010    00000002     DebugIO.obj (.text:LEDRoff)
-                  00011012    00000002     DebugIO.obj (.text:LEDRon)
-                  00011014    00000002     rts430x_lc_sd_eabi.lib : startup.c.obj (.text:_system_post_cinit)
+.text      0    00010000    00000fe6     
+                  00010000    000001fe     Steppers.obj (.text:move)
+                  000101fe    000001bc     Steppers.obj (.text:CalibrateSteppers)
+                  000103ba    0000014e     Steppers.obj (.text:InitStepperMotors)
+                  00010508    0000011c     Steppers.obj (.text:X_Step)
+                  00010624    0000011c     Steppers.obj (.text:Y_Step)
+                  00010740    000000ee     rts430x_lc_sd_eabi.lib : copy_decompress_lzss.c.obj (.text:decompress:lzss:__TI_decompress_lzss)
+                  0001082e    000000be     UART.obj (.text:Software_Trim)
+                  000108ec    000000bc     Commands.obj (.text:BuildCommand)
+                  000109a8    00000076     main.obj (.text:main)
+                  00010a1e    0000006a     rts430x_lc_sd_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit_hold_wdt:__TI_auto_init_nobinit_nopinit_hold_wdt)
+                  00010a88    0000006a     Steppers.obj (.text:move_relative)
+                  00010af2    00000068     UART.obj (.text:uart_main)
+                  00010b5a    00000046     Error.obj (.text:error)
+                  00010ba0    00000046     main.obj (.text:mainloop)
+                  00010be6    00000044     Commands.obj (.text:ExecuteCommand)
+                  00010c2a    00000040     Commands.obj (.text:EnqueueCommand)
+                  00010c6a    00000040     rts430x_lc_sd_eabi.lib : cpy_util.asm.obj (.text:__memcpy_far)
+                  00010caa    0000003e                            : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init)
+                  00010ce8    0000003c     FRWP_INIT_LIB_CCS_msp430_large_code_small_data.lib : frwp_init.obj (.text:__mpu_init)
+                  00010d24    0000003c     rts430x_lc_sd_eabi.lib : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
+                  00010d60    0000003a     Steppers.obj (.text:CheckLimitSwitches)
+                  00010d9a    00000030     Commands.obj (.text:DequeueCommand)
+                  00010dca    00000024     Carriage.obj (.text:CarriageMove)
+                  00010dee    00000024     Pump.obj (.text:InitPump)
+                  00010e12    00000022     Steppers.obj (.text:wait)
+                  00010e34    0000001c     Pump.obj (.text:PumpSetSpeed)
+                  00010e50    0000001a     UART.obj (.text:Init_GPIO)
+                  00010e6a    00000018     rts430x_lc_sd_eabi.lib : mult16_f5hw.asm.obj (.text)
+                  00010e82    00000016     Carriage.obj (.text:CarriageWait)
+                  00010e98    00000016     DebugIO.obj (.text:InitButton)
+                  00010eae    00000014     Steppers.obj (.text:YLim0)
+                  00010ec2    00000014     Steppers.obj (.text:YLim1)
+                  00010ed6    00000012     DebugIO.obj (.text:InitLED)
+                  00010ee8    00000012     Pump.obj (.text:PumpDrive)
+                  00010efa    00000012     Steppers.obj (.text:X_Step_Backward)
+                  00010f0c    00000012     Steppers.obj (.text:X_Step_Forward)
+                  00010f1e    00000012     Steppers.obj (.text:Y_Step_Backward)
+                  00010f30    00000012     Steppers.obj (.text:Y_Step_Forward)
+                  00010f42    00000012     rts430x_lc_sd_eabi.lib : memcpy.c.obj (.text:memcpy)
+                  00010f54    0000000e     Steppers.obj (.text:move_absolute)
+                  00010f62    0000000e     Steppers.obj (.text:move_image)
+                  00010f70    0000000c     DebugIO.obj (.text:DebugReadButton)
+                  00010f7c    0000000c     UART.obj (.text:UART_Write)
+                  00010f88    0000000c     Steppers.obj (.text:XLim1)
+                  00010f94    0000000a     Carriage.obj (.text:CarriageDone)
+                  00010f9e    0000000a     DebugIO.obj (.text:InitDebugIO)
+                  00010fa8    0000000a     Steppers.obj (.text:XLim0)
+                  00010fb2    0000000a     rts430x_lc_sd_eabi.lib : abs.c.obj (.text:abs)
+                  00010fbc    00000008     Pump.obj (.text:PumpStop)
+                  00010fc4    00000006     DebugIO.obj (.text:DebugLEDOff)
+                  00010fca    00000006     DebugIO.obj (.text:DebugLEDOn)
+                  00010fd0    00000006     Commands.obj (.text:QueueSize)
+                  00010fd6    00000006     rts430x_lc_sd_eabi.lib : exit.c.obj (.text:abort)
+                  00010fdc    00000004                            : pre_init.c.obj (.text:_system_pre_init)
+                  00010fe0    00000002     DebugIO.obj (.text:LEDRoff)
+                  00010fe2    00000002     DebugIO.obj (.text:LEDRon)
+                  00010fe4    00000002     rts430x_lc_sd_eabi.lib : startup.c.obj (.text:_system_post_cinit)
 
 MODULE SUMMARY
 
@@ -308,15 +308,15 @@ MODULE SUMMARY
        ------                       ----   -------   -------
     .\
        Commands.obj                 412    2         3085   
-       Steppers.obj                 2282   16        50     
+       Steppers.obj                 2236   16        50     
        UART.obj                     332    0         0      
        main.obj                     188    0         1      
        Pump.obj                     90     0         0      
        DebugIO.obj                  78     0         0      
-       Error.obj                    72     0         0      
+       Error.obj                    70     0         0      
        Carriage.obj                 68     0         0      
     +--+----------------------------+------+---------+---------+
-       Total:                       3522   18        3136   
+       Total:                       3474   18        3136   
                                                             
     C:\ti\ccs1100\ccs\ccs_base\msp430\lib\FR2xx\FRWP_INIT_LIB_CCS_msp430_large_code_small_data.lib
        frwp_init.obj                60     0         0      
@@ -367,7 +367,7 @@ MODULE SUMMARY
        Stack:                       0      0         160    
        Linker Generated:            0      42        0      
     +--+----------------------------+------+---------+---------+
-       Grand Total:                 4216   110       3296   
+       Grand Total:                 4168   110       3296   
 
 
 LINKER GENERATED COPY TABLES
@@ -467,8 +467,8 @@ address   name
 00000672  BAKMEM9                                
 00000673  BAKMEM9_H                              
 00000672  BAKMEM9_L                              
-0001091c  BuildCommand                           
-00011006  C$$EXIT                                
+000108ec  BuildCommand                           
+00010fd6  C$$EXIT                                
 000008e0  CP0CTL0                                
 000008e1  CP0CTL0_H                              
 000008e0  CP0CTL0_L                              
@@ -526,17 +526,17 @@ address   name
 00000190  CSCTL8                                 
 00000191  CSCTL8_H                               
 00000190  CSCTL8_L                               
-00010208  CalibrateSteppers                      
-00010fc4  CarriageDone                           
-00010dfc  CarriageMove                           
-00010eb2  CarriageWait                           
-00010d92  CheckLimitSwitches                     
-00010ff4  DebugLEDOff                            
-00010ffa  DebugLEDOn                             
-00010fa0  DebugReadButton                        
-00010dcc  DequeueCommand                         
-00010c5c  EnqueueCommand                         
-00010c18  ExecuteCommand                         
+000101fe  CalibrateSteppers                      
+00010f94  CarriageDone                           
+00010dca  CarriageMove                           
+00010e82  CarriageWait                           
+00010d60  CheckLimitSwitches                     
+00010fc4  DebugLEDOff                            
+00010fca  DebugLEDOn                             
+00010f70  DebugReadButton                        
+00010d9a  DequeueCommand                         
+00010c2a  EnqueueCommand                         
+00010be6  ExecuteCommand                         
 000001a0  FRCTL0                                 
 000001a1  FRCTL0_H                               
 000001a0  FRCTL0_L                               
@@ -548,14 +548,14 @@ address   name
 000001a6  GCCTL1_L                               
 00002c0a  GlobalX_Position                       
 00002c0c  GlobalY_Position                       
-00010ec8  InitButton                             
-00010fce  InitDebugIO                            
-00010f06  InitLED                                
-00010e20  InitPump                               
-000103d6  InitStepperMotors                      
-00010e80  Init_GPIO                              
-00011010  LEDRoff                                
-00011012  LEDRon                                 
+00010e98  InitButton                             
+00010f9e  InitDebugIO                            
+00010ed6  InitLED                                
+00010dee  InitPump                               
+000103ba  InitStepperMotors                      
+00010e50  Init_GPIO                              
+00010fe0  LEDRoff                                
+00010fe2  LEDRon                                 
 000004c4  MAC                                    
 000004da  MAC32H                                 
 000004db  MAC32H_H                               
@@ -809,10 +809,10 @@ address   name
 0000012b  PMMIFG_H                               
 0000012a  PMMIFG_L                               
 0000807e  Port_2                                 
-00010f18  PumpDrive                              
-00010e64  PumpSetSpeed                           
-00010fec  PumpStop                               
-00011000  QueueSize                              
+00010ee8  PumpDrive                              
+00010e34  PumpSetSpeed                           
+00010fbc  PumpStop                               
+00010fd0  QueueSize                              
 000004e4  RES0                                   
 000004e5  RES0_H                                 
 000004e4  RES0_L                                 
@@ -897,7 +897,7 @@ address   name
 0000015a  SYSUNIV                                
 0000015b  SYSUNIV_H                              
 0000015a  SYSUNIV_L                              
-0001085e  Software_Trim                          
+0001082e  Software_Trim                          
 00002c1f  Steppers_Calibrated                    
 00002c1e  Steppers_Initialized                   
 00000392  TA0CCR0                                
@@ -1074,7 +1074,7 @@ address   name
 00000490  TB0R                                   
 00000491  TB0R_H                                 
 00000490  TB0R_L                                 
-00010fac  UART_Write                             
+00010f7c  UART_Write                             
 00000510  UCA0ABCTL                              
 00000511  UCA0ABCTL_H                            
 00000510  UCA0ABCTL_L                            
@@ -1253,21 +1253,21 @@ address   name
 000001cc  WDTCTL                                 
 000001cd  WDTCTL_H                               
 000001cc  WDTCTL_L                               
-00010fd8  XLim0                                  
-00010fb8  XLim1                                  
+00010fa8  XLim0                                  
+00010f88  XLim1                                  
 00002c0e  X_DIM                                  
 00002c10  X_Image_Offset                         
-00010654  X_Step                                 
-00010f2a  X_Step_Backward                        
-00010f3c  X_Step_Forward                         
+00010508  X_Step                                 
+00010efa  X_Step_Backward                        
+00010f0c  X_Step_Forward                         
 00002c06  X_Steps                                
-00010ede  YLim0                                  
-00010ef2  YLim1                                  
+00010eae  YLim0                                  
+00010ec2  YLim1                                  
 00002c12  Y_DIM                                  
 00002c1c  Y_Image_Offset                         
-00010534  Y_Step                                 
-00010f4e  Y_Step_Backward                        
-00010f60  Y_Step_Forward                         
+00010624  Y_Step                                 
+00010f1e  Y_Step_Backward                        
+00010f30  Y_Step_Forward                         
 00002c18  Y_Steps                                
 00004000  __STACK_END                            
 000000a0  __STACK_SIZE                           
@@ -1277,9 +1277,9 @@ address   name
 00008000  __TI_Handler_Table_Base                
 0000800c  __TI_Handler_Table_Limit               
 00008092  __TI_ISR_TRAP                          
-00010a4e  __TI_auto_init_nobinit_nopinit_hold_wdt
-00010770  __TI_decompress_lzss                   
-00010d56  __TI_decompress_none                   
+00010a1e  __TI_auto_init_nobinit_nopinit_hold_wdt
+00010740  __TI_decompress_lzss                   
+00010d24  __TI_decompress_none                   
 0000ffca  __TI_int20                             
 0000ffcc  __TI_int21                             
 0000ffce  __TI_int22                             
@@ -1309,38 +1309,38 @@ address   name
 ffffffff  __TI_pprof_out_hndl                    
 ffffffff  __TI_prof_data_size                    
 ffffffff  __TI_prof_data_start                   
-00010cdc  __TI_zero_init                         
+00010caa  __TI_zero_init                         
 ffffffff  __c_args__                             
-00010c9c  __memcpy_far                           
+00010c6a  __memcpy_far                           
 00000001  __mpu_enable                           
-00010d1a  __mpu_init                             
-00010e9a  __mspabi_mpyi_f5hw                     
+00010ce8  __mpu_init                             
+00010e6a  __mspabi_mpyi_f5hw                     
 0000805e  _c_int00_noargs_mpu                    
 0000fffe  _reset_vector                          
 00003f60  _stack                                 
-00011014  _system_post_cinit                     
-0001100c  _system_pre_init                       
-00011006  abort                                  
-00010fe2  abs                                    
+00010fe4  _system_post_cinit                     
+00010fdc  _system_pre_init                       
+00010fd6  abort                                  
+00010fb2  abs                                    
 00002c14  end                                    
-00010b8a  error                                  
+00010b5a  error                                  
 00008000  fram_rw_start                          
 00008000  fram_rx_start                          
 00000001  info_fram_protection                   
-000109d8  main                                   
-00010bd2  mainloop                               
-00010f72  memcpy                                 
+000109a8  main                                   
+00010ba0  mainloop                               
+00010f42  memcpy                                 
 00010000  move                                   
-00010f84  move_absolute                          
-00010f92  move_image                             
-00010ab8  move_relative                          
+00010f54  move_absolute                          
+00010f62  move_image                             
+00010a88  move_relative                          
 00000001  program_fram_protection                
 00002000  queue                                  
 00002c3c  size                                   
 00002c16  start                                  
 00000000  start_protection_offset_address        
-00010b22  uart_main                              
-00010e44  wait                                   
+00010af2  uart_main                              
+00010e12  wait                                   
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -2238,63 +2238,63 @@ address   name
 0000fffc  __TI_int45                             
 0000fffe  _reset_vector                          
 00010000  move                                   
-00010208  CalibrateSteppers                      
-000103d6  InitStepperMotors                      
-00010534  Y_Step                                 
-00010654  X_Step                                 
-00010770  __TI_decompress_lzss                   
-0001085e  Software_Trim                          
-0001091c  BuildCommand                           
-000109d8  main                                   
-00010a4e  __TI_auto_init_nobinit_nopinit_hold_wdt
-00010ab8  move_relative                          
-00010b22  uart_main                              
-00010b8a  error                                  
-00010bd2  mainloop                               
-00010c18  ExecuteCommand                         
-00010c5c  EnqueueCommand                         
-00010c9c  __memcpy_far                           
-00010cdc  __TI_zero_init                         
-00010d1a  __mpu_init                             
-00010d56  __TI_decompress_none                   
-00010d92  CheckLimitSwitches                     
-00010dcc  DequeueCommand                         
-00010dfc  CarriageMove                           
-00010e20  InitPump                               
-00010e44  wait                                   
-00010e64  PumpSetSpeed                           
-00010e80  Init_GPIO                              
-00010e9a  __mspabi_mpyi_f5hw                     
-00010eb2  CarriageWait                           
-00010ec8  InitButton                             
-00010ede  YLim0                                  
-00010ef2  YLim1                                  
-00010f06  InitLED                                
-00010f18  PumpDrive                              
-00010f2a  X_Step_Backward                        
-00010f3c  X_Step_Forward                         
-00010f4e  Y_Step_Backward                        
-00010f60  Y_Step_Forward                         
-00010f72  memcpy                                 
-00010f84  move_absolute                          
-00010f92  move_image                             
-00010fa0  DebugReadButton                        
-00010fac  UART_Write                             
-00010fb8  XLim1                                  
-00010fc4  CarriageDone                           
-00010fce  InitDebugIO                            
-00010fd8  XLim0                                  
-00010fe2  abs                                    
-00010fec  PumpStop                               
-00010ff4  DebugLEDOff                            
-00010ffa  DebugLEDOn                             
-00011000  QueueSize                              
-00011006  C$$EXIT                                
-00011006  abort                                  
-0001100c  _system_pre_init                       
-00011010  LEDRoff                                
-00011012  LEDRon                                 
-00011014  _system_post_cinit                     
+000101fe  CalibrateSteppers                      
+000103ba  InitStepperMotors                      
+00010508  X_Step                                 
+00010624  Y_Step                                 
+00010740  __TI_decompress_lzss                   
+0001082e  Software_Trim                          
+000108ec  BuildCommand                           
+000109a8  main                                   
+00010a1e  __TI_auto_init_nobinit_nopinit_hold_wdt
+00010a88  move_relative                          
+00010af2  uart_main                              
+00010b5a  error                                  
+00010ba0  mainloop                               
+00010be6  ExecuteCommand                         
+00010c2a  EnqueueCommand                         
+00010c6a  __memcpy_far                           
+00010caa  __TI_zero_init                         
+00010ce8  __mpu_init                             
+00010d24  __TI_decompress_none                   
+00010d60  CheckLimitSwitches                     
+00010d9a  DequeueCommand                         
+00010dca  CarriageMove                           
+00010dee  InitPump                               
+00010e12  wait                                   
+00010e34  PumpSetSpeed                           
+00010e50  Init_GPIO                              
+00010e6a  __mspabi_mpyi_f5hw                     
+00010e82  CarriageWait                           
+00010e98  InitButton                             
+00010eae  YLim0                                  
+00010ec2  YLim1                                  
+00010ed6  InitLED                                
+00010ee8  PumpDrive                              
+00010efa  X_Step_Backward                        
+00010f0c  X_Step_Forward                         
+00010f1e  Y_Step_Backward                        
+00010f30  Y_Step_Forward                         
+00010f42  memcpy                                 
+00010f54  move_absolute                          
+00010f62  move_image                             
+00010f70  DebugReadButton                        
+00010f7c  UART_Write                             
+00010f88  XLim1                                  
+00010f94  CarriageDone                           
+00010f9e  InitDebugIO                            
+00010fa8  XLim0                                  
+00010fb2  abs                                    
+00010fbc  PumpStop                               
+00010fc4  DebugLEDOff                            
+00010fca  DebugLEDOn                             
+00010fd0  QueueSize                              
+00010fd6  C$$EXIT                                
+00010fd6  abort                                  
+00010fdc  _system_pre_init                       
+00010fe0  LEDRoff                                
+00010fe2  LEDRon                                 
+00010fe4  _system_post_cinit                     
 ffffffff  __TI_pprof_out_hndl                    
 ffffffff  __TI_prof_data_size                    
 ffffffff  __TI_prof_data_start                   

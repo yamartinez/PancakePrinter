@@ -16,8 +16,8 @@
  *
  */
 void InitPump(){
-    PUMP_PORT_SEL0 |= PUMP_PIN;  //configure TA0.2
-    PUMP_PORT_SEL1 &= ~PUMP_PIN;
+    PUMP_PORT_SEL0 &= ~PUMP_PIN;  //configure TA0.2
+    PUMP_PORT_SEL1 |= PUMP_PIN;
     PUMP_PORT_DIR |= PUMP_PIN;   //configure as TA0.2
     //configure pump pin for gpio, turn off pin
 
@@ -34,7 +34,7 @@ void InitPump(){
  */
 void PumpDrive(){
     TA0CCTL2 = OUTMOD_7; // CCR2 reset/set
-    TA0CCR2 = 50; //set duty cycle to 50/100
+    TA0CCR2 = 15; //set duty cycle to 50/100
     TA0CTL |= TACLR; // clear TAR
 
 }

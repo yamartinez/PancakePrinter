@@ -290,22 +290,23 @@ void CalibrateSteppers(){
    // LEDBon(); // blue led - stage 1, x backwards calibration
     MX_ENABLE;
     MY_DISABLE;
+    //reversed direction of the steppers, need to double check if this affects the calibration sequence.
     while(!XLim0() && !XLim1()){
 //        MX_ENABLE;
         X_Step_Backward(); //step backwards until xlim0 is hit, hopefully
 //        MX_DISABLE;
     }
-    if(XLim1()){ //this happens if the front limit switch is hit (it should be stepping backwards)
+    if(XLim0()){ //this happens if the front limit switch is hit (it should be stepping backwards)
         error(direction_error_x,__FILE__,__LINE__);
     }
-    while(XLim0()){ //step forward a bit so we are not on the switch in the back
+    while(XLim1()){ //step forward a bit so we are not on the switch in the back
 //        MX_ENABLE;
         X_Step_Forward();
 //        MX_DISABLE;
     }
     // LEDBoff(); //stage 1 over, stage 2 now, green LED on
     // LEDGon();
-    while(!XLim1()){ //step forward until the front limit switch is hit, and count how many steps it takes to get there
+    while(!XLim0()){ //step forward until the front limit switch is hit, and count how many steps it takes to get there
 //        MX_ENABLE;
         X_Step_Forward();
         X_Steps++;
@@ -328,17 +329,17 @@ void CalibrateSteppers(){
         Y_Step_Backward();
 //        MY_DISABLE;
     }
-    if(YLim1()){
+    if(YLim0()){
         error(direction_error_y,__FILE__,__LINE__);
     }
-    while(YLim0()){
+    while(YLim1()){
         Y_Step_Forward();
     }
-    while(!YLim1()){
+    while(!YLim0()){
         Y_Step_Forward();
         Y_Steps++;
     }
-    while(YLim1()){
+    while(YLim0()){
         Y_Step_Backward();
         Y_Steps--;
     }
@@ -371,13 +372,13 @@ void CalibrateSteppers(){
     MY_LIMIT_PORT_IFG &= ~(MY_LIMIT_0_PIN | MY_LIMIT_1_PIN);
     MX0_LIMIT_PORT_IE  |=  MX_LIMIT_0_PIN;
     MX1_LIMIT_PORT_IE  |=  MX_LIMIT_1_PIN;
-    MY_LIMIT_PORT_IFG  |= (MY_LIMIT_0_PIN | MY_LIMIT_1_PIN);
+    MY_LIMIT_PORT_IE  |= (MY_LIMIT_0_PIN | MY_LIMIT_1_PIN);
 
     GlobalX_Position = 0;
     GlobalY_Position = 0;
 
-    X_Image_Offset = (X_Steps>>2) - (X_DIM>>2);
-    Y_Image_Offset = (Y_Steps>>2) - (Y_DIM>>2);
+    X_Image_Offset = (X_Steps>>1) - (X_DIM>>1);
+    Y_Image_Offset = (Y_Steps>>1) - (Y_DIM>>1);
 
 //    move_image(0,0);
 //    move_image(0,500);
@@ -538,7 +539,7 @@ void wait(){
 #else
 void wait(uint32_t count){
     for(count;count>0;count--){
-        _delay_cycles(1000);
+        _delay_cycles(500);
     }
 }
 #endif
