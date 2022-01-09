@@ -12,7 +12,7 @@
 //#define STEPPER_DEBUG 1
 
 #define STEP_ACCEL
-
+#define WAIT_CYCLE_TIMES 450
 uint32_t X_Steps, Y_Steps = 0;
 int16_t  GlobalX_Position, GlobalY_Position, X_Image_Offset, Y_Image_Offset  = 0;
 uint16_t X_DIM, Y_DIM;
@@ -539,7 +539,7 @@ void wait(){
 #else
 void wait(uint32_t count){
     for(count;count>0;count--){
-        _delay_cycles(500);
+        _delay_cycles(WAIT_CYCLE_TIMES); //500 is a confirmed 'good' speed - currently let's test how fast we can run the motors.
     }
 }
 #endif

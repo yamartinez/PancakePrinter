@@ -147,7 +147,9 @@
 
 /**
  * Pump PWM output - P1.2
- *
+ *  CS_PUMP_4_9 - P1.3
+ *  CS_PUMP_5_8 - P4.5
+ *  CS_PUMP_6_7 - P3.5
  */
 
 #define PUMP_PORT P1
