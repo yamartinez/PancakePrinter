@@ -26,5 +26,6 @@ void InitPump();
 void PumpDrive();
 void PumpSetSpeed(uint8_t Duty);
 void PumpStop();
+void PumpReverseDrive();
 
 #endif /* PUMP_H_ */
