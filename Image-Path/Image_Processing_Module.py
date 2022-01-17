@@ -3,7 +3,7 @@ from numpy import zeros, array, where
 import sys
 
 # Returns edges as binary mask and colors as list of binary masks
-def processImage(img, show=False, dilation=3):
+def processImage(img, show=False, dilation=5):
     # ------------------- EDGE DETECTION -------------------
 
     # Check if image is valid
@@ -39,9 +39,11 @@ def processImage(img, show=False, dilation=3):
     # Dilate image to connect loose ends of edges
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (dilation, dilation))
     edges_morph = cv2.morphologyEx(edges_resized, cv2.MORPH_DILATE, kernel)
+
     if show:
         cv2.imshow('Edges', edges_morph)
         cv2.waitKey(0)
+
     # ------------------- COLOR DETECTION -------------------
 
     # Define the list of colors to be detected
@@ -79,7 +81,7 @@ def processImage(img, show=False, dilation=3):
         new_edges = cv2.Canny(mask, threshold1=100, threshold2=200)
         improved_edges += new_edges
 
-    improved_edges += edges_resized
+    improved_edges += edges_morph
     improved_edges = cv2.morphologyEx(improved_edges, cv2.MORPH_DILATE, kernel)
 
     return edges_morph, color_masks
