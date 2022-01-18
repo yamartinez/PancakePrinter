@@ -3,7 +3,7 @@ from numpy import zeros, array, where
 import sys
 
 # Returns edges as binary mask and colors as list of binary masks
-def processImage(img, show=False, dilation=5):
+def processImage(img, show=False, dilation=3):
     # ------------------- EDGE DETECTION -------------------
 
     # Check if image is valid
