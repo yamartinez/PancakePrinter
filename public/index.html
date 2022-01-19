@@ -1,24 +1,156 @@
-<h1>Thank you for using PancakePrinter!</h1>
-<h2>To get started, select an image you'd like to have as a pancake and press upload</h2>
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>PancakePrinter</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="styles.css">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <link rel="shortcut icon" type="image/jpg" href="assets/Pancake.jpg"/>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+<div class="Loader" id="Loader" style="display:none">
+    <div class="loader">Loading...</div>
+</div>
+<div id="Home">
+        <div class="App">
+            <img class="Logo" src="assets/Pancake.jpg" alt="Pancake Logo">
+            <br>
+            <p class="LogoText">PancakePrinter</p>
 
-<!--<form action="/upload" method="post" encType="multipart/form-data"> -->
-    <input id="file" name="image" type="file"/>
-    <input value="Submit" onclick="submit()" type="button">
-    <input value="Fill In" onclick="infill()" type="button">
-<script>
-    function infill(){
-        fetch("/infill",{method:"POST"}).then((res)=>{})
-    }
-    function submit(){
-        let form = new FormData()
-        let input = document.getElementById("file")
-        form.append("image",input.files[0])
-        fetch("/upload",{
-            method:"POST",
-            body:form,
-            "content-type":"multipart/form-data"
-        }).then((res)=>{
-            input.value=null
-        })
-    }
-</script>
+            <div class="container">
+                <div id="ImageUpload">
+                    <input type="file" id="file_selector" style="display: none;"> 
+                    <div id="SelectImage" onclick="clickFileSelector()">
+                        <img class="PreviewUpload" id="display" style="display:none"></img>
+                        <div id="SelectImageIcon">
+                        <img class="UploadIcon" src="assets/upload_icon.png" alt="upload">
+                        <br>
+                        <span>Select Image</span>
+                        </div>
+                    </div>
+                    <button disabled id="Upload" onclick="Upload()">Upload</button>
+                </div>
+            </div>
+        </div>
+</div>
+
+<div id="Process" style="display:none">
+    <div class="LogoTextIcon">
+        <img class="Logo" src="assets/Pancake.jpg">
+        <p>PancakePrinter</p>
+    </div>
+
+    <div class="Content">
+        <img class="PathPreview" id="path_preview">
+    </div>
+
+    <div class="rangeContainer">
+        <p>Detail</p>
+        <label>Low</label>
+        <input type="range" min="1" max="5" step="-1" value="3" class="slider" id="detail_level">
+        <label>High</label>
+    </div>
+
+    <div class="ActionGroup">
+        <button id="Print" onclick="Print()">Print</button>
+        <button id="InFill" onclick="InFill()">Fill In</button>
+        <button id="Cancel" onclick="Cancel()" class="Secondary">Cancel</button>
+    </div>
+</div>
+
+
+<div id="Printing" style="display:none">
+    <p id="PrintingLoader">Printing</p>
+</div>
+
+
+
+        <script async defer>
+            let file_name = null
+
+            function Error(){
+                alert("An error occured. Try a different image.")
+                location.reload()
+            }
+
+            const Home = document.getElementById("Home")
+            const Process = document.getElementById("Process")
+            function Upload(){
+                Home.style.display = "none"
+                Loader.style.display = ""
+                submit();
+            }
+
+            function Cancel(){
+                location.reload()
+            }
+
+            function submit(){
+                let form = new FormData()
+                let input = document.getElementById("file_selector")
+                form.append("image",input.files[0])
+                fetch("/upload",{
+                    method:"POST",
+                    body:form,
+                    "content-type":"multipart/form-data"
+                }).then((res)=>{
+                    fname = input.files[0].name.split(".")
+                    console.log(fname)
+                    input.value=null
+                    console.log(res.status)
+                    if(res.status == 200){
+                        file_name = fname
+                        path_preview.src = `/processed/${fname[0]}_${detail_slider.value}.${fname[1]}`
+                        Loader.style.display = "none"
+                        Process.style.display = ""
+                    } else {
+                        Error();
+                    }
+                })
+            }
+
+            const file_selector = document.getElementById("file_selector");
+            const preview = document.getElementById("display")
+            const path_preview = document.getElementById("path_preview")
+            const image_select = document.getElementById("SelectImageIcon")
+            const uploadButton = document.getElementById("Upload")
+            file_selector.onchange = fileSelected;
+            function clickFileSelector(){
+                file_selector.click()
+            }
+            function fileSelected(e){
+                if (file_selector.value){
+                    var src = URL.createObjectURL(event.target.files[0]);
+                    preview.src = src
+                    preview.style.display = ""
+                    image_select.style.display = "none"
+                    uploadButton.disabled = false
+                }    
+            }
+
+            const detail_slider = document.getElementById("detail_level");
+            detail_level.onchange = sliderResponse;
+            function sliderResponse(e){
+                console.log(detail_slider.value)
+                path_preview.src = `/processed/${file_name[0]}_${detail_slider.value}.${file_name[1]}`
+            }
+            function Print(){
+                fetch(`/print/${file_name[0]}_${detail_slider.value}.${file_name[1]}`,{method:"POST"})
+            }
+            function InFill(){
+                fetch(`/print/INFILL`,{method:"POST"})
+            }
+        </script>
+    </body>
+</html>

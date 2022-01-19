@@ -49,7 +49,7 @@ class UART():
                  self.writeDone()
              if(line[0].strip() == "move_dry"):
                     # continue
-                 self.writeCoordinates(line[1].strip(),line[2].strip())
+                 self.writeCoordinates(line[1].strip(),line[2].strip(),True)
              if(line[0].strip() == "move_wet"):
                     # continue
                  self.writeCoordinates(line[1].strip(),line[2].strip(),True)
@@ -87,6 +87,8 @@ if(len(sys.argv)) > 1:
         for line in c:
             print(line)
             x.sendData(line)
+        print("done")
+        x.sendData("done")
     exit(0)
 
 x_ = input("x:")
